@@ -53,3 +53,7 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
+
+
+# Project specific
+Build/
