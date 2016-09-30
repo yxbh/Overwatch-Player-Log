@@ -61,11 +61,9 @@ CONFIG(release, debug|release) { # Release build dirs
 }
 #
 
-target.path = $${DESTDIR}
+target.path += $${DESTDIR}
 target.files = Resources/OPL.config
 INSTALLS += target
-message($${DESTDIR})
-message($${target.files})
 
 SOURCES += \
     main.cpp\
