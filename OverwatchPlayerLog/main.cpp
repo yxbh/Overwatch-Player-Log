@@ -4,8 +4,9 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setOrganizationDomain("IBS");
+    QCoreApplication::setOrganizationName("IBS");
     QCoreApplication::setApplicationName("OPL");
+    Config::initialise();
 
     QApplication app(argc, argv);
 

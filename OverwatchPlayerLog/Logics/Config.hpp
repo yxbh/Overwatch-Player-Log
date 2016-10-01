@@ -1,18 +1,17 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <memory>
-#include <QJsonDocument>
-#include <QString>
 #include <QSettings>
 #include <QPoint>
+#include <QSize>
 
 class Config
 {
 private:
-    static QSettings settings;
+    static std::unique_ptr<QSettings> settings;
 
 public:
-    static void saveToConfigFile(void);
+    static initialise(void);
 
     static QPoint getMainWindowPosition(void);
     static void saveMainWindowPosition(QPoint pos);
