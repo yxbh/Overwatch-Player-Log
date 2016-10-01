@@ -70,13 +70,17 @@ SOURCES += \
     Controllers/MainWindow.cpp \
     App.cpp \
     Logics/Config.cpp \
-    Logics/Helpers/JsonHelper.cpp
+    Logics/Helpers/JsonHelper.cpp \
+    Logics/Entities/IEntity.cpp \
+    Logics/Entities/OwPlayerEntity.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
     App.hpp \
     Logics/Config.hpp \
-    Logics/Helpers/JsonHelper.hpp
+    Logics/Helpers/JsonHelper.hpp \
+    Logics/Entities/OwPlayerEntity.hpp \
+    Logics/Entities/IEntity.hpp
 
 FORMS    += \
     UI/MainWindow.ui
