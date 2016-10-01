@@ -4,9 +4,10 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QCoreApplication::setOrganizationDomain("IBS");
+    QCoreApplication::setApplicationName("OPL");
 
-    Config::initialise();
+    QApplication app(argc, argv);
 
     MainWindow window;
     window.show();

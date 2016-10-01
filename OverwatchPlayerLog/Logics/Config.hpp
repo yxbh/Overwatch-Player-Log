@@ -3,24 +3,22 @@
 #include <memory>
 #include <QJsonDocument>
 #include <QString>
+#include <QSettings>
+#include <QPoint>
 
 class Config
 {
 private:
-    static std::unique_ptr<Config> s_instance;
-    static const QString s_defaultConfigFilePath;
-
-    QJsonDocument m_jsonDoc;
+    static QSettings settings;
 
 public:
+    static void saveToConfigFile(void);
 
-    static inline Config * getInstance()
-    {
-        initialise();
-        return s_instance.get();
-    }
+    static QPoint getMainWindowPosition(void);
+    static void saveMainWindowPosition(QPoint pos);
 
-    static void initialise();
+    static QSize getMainWindowSize(void);
+    static void saveMainWindowSize(QSize size);
 };
 
 #endif // CONFIG_H
