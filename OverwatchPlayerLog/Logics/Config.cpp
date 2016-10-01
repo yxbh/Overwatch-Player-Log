@@ -3,7 +3,7 @@
 
 std::unique_ptr<QSettings> Config::settings; // { QSettings::IniFormat, QSettings::UserScope, QCoreApplication::organizationName(), QCoreApplication::applicationName() };
 
-Config::initialise(void)
+void Config::initialise(void)
 {
     settings.reset(new  QSettings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::organizationName(), QCoreApplication::applicationName()));
 }

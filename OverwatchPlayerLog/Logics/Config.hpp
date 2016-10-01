@@ -11,7 +11,7 @@ private:
     static std::unique_ptr<QSettings> settings;
 
 public:
-    static initialise(void);
+    static void initialise(void);
 
     static QPoint getMainWindowPosition(void);
     static void saveMainWindowPosition(QPoint pos);
