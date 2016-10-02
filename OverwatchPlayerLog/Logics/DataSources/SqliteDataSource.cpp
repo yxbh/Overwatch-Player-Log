@@ -4,6 +4,7 @@
 #include <QSqlError>
 #include "App.hpp"
 #include "Logics/Config.hpp"
+#include "Logics/Exceptions/Exception.hpp"
 
 namespace
 {
@@ -35,7 +36,11 @@ namespace
     {
         QSqlQuery query(database);
         if (!query.exec("select count(*) from MetaInfo where Key = 'Version'"))
+        {
+            qDebug() << "Failure inspecting MetaINfo table for version key. Error: " << query.lastError().text();
             return false;
+        }
+
         query.next();
         if (query.value(0).toUInt() == 0u)
         {
@@ -103,20 +108,103 @@ bool SqliteDataSource::initialiseTables(void)
 QStringList SqliteDataSource::getAllPlayerNames(void)
 {
     QSqlQuery query(this->database);
-    if (!query.exec("select * from Players"))
-    {
-        qDebug() << "Failure getting all player names. error: " << query.lastError().text();
-        return {};
-    }
+    if (!query.exec("select BattleTag from Players"))
+        throw Exception("Failure getting all player names. SQL error: " + query.lastError().text());
+
     QStringList list;
     while (query.next())
         list.append(query.value(0).toString());
     return list;
 }
 
-void SqliteDataSource::savePlayer(const OwPlayer & player)
+QUuid SqliteDataSource::getIdByBattleTag(const QString & btag)
 {
 
+    QSqlQuery query(this->database);
+    if (!query.prepare("select Id from Players where BattleTag = (:battletag)"))
+        throw Exception("Failure getting player id. SQL error: " + query.lastError().text());
+    query.bindValue(":battletag", btag);
+    if (!query.exec() || !query.next())
+        throw Exception("Failure getting player id. SQL error: " + query.lastError().text());
+
+    return query.value(0).toUuid();
+}
+
+bool SqliteDataSource::validatePlayer(const OwPlayer & player)
+{
+    QSqlQuery query(this->database);
+
+    if (player.getBattleTag().isEmpty())
+        return false;
+
+    if (player.isNew())
+    {
+        if (this->hasPlayerId(player.getId()))
+        {
+            qDebug() << "Player is new but its id exists in the data source.";
+            return false;
+        }
+
+        // check if player name already exists.
+        if (this->hasPlayerBattleTag(player.getBattleTag()))
+        {
+            qDebug() << "Player is new but its battle tag already exists in the data source.";
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool SqliteDataSource::savePlayer(const OwPlayer & player)
+{
+    QSqlQuery query(this->database);
+    bool success = player.isNew() ?
+                query.prepare("insert into Players values((:id), (:battletag))") :
+                query.prepare("update Players set battletag = (:battletag) where id = (:id)");
+    query.bindValue(":id", player.getId());
+    query.bindValue(":battletag", player.getBattleTag());
+
+    if (!success || !query.exec())
+    {
+        qDebug() << "Failure saving player with id[" + player.getId().toString() +
+                    "], battletag[" + player.getBattleTag() + "]. " +
+                    "SQL error: " + query.lastError().text();
+//        throw Exception("Failure saving player with id[" + player.getId().toString() +
+//                        "], battletag[" + player.getBattleTag() + "]. " +
+//                        "SQL error: " + query.lastError().text());
+        return false;
+    }
+
+    return true;
+}
+
+bool SqliteDataSource::hasPlayerId(QUuid id)
+{
+    QSqlQuery query(this->database);
+    bool success = query.prepare("select count(*) from Players where Id = (:id)");
+    query.bindValue(":id", id.toString());
+    if (!success || !query.exec() || !query.next())
+    {
+        throw Exception("Failure searching for player with id[" + id.toString() + "]. "
+                        + "SQL error: " + query.lastError().text());
+    }
+
+    return query.value(0).toUInt() != 0u;
+}
+
+bool SqliteDataSource::hasPlayerBattleTag(QString battleTag)
+{
+    QSqlQuery query(this->database);
+    query.prepare("select count(*) from Players where BattleTag = (:battletag)");
+    query.bindValue(":battletag", battleTag);
+    if (!query.exec() || !query.next())
+    {
+        throw Exception("Failure searching for player with battletag[" + battleTag + "]. " +
+                        "SQL error: " + query.lastError().text());
+    }
+
+    return query.value(0).toUInt() != 0u;
 }
 
 namespace

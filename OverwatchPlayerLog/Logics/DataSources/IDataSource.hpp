@@ -23,11 +23,14 @@ public:
 
     virtual QStringList getAllPlayerNames(void) = 0;
 
+    virtual QUuid getIdByBattleTag(const QString & btag) = 0;
+
+    virtual bool validatePlayer(const OwPlayer & player) = 0;
     ///
     /// \brief Update the player record if it already exists. If not, create it.
     /// \param player
     ///
-    virtual void savePlayer(const OwPlayer & player) = 0;
+    virtual bool savePlayer(const OwPlayer & player) = 0;
 };
 
 inline IDataSource::~IDataSource(void) {}

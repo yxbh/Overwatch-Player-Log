@@ -4,6 +4,7 @@
 #include "Logics/Config.hpp"
 #include "App.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
+#include "Logics/Entities/OwPlayer.hpp"
 
 MainWindow::MainWindow(QWidget * parent) :
     QMainWindow(parent),
@@ -78,10 +79,11 @@ void MainWindow::on_action_AboutQt_triggered(void)
 
 void MainWindow::on_action_AddPlayer_triggered(void)
 {
+    OwPlayer newPlayer;
     auto tabWidget = ui->tabWidget_playerInfos;
-    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget);
+    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, newPlayer);
     tabWidget->addTab(playerInfoPane, "TODO: add player nane here");
     this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
-
     tabWidget->setCurrentWidget(playerInfoPane);
+    playerInfoPane->setFocus();
 }

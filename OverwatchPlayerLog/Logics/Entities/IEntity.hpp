@@ -5,8 +5,10 @@
 class IEntity
 {
 public:
-    IEntity();
     virtual ~IEntity(void) = 0;
+
+    virtual bool validate(void) = 0;
+    virtual bool save(void) = 0;
 };
 
 inline IEntity::~IEntity(void) {}

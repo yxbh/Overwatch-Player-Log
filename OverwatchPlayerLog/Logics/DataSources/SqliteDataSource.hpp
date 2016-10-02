@@ -17,7 +17,14 @@ public:
 
     virtual QStringList getAllPlayerNames(void) override;
 
-    virtual void savePlayer(const OwPlayer & player) override;
+    virtual QUuid getIdByBattleTag(const QString & btag) override;
+
+    virtual bool validatePlayer(const OwPlayer & player) override;
+    virtual bool savePlayer(const OwPlayer & player) override;
+
+private:
+    bool hasPlayerId(QUuid id);
+    bool hasPlayerBattleTag(QString battleTag);
 };
 
 #endif // SQLITEDATASOURCE_H
