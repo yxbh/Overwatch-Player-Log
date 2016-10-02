@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>929</width>
-    <height>727</height>
+    <width>1074</width>
+    <height>717</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,9 +29,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QTabWidget" name="tabWidget">
+           <widget class="QTabWidget" name="tabWidget_playerLists">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="tab_favorite">
              <attribute name="title">
@@ -49,7 +49,7 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QListView" name="listView_2"/>
+               <widget class="QListView" name="listView_searchAll"/>
               </item>
              </layout>
             </widget>
@@ -60,7 +60,16 @@
        </layout>
       </item>
       <item>
-       <widget class="QTabWidget" name="tabWidget_2">
+       <widget class="QTabWidget" name="tabWidget_playerInfos">
+        <property name="tabsClosable">
+         <bool>true</bool>
+        </property>
+        <property name="movable">
+         <bool>true</bool>
+        </property>
+        <property name="tabBarAutoHide">
+         <bool>true</bool>
+        </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
           <string>Page</string>
@@ -141,7 +150,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>929</width>
+     <width>1074</width>
      <height>20</height>
     </rect>
    </property>
@@ -158,7 +167,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="actionAdd_Player"/>
+    <addaction name="action_AddPlayer"/>
     <addaction name="separator"/>
     <addaction name="action_ExitApp"/>
    </widget>
@@ -187,9 +196,15 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionAdd_Player">
+  <action name="action_AddPlayer">
    <property name="text">
-    <string>Add Player</string>
+    <string>Add New Player</string>
+   </property>
+   <property name="toolTip">
+    <string>Add New Player</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="action_AboutQt">

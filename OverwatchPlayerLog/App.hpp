@@ -9,12 +9,14 @@ private:
     static std::unique_ptr<App> s_instance;
     static constexpr unsigned s_latestDataSourceVersion = 1;
 
-    std::unique_ptr<IDataSource> dataSoure;
+    std::unique_ptr<IDataSource> dataSource;
 
 public:
     App();
 
     bool intitaliseDataSource(void);
+
+    IDataSource * getDataSource(void) { return this->dataSource.get(); }
 
     static App * getInstance(void)
     {

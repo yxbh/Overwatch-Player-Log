@@ -1,5 +1,6 @@
 #ifndef IDATASOURCE_H
 #define IDATASOURCE_H
+#include <QStringList>
 #include "Logics/Entities/OwPlayer.hpp"
 
 class IDataSource
@@ -19,6 +20,8 @@ public:
     /// \return true if successful.
     ///
     virtual bool initialiseTables(void) = 0;
+
+    virtual QStringList getAllPlayerNames(void) = 0;
 
     ///
     /// \brief Update the player record if it already exists. If not, create it.

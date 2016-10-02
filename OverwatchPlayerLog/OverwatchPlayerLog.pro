@@ -74,7 +74,8 @@ SOURCES += \
     Logics/Entities/IEntity.cpp \
     Logics/Entities/OwPlayer.cpp \
     Logics/DataSources/IDataSource.cpp \
-    Logics/DataSources/SqliteDataSource.cpp
+    Logics/DataSources/SqliteDataSource.cpp \
+    Controllers/PlayerInfoPaneWidget.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -84,10 +85,12 @@ HEADERS  += \
     Logics/Entities/IEntity.hpp \
     Logics/Entities/OwPlayer.hpp \
     Logics/DataSources/IDataSource.hpp \
-    Logics/DataSources/SqliteDataSource.hpp
+    Logics/DataSources/SqliteDataSource.hpp \
+    Controllers/PlayerInfoPaneWidget.hpp
 
 FORMS    += \
-    UI/MainWindow.ui
+    UI/MainWindow.ui \
+    UI/PlayerInfoPaneWidget.ui
 
 DISTFILES += \
     Resources/OPL.config

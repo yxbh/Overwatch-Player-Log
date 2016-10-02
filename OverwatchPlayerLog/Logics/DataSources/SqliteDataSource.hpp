@@ -15,6 +15,8 @@ public:
     virtual bool connect(void) override;
     virtual bool initialiseTables(void) override;
 
+    virtual QStringList getAllPlayerNames(void) override;
+
     virtual void savePlayer(const OwPlayer & player) override;
 };
 
