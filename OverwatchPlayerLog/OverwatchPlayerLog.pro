@@ -72,7 +72,6 @@ SOURCES += \
     Logics/Config.cpp \
     Logics/Helpers/JsonHelper.cpp \
     Logics/Entities/IEntity.cpp \
-    Logics/Entities/OwPlayerName.cpp \
     Logics/Entities/OwPlayer.cpp \
     Logics/DataSources/IDataSource.cpp \
     Logics/DataSources/SqliteDataSource.cpp
@@ -83,7 +82,6 @@ HEADERS  += \
     Logics/Config.hpp \
     Logics/Helpers/JsonHelper.hpp \
     Logics/Entities/IEntity.hpp \
-    Logics/Entities/OwPlayerName.hpp \
     Logics/Entities/OwPlayer.hpp \
     Logics/DataSources/IDataSource.hpp \
     Logics/DataSources/SqliteDataSource.hpp

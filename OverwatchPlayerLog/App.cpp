@@ -11,5 +11,5 @@ App::App(void)
 bool App::intitaliseDataSource(void)
 {
     this->dataSoure.reset(new SqliteDataSource);
-    return this->dataSoure->connect();
+    return this->dataSoure->connect() && this->dataSoure->initialiseTables();
 }

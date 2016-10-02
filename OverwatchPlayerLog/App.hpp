@@ -7,6 +7,7 @@ class App
 {
 private:
     static std::unique_ptr<App> s_instance;
+    static constexpr unsigned s_latestDataSourceVersion = 1;
 
     std::unique_ptr<IDataSource> dataSoure;
 
@@ -21,6 +22,8 @@ public:
             s_instance.reset(new App);
         return s_instance.get();
     }
+
+    inline static unsigned getLatestDataSourceVersion(void) { return s_latestDataSourceVersion; }
 };
 
 #endif // APP_H

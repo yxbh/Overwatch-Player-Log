@@ -26,7 +26,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::setupSignalsAndSlots(void)
 {
-    this->connect(qApp, QGuiApplication::lastWindowClosed, this, MainWindow::on_app_lastWIndowClosed);
+    this->connect(qApp, &QGuiApplication::lastWindowClosed, this, &MainWindow::on_lastWindowClosed);
 }
 
 void MainWindow::readSettings(void)
@@ -51,7 +51,7 @@ void MainWindow::on_action_AboutQt_triggered(void)
     qApp->aboutQt();
 }
 
-void MainWindow::on_app_lastWIndowClosed(void)
+void MainWindow::on_lastWindowClosed(void)
 {
     // save config.
 

@@ -23,7 +23,7 @@ private slots:
 
     void on_action_AboutQt_triggered();
 
-    void on_app_lastWIndowClosed();
+    void on_lastWindowClosed();
 
 private:
     void setupSignalsAndSlots();

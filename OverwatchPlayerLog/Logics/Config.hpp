@@ -18,6 +18,8 @@ public:
 
     static QSize getMainWindowSize(void);
     static void saveMainWindowSize(QSize size);
+
+    static QString getDatabasePath(void);
 };
 
 #endif // CONFIG_H

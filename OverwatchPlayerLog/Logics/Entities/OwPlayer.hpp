@@ -1,13 +1,13 @@
 #ifndef OWPLAYERENTITY_H
 #define OWPLAYERENTITY_H
+#include <QString>
 #include "IEntity.hpp"
-#include "OwPlayerName.hpp"
 
 class OwPlayer :
         public IEntity
 {
 private:
-    OwPlayerName owPlayerName;
+    QString battleTag;
 
 public:
 

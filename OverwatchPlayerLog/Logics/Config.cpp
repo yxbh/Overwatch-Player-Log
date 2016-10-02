@@ -27,3 +27,8 @@ void Config::saveMainWindowSize(QSize size)
 {
     settings->setValue("mainWindow/size", size);
 }
+
+QString Config::getDatabasePath(void)
+{
+    return settings->value("datasource/database/path", "datasource.sqlite3").toString();
+}
