@@ -1,14 +1,18 @@
 #ifndef OWPLAYERENTITY_H
 #define OWPLAYERENTITY_H
 #include "IEntity.hpp"
+#include "OwPlayerName.hpp"
 
-class OwPlayerEntity :
+class OwPlayer :
         public IEntity
 {
+private:
+    OwPlayerName owPlayerName;
+
 public:
 
 private:
-    OwPlayerEntity();
+    OwPlayer();
 };
 
 #endif // OWPLAYERENTITY_H

@@ -72,15 +72,15 @@ SOURCES += \
     Logics/Config.cpp \
     Logics/Helpers/JsonHelper.cpp \
     Logics/Entities/IEntity.cpp \
-    Logics/Entities/OwPlayerEntity.cpp
+    Logics/Entities/OwPlayer.cpp \
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
     App.hpp \
     Logics/Config.hpp \
     Logics/Helpers/JsonHelper.hpp \
-    Logics/Entities/OwPlayerEntity.hpp \
-    Logics/Entities/IEntity.hpp
+    Logics/Entities/IEntity.hpp \
+    Logics/Entities/OwPlayer.hpp \
 
 FORMS    += \
     UI/MainWindow.ui
