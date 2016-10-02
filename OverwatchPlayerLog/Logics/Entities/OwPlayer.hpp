@@ -12,6 +12,7 @@ private:
     QUuid id;
 
     QString battleTag;
+    QString region;
 
 public:
     OwPlayer();
@@ -19,11 +20,13 @@ public:
     inline bool isNew(void) const { return this->isNewpPlayer; }
     inline const QUuid & getId(void) const { return this->id; }
     inline const QString & getBattleTag(void) const { return this->battleTag; }
+    inline const QString & getRegion(void) const { return this->region; }
 
     inline OwPlayer & setBattleTag(const QString & btag) { this->battleTag = btag; return *this; }
+    inline OwPlayer & setRegion(const QString & region) { this->region = region; return *this; }
 
-    virtual bool validate(void) override;
-    virtual bool save(void) override;
+    virtual bool validate(void) final;
+    virtual bool save(void) final;
 
     static OwPlayer fromBattleTag(const QString & battleTag);
 };

@@ -1,5 +1,6 @@
 #include "PlayerInfoPaneWidget.hpp"
 #include <QDebug>
+#include <QMessageBox>
 #include "ui_PlayerInfoPaneWidget.h"
 #include "App.hpp"
 
@@ -39,8 +40,17 @@ void PlayerInfoPaneWidget::updateLabelUrls(void)
 
 void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
 {
-    player.validate(); // TODO check validation result.
-    player.save(); // TODO check save result.
+    if (!player.validate())
+    {
+        QMessageBox::critical(this, "Validation Error", "Validation failed.");
+        return;
+    }
+
+    if (!player.save())
+    {
+        QMessageBox::critical(this, "Save Error", "Player info failed to save.");
+        return;
+    }
 
     emit playerInfoChanged();
 }
@@ -48,6 +58,11 @@ void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
 void PlayerInfoPaneWidget::on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag)
 {
     player.setBattleTag(newBattleTag);
+    this->updateLabelUrls();
+}
 
+void PlayerInfoPaneWidget::on_comboBox_owRegion_currentIndexChanged(const QString & region)
+{
+    player.setRegion(region);
     this->updateLabelUrls();
 }

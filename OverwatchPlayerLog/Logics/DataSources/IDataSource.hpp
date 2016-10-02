@@ -24,6 +24,7 @@ public:
     virtual QStringList getAllPlayerNames(void) = 0;
 
     virtual QUuid getIdByBattleTag(const QString & btag) = 0;
+    virtual QString getRegionByPlayerId(const QUuid & id) = 0;
 
     virtual bool validatePlayer(const OwPlayer & player) = 0;
     ///

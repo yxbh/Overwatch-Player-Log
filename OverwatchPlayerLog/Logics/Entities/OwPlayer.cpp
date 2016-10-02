@@ -2,7 +2,8 @@
 #include "App.hpp"
 
 OwPlayer::OwPlayer(void) :
-    id(QUuid::createUuid())
+    id(QUuid::createUuid()),
+    region("us")
 {
 
 }
@@ -19,9 +20,11 @@ bool OwPlayer::save(void)
 
 OwPlayer OwPlayer::fromBattleTag(const QString & battleTag)
 {
+    auto dataSource = App::getInstance()->getDataSource();
     OwPlayer player;
     player.isNewpPlayer = false;
-    player.id = App::getInstance()->getDataSource()->getIdByBattleTag(battleTag);
+    player.id = dataSource->getIdByBattleTag(battleTag);
     player.battleTag = battleTag;
+    player.region = dataSource->getRegionByPlayerId(player.id);
     return player;
 }

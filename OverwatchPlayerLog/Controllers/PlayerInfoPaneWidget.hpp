@@ -29,7 +29,8 @@ signals:
 
 private slots:
     void on_toolButton_savePlayerInfo_clicked(void);
-    void on_lineEdit_playerBattleTag_textEdited(const QString &arg1);
+    void on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag);
+    void on_comboBox_owRegion_currentIndexChanged(const QString & region);
 };
 
 #endif // PLAYERINFOPANEWIDGET_HPP
