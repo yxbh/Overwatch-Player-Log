@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -72,7 +72,10 @@ SOURCES += \
     Logics/Config.cpp \
     Logics/Helpers/JsonHelper.cpp \
     Logics/Entities/IEntity.cpp \
+    Logics/Entities/OwPlayerName.cpp \
     Logics/Entities/OwPlayer.cpp \
+    Logics/DataSources/IDataSource.cpp \
+    Logics/DataSources/SqliteDataSource.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -80,7 +83,10 @@ HEADERS  += \
     Logics/Config.hpp \
     Logics/Helpers/JsonHelper.hpp \
     Logics/Entities/IEntity.hpp \
+    Logics/Entities/OwPlayerName.hpp \
     Logics/Entities/OwPlayer.hpp \
+    Logics/DataSources/IDataSource.hpp \
+    Logics/DataSources/SqliteDataSource.hpp
 
 FORMS    += \
     UI/MainWindow.ui
