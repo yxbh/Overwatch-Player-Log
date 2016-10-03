@@ -151,6 +151,18 @@ bool SqliteDataSource::validatePlayer(const OwPlayer & player)
         return false;
     }
 
+    if (player.getPlatform().isEmpty())
+    {
+        qDebug() << "Player platform is empty.";
+        return false;
+    }
+
+    if (player.getRegion().isEmpty())
+    {
+        qDebug() << "Player region is empty.";
+        return false;
+    }
+
     if (player.isNew())
     {
         if (this->hasPlayerId(player.getId()))
@@ -174,10 +186,11 @@ bool SqliteDataSource::savePlayer(const OwPlayer & player)
 {
     QSqlQuery query(this->database);
     bool success = player.isNew() ?
-                query.prepare("insert into Players values((:id), (:battletag), (:region))") :
-                query.prepare("update Players set BattleTag = (:battletag), Region = (:region)  where id = (:id)");
+                query.prepare("insert into Players values((:id), (:battletag), (:platform), (:region))") :
+                query.prepare("update Players set BattleTag = (:battletag), Platform = (:platform), Region = (:region)  where id = (:id)");
     query.bindValue(":id", player.getId());
     query.bindValue(":battletag", player.getBattleTag());
+    query.bindValue(":platform", player.getPlatform());
     query.bindValue(":region", player.getRegion());
 
     if (!success || !query.exec())
@@ -191,6 +204,20 @@ bool SqliteDataSource::savePlayer(const OwPlayer & player)
         return false;
     }
 
+    return true;
+}
+
+bool SqliteDataSource::removePlayer(const OwPlayer & player)
+{
+    QSqlQuery query(this->database);
+    bool success = query.prepare("delete from Players where id = (:id)");
+    query.bindValue(":id", player.getId());
+    if (!success || !query.exec())
+    {
+        qDebug() << "Failure removing player with id[" + player.getId().toString() + "]. "
+                 << "SQL error: " << query.lastError().text();
+        return false;
+    }
     return true;
 }
 
@@ -248,7 +275,7 @@ namespace
             return false;
         }
 
-        if (!query.exec("create table Players (id text unique, BattleTag text unique, Region text)"))
+        if (!query.exec("create table Players (id text unique, BattleTag text unique, Platform text, Region text)"))
         {
             qDebug() << "Error creating Players table. error: " << query.lastError().text();
             return false;

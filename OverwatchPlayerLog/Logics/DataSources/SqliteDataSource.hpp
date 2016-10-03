@@ -22,6 +22,7 @@ public:
 
     virtual bool validatePlayer(const OwPlayer & player) final;
     virtual bool savePlayer(const OwPlayer & player) final;
+    virtual bool removePlayer(const OwPlayer & player) final;
 
 private:
     bool hasPlayerId(QUuid id);

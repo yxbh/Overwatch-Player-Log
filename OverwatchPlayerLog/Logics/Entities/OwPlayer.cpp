@@ -3,6 +3,7 @@
 
 OwPlayer::OwPlayer(void) :
     id(QUuid::createUuid()),
+    platform("pc"),
     region("us")
 {
 
@@ -15,7 +16,17 @@ bool OwPlayer::validate(void)
 
 bool OwPlayer::save(void)
 {
-    return App::getInstance()->getDataSource()->savePlayer(*this);
+    if (App::getInstance()->getDataSource()->savePlayer(*this))
+    {
+        this->isNewpPlayer = false;
+        return true;
+    }
+    return false;
+}
+
+bool OwPlayer::remove(void)
+{
+    return App::getInstance()->getDataSource()->removePlayer(*this);
 }
 
 OwPlayer OwPlayer::fromBattleTag(const QString & battleTag)

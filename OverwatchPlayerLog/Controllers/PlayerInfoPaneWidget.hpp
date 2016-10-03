@@ -23,12 +23,15 @@ public:
 
 private:
     void updateLabelUrls(void);
+    void updateToolButtons(void);
 
 signals:
     void playerInfoChanged(void);
 
 private slots:
     void on_toolButton_savePlayerInfo_clicked(void);
+    void on_toolButton_updatePlayerInfo_clicked(void);
+    void on_toolButton_deletePlayerInfo_clicked(void);
     void on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag);
     void on_comboBox_owRegion_currentIndexChanged(const QString & region);
 };

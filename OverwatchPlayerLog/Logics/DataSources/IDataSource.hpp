@@ -32,6 +32,8 @@ public:
     /// \param player
     ///
     virtual bool savePlayer(const OwPlayer & player) = 0;
+
+    virtual bool removePlayer(const OwPlayer & player) = 0;
 };
 
 inline IDataSource::~IDataSource(void) {}
