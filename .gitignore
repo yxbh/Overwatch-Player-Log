@@ -54,6 +54,8 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+# OSX
+.DS_store
 
 # Project specific
 Build/
