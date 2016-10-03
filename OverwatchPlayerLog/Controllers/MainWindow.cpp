@@ -87,3 +87,8 @@ void MainWindow::on_action_AddPlayer_triggered(void)
     tabWidget->setCurrentWidget(playerInfoPane);
     playerInfoPane->setFocus();
 }
+
+void MainWindow::on_tabWidget_playerInfos_tabCloseRequested(int index)
+{
+    this->ui->tabWidget_playerInfos->removeTab(index);
+}

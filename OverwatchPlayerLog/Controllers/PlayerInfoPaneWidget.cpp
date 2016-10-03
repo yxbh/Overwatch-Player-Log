@@ -52,14 +52,20 @@ void PlayerInfoPaneWidget::updateToolButtons(void)
 {
     if (player.isNew())
     {
-        this->ui->toolButton_savePlayerInfo->show();
+        if (this->isPlayerInfoDirty)
+            this->ui->toolButton_savePlayerInfo->show();
+        else
+            this->ui->toolButton_savePlayerInfo->hide();
         this->ui->toolButton_updatePlayerInfo->hide();
         this->ui->toolButton_deletePlayerInfo->hide();
     }
     else
     {
         this->ui->toolButton_savePlayerInfo->hide();
-        this->ui->toolButton_updatePlayerInfo->show();
+        if (this->isPlayerInfoDirty)
+            this->ui->toolButton_updatePlayerInfo->show();
+        else
+            this->ui->toolButton_updatePlayerInfo->hide();
         this->ui->toolButton_deletePlayerInfo->show();
     }
 }
@@ -78,6 +84,7 @@ void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
         return;
     }
 
+    this->isPlayerInfoDirty = false;
     emit playerInfoChanged();
     this->updateToolButtons();
 }
@@ -96,8 +103,9 @@ void PlayerInfoPaneWidget::on_toolButton_updatePlayerInfo_clicked(void)
         return;
     }
 
-    emit playerInfoChanged();
+    this->isPlayerInfoDirty = false;
     this->updateToolButtons();
+    emit playerInfoChanged();
 }
 
 void PlayerInfoPaneWidget::on_toolButton_deletePlayerInfo_clicked(void)
@@ -115,18 +123,22 @@ void PlayerInfoPaneWidget::on_toolButton_deletePlayerInfo_clicked(void)
 
     emit playerInfoChanged();
     this->updateToolButtons();
-    this->close();
+    this->deleteLater();
 }
 
 
 void PlayerInfoPaneWidget::on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag)
 {
     player.setBattleTag(newBattleTag);
+    this->isPlayerInfoDirty = true;
     this->updateLabelUrls();
+    this->updateToolButtons();
 }
 
 void PlayerInfoPaneWidget::on_comboBox_owRegion_currentIndexChanged(const QString & region)
 {
     player.setRegion(region);
+    this->isPlayerInfoDirty = true;
     this->updateLabelUrls();
+    this->updateToolButtons();
 }

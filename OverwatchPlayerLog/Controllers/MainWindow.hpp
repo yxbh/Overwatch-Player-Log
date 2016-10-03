@@ -40,6 +40,7 @@ private slots:
 
     void on_action_AddPlayer_triggered(void);
 
+    void on_tabWidget_playerInfos_tabCloseRequested(int index);
 };
 
 #endif // MAINWINDOW_HPP

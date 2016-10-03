@@ -16,6 +16,7 @@ class PlayerInfoPaneWidget : public QScrollArea
 private:
     Ui::PlayerInfoPaneWidget *ui;
     OwPlayer player;
+    bool isPlayerInfoDirty = false;
 
 public:
     explicit PlayerInfoPaneWidget(QWidget *parent, OwPlayer player);
