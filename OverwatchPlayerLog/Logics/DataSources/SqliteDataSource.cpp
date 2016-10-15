@@ -221,6 +221,27 @@ bool SqliteDataSource::removePlayer(const OwPlayer & player)
     return true;
 }
 
+QVector<OwPlayer> SqliteDataSource::getAllPlayers(void)
+{
+    QSqlQuery query(this->database);
+    bool success = query.prepare("select id, BattleTag, Platform, Region from Players");
+    if (!success || !query.exec())
+    {
+        throw Exception("Failure getting all players. SQL error: " + query.lastError().text());
+    }
+
+    QVector<OwPlayer> players;
+    while (query.next())
+    {
+        OwPlayer player(query.value(0).toUuid());
+        player.setBattleTag(query.value(1).toString());
+        player.setPlatform(query.value(2).toString());
+        player.setRegion(query.value(3).toString());
+        players.append(player);
+    }
+    return players;
+}
+
 bool SqliteDataSource::hasPlayerId(QUuid id)
 {
     QSqlQuery query(this->database);

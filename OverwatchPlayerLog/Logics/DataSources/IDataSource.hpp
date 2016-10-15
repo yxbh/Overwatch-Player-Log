@@ -1,6 +1,7 @@
 #ifndef IDATASOURCE_H
 #define IDATASOURCE_H
 #include <QStringList>
+#include <QVector>
 #include "Logics/Entities/OwPlayer.hpp"
 
 class IDataSource
@@ -34,6 +35,8 @@ public:
     virtual bool savePlayer(const OwPlayer & player) = 0;
 
     virtual bool removePlayer(const OwPlayer & player) = 0;
+
+    virtual QVector<OwPlayer> getAllPlayers(void) = 0;
 };
 
 inline IDataSource::~IDataSource(void) {}
