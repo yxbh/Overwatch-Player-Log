@@ -186,12 +186,13 @@ bool SqliteDataSource::savePlayer(const OwPlayer & player)
 {
     QSqlQuery query(this->database);
     bool success = player.isNew() ?
-                query.prepare("insert into Players values((:id), (:battletag), (:platform), (:region))") :
-                query.prepare("update Players set BattleTag = (:battletag), Platform = (:platform), Region = (:region)  where id = (:id)");
+                query.prepare("insert into Players values((:id), (:battletag), (:platform), (:region), (:note))") :
+                query.prepare("update Players set BattleTag = (:battletag), Platform = (:platform), Region = (:region), Note = (:note)  where id = (:id)");
     query.bindValue(":id", player.getId());
     query.bindValue(":battletag", player.getBattleTag());
     query.bindValue(":platform", player.getPlatform());
     query.bindValue(":region", player.getRegion());
+    query.bindValue(":note", player.getNote());
 
     if (!success || !query.exec())
     {
@@ -224,7 +225,7 @@ bool SqliteDataSource::removePlayer(const OwPlayer & player)
 OwPlayer SqliteDataSource::getPlayer(const QUuid & id)
 {
     QSqlQuery query(this->database);
-    bool success = query.prepare("select id, BattleTag, Platform, Region from Players where id is (:id)");
+    bool success = query.prepare("select id, BattleTag, Platform, Region, Note from Players where id is (:id)");
     query.bindValue(":id",  id);
     if (!success || !query.exec())
     {
@@ -237,6 +238,7 @@ OwPlayer SqliteDataSource::getPlayer(const QUuid & id)
         player.setBattleTag(query.value(1).toString());
         player.setPlatform(query.value(2).toString());
         player.setRegion(query.value(3).toString());
+        player.setNote(query.value(4).toString());
 
         return player;
     }
@@ -247,7 +249,7 @@ OwPlayer SqliteDataSource::getPlayer(const QUuid & id)
 QVector<OwPlayer> SqliteDataSource::getAllPlayers(void)
 {
     QSqlQuery query(this->database);
-    bool success = query.prepare("select id, BattleTag, Platform, Region from Players");
+    bool success = query.prepare("select id, BattleTag, Platform, Region, Note from Players");
     if (!success || !query.exec())
     {
         throw Exception("Failure getting all players. SQL error: " + query.lastError().text());
@@ -260,6 +262,7 @@ QVector<OwPlayer> SqliteDataSource::getAllPlayers(void)
         player.setBattleTag(query.value(1).toString());
         player.setPlatform(query.value(2).toString());
         player.setRegion(query.value(3).toString());
+        player.setNote(query.value(4).toString());
         players.append(player);
     }
     return players;
@@ -319,7 +322,7 @@ namespace
             return false;
         }
 
-        if (!query.exec("create table Players (id text unique, BattleTag text unique, Platform text, Region text)"))
+        if (!query.exec("create table Players (id text unique, BattleTag text unique, Platform text, Region text, Note text)"))
         {
             qDebug() << "Error creating Players table. error: " << query.lastError().text();
             return false;

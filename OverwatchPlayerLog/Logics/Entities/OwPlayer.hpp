@@ -14,6 +14,7 @@ private:
     QString battleTag;
     QString platform;
     QString region;
+    QString note;
 
 public:
     OwPlayer();
@@ -23,10 +24,12 @@ public:
     inline const QString & getBattleTag(void) const { return this->battleTag; }
     inline const QString & getPlatform(void) const { return this->platform; }
     inline const QString & getRegion(void) const { return this->region; }
+    inline const QString & getNote(void) const { return this->note; }
 
     inline OwPlayer & setBattleTag(const QString & btag) { this->battleTag = btag; return *this; }
     inline OwPlayer & setPlatform(const QString & platform) { this->platform = platform; return *this; }
     inline OwPlayer & setRegion(const QString & region) { this->region = region; return *this; }
+    inline OwPlayer & setNote(const QString & note) { this->note = note; return *this; }
 
     virtual bool validate(void);
     virtual bool save(void);
