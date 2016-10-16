@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
-#include <QStringListModel>
 #include <QMainWindow>
+#include <QStandardItemModel>
 
 namespace Ui
 {
@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 
 private:
     Ui::MainWindow *ui;
-    QStringListModel allPlayerNamesModel;
+    QStandardItemModel allPlayersModel;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -28,7 +28,7 @@ private:
     void readSettings(void);
     void writeSettings(void);
     void setupModels(void);
-    void refreshPlayerNamesModel(void);
+    void refreshModels(void);
 
 private slots:
     void on_lastWindowClosed(void);

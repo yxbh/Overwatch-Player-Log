@@ -33,6 +33,12 @@ public:
     virtual bool remove(void);
 
     static OwPlayer fromBattleTag(const QString & battleTag);
+
+private:
+    static OwPlayer instantiateExsitingPlayer(QUuid id);
+
+
+    friend class SqliteDataSource;
 };
 
 #endif // OWPLAYERENTITY_H

@@ -5,6 +5,7 @@
 #include "App.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
 #include "Logics/Entities/OwPlayer.hpp"
+#include "Models/OwPlayerItem.hpp"
 
 MainWindow::MainWindow(QWidget * parent) :
     QMainWindow(parent),
@@ -15,7 +16,7 @@ MainWindow::MainWindow(QWidget * parent) :
     this->readSettings();
 
     this->setupModels();
-    this->refreshPlayerNamesModel();
+    this->refreshModels();
 }
 
 MainWindow::~MainWindow(void)
@@ -49,12 +50,16 @@ void MainWindow::writeSettings(void)
 
 void MainWindow::setupModels(void)
 {
-    this->ui->listView_searchAll->setModel(&allPlayerNamesModel);
+    this->ui->listView_searchAll->setModel(&allPlayersModel);
 }
 
-void MainWindow::refreshPlayerNamesModel(void)
+void MainWindow::refreshModels(void)
 {
-    this->allPlayerNamesModel.setStringList(App::getInstance()->getDataSource()->getAllPlayerNames());
+    this->allPlayersModel.clear();
+    for (auto player : App::getInstance()->getDataSource()->getAllPlayers())
+    {
+        this->allPlayersModel.appendRow(new OwPlayerItem(player));
+    }
 }
 
 void MainWindow::on_lastWindowClosed(void)
@@ -64,7 +69,7 @@ void MainWindow::on_lastWindowClosed(void)
 
 void MainWindow::on_playerInfoChanged(void)
 {
-    this->refreshPlayerNamesModel();
+    this->refreshModels();
 }
 
 void MainWindow::on_action_ExitApp_triggered(void)

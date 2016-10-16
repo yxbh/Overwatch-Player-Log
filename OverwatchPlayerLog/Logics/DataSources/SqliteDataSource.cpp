@@ -221,6 +221,29 @@ bool SqliteDataSource::removePlayer(const OwPlayer & player)
     return true;
 }
 
+OwPlayer SqliteDataSource::getPlayer(const QUuid & id)
+{
+    QSqlQuery query(this->database);
+    bool success = query.prepare("select id, BattleTag, Platform, Region from Players where id is (:id)");
+    query.bindValue(":id",  id);
+    if (!success || !query.exec())
+    {
+        throw Exception("Failure getting all players. SQL error: " + query.lastError().text());
+    }
+
+    if (query.next())
+    {
+        OwPlayer player = OwPlayer::instantiateExsitingPlayer(id);
+        player.setBattleTag(query.value(1).toString());
+        player.setPlatform(query.value(2).toString());
+        player.setRegion(query.value(3).toString());
+
+        return player;
+    }
+
+    throw Exception("Failure player with id[" + id.toString() + "].");
+}
+
 QVector<OwPlayer> SqliteDataSource::getAllPlayers(void)
 {
     QSqlQuery query(this->database);
@@ -233,7 +256,7 @@ QVector<OwPlayer> SqliteDataSource::getAllPlayers(void)
     QVector<OwPlayer> players;
     while (query.next())
     {
-        OwPlayer player(query.value(0).toUuid());
+        OwPlayer player = OwPlayer::instantiateExsitingPlayer(query.value(0).toUuid());
         player.setBattleTag(query.value(1).toString());
         player.setPlatform(query.value(2).toString());
         player.setRegion(query.value(3).toString());

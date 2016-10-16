@@ -1,7 +1,7 @@
 #include "OwPlayer.hpp"
 #include "App.hpp"
 
-OwPlayer::OwPlayer(void) :
+OwPlayer::OwPlayer() :
     id(QUuid::createUuid()),
     platform("pc"),
     region("us")
@@ -37,5 +37,14 @@ OwPlayer OwPlayer::fromBattleTag(const QString & battleTag)
     player.id = dataSource->getIdByBattleTag(battleTag);
     player.battleTag = battleTag;
     player.region = dataSource->getRegionByPlayerId(player.id);
+    return player;
+}
+
+OwPlayer OwPlayer::instantiateExsitingPlayer(QUuid id)
+{
+    OwPlayer player;
+    player.id = id;
+    player.isNewpPlayer = false;
+
     return player;
 }

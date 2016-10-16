@@ -24,6 +24,7 @@ public:
     virtual bool savePlayer(const OwPlayer & player) final;
     virtual bool removePlayer(const OwPlayer & player) final;
 
+    virtual OwPlayer getPlayer(const QUuid & id) final;
     virtual QVector<OwPlayer> getAllPlayers(void) final;
 
 private:

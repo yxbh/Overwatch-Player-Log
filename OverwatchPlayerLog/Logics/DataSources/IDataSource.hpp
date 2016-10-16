@@ -36,6 +36,7 @@ public:
 
     virtual bool removePlayer(const OwPlayer & player) = 0;
 
+    virtual OwPlayer getPlayer(const QUuid & id) = 0;
     virtual QVector<OwPlayer> getAllPlayers(void) = 0;
 };
 

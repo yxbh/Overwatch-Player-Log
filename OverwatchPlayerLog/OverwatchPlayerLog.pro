@@ -76,7 +76,8 @@ SOURCES += \
     Logics/DataSources/IDataSource.cpp \
     Logics/DataSources/SqliteDataSource.cpp \
     Controllers/PlayerInfoPaneWidget.cpp \
-    Logics/Exceptions/Exception.cpp
+    Logics/Exceptions/Exception.cpp \
+    Models/OwPlayerItem.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -88,7 +89,8 @@ HEADERS  += \
     Logics/DataSources/IDataSource.hpp \
     Logics/DataSources/SqliteDataSource.hpp \
     Controllers/PlayerInfoPaneWidget.hpp \
-    Logics/Exceptions/Exception.hpp
+    Logics/Exceptions/Exception.hpp \
+    Models/OwPlayerItem.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
