@@ -142,3 +142,10 @@ void PlayerInfoPaneWidget::on_comboBox_owRegion_currentIndexChanged(const QStrin
     this->updateLabelUrls();
     this->updateToolButtons();
 }
+
+void PlayerInfoPaneWidget::on_plainTextEdit_playerNote_textChanged(void)
+{
+    player.setNote(this->ui->plainTextEdit_playerNote->toPlainText());
+    this->isPlayerInfoDirty = true;
+    this->updateToolButtons();
+}

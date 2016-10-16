@@ -35,6 +35,7 @@ private slots:
     void on_toolButton_deletePlayerInfo_clicked(void);
     void on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag);
     void on_comboBox_owRegion_currentIndexChanged(const QString & region);
+    void on_plainTextEdit_playerNote_textChanged(void);
 };
 
 #endif // PLAYERINFOPANEWIDGET_HPP
