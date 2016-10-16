@@ -1,13 +1,15 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
 #include <QGuiApplication>
+#include <QMessageBox>
 #include "Logics/Config.hpp"
 #include "App.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
 #include "Logics/Entities/OwPlayer.hpp"
+#include "Logics/Exceptions/Exception.hpp"
 #include "Models/OwPlayerItem.hpp"
 
-MainWindow::MainWindow(QWidget * parent) :
+MainWindow::MainWindow(QWidget * parent) noexcept:
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -56,9 +58,16 @@ void MainWindow::setupModels(void)
 void MainWindow::refreshModels(void)
 {
     this->allPlayersModel.clear();
-    for (auto player : App::getInstance()->getDataSource()->getAllPlayers())
+    try
     {
-        this->allPlayersModel.appendRow(new OwPlayerItem(player));
+        for (auto player : App::getInstance()->getDataSource()->getAllPlayers())
+        {
+            this->allPlayersModel.appendRow(new OwPlayerItem(player));
+        }
+    }
+    catch (Exception & e)
+    {
+        QMessageBox::critical(this, tr("Critical Error"), tr("Error refreshing the data models.\n") + e.what());
     }
 }
 

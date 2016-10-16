@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QDebug>
 #include <QMessageBox>
 #include <QString>
 #include "Controllers/MainWindow.hpp"
@@ -19,7 +20,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    qDebug() << "Creating main window";
     MainWindow window;
+    qDebug() << "Showing main window";
     window.show();
 
     return app.exec();

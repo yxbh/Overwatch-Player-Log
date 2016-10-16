@@ -17,7 +17,7 @@ private:
     QStandardItemModel allPlayersModel;
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr) noexcept;
     ~MainWindow();
 
 protected:
