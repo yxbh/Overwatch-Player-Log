@@ -24,6 +24,7 @@ public:
             s_instance.reset(new App);
         return s_instance.get();
     }
+    inline static void destroyInstance(void) { s_instance.reset(nullptr); }
 
     inline static unsigned getLatestDataSourceVersion(void) { return s_latestDataSourceVersion; }
 };

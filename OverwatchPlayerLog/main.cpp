@@ -25,5 +25,7 @@ int main(int argc, char *argv[])
     qDebug() << "Showing main window";
     window.show();
 
-    return app.exec();
+    auto resultCode = app.exec();
+    App::destroyInstance();
+    return resultCode;
 }
