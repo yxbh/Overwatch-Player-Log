@@ -98,3 +98,6 @@ FORMS    += \
 
 DISTFILES += \
     Resources/OPL.config
+
+RESOURCES += \
+    resources.qrc

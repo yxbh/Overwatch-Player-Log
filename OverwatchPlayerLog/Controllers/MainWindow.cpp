@@ -1,5 +1,6 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
+#include <QDebug>
 #include <QGuiApplication>
 #include <QMessageBox>
 #include "Logics/Config.hpp"
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget * parent) noexcept:
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->mainToolBar->addAction(ui->action_LoadCustomStylesheet);
+    ui->mainToolBar->addAction(ui->action_ResetStylesheet);
     this->setupSignalsAndSlots();
     this->readSettings();
 
@@ -105,4 +108,16 @@ void MainWindow::on_action_AddPlayer_triggered(void)
 void MainWindow::on_tabWidget_playerInfos_tabCloseRequested(int index)
 {
     this->ui->tabWidget_playerInfos->removeTab(index);
+}
+
+void MainWindow::on_action_LoadCustomStylesheet_triggered(void)
+{
+    qDebug() << "Loading custom stylesheet";
+    qApp->setStyleSheet(Config::getGlobalStylesheet());
+}
+
+void MainWindow::on_action_ResetStylesheet_triggered(void)
+{
+    qDebug() << "Resetting stylesheet";
+    qApp->setStyleSheet("");
 }

@@ -1,0 +1,115 @@
+QMenuBar {
+    background-color: rgb(39, 46, 59);
+    color: lightgrey;
+}
+
+QMenuBar::item {
+    padding: 9px 13px 9px 13px;
+    font-weight: bold;
+}
+
+QMenuBar::item:selected {
+    background-color: rgb(49, 56, 68);
+    color: white;
+}
+
+QMenu {
+    background-color: rgb(39, 46, 59);
+    margin: 0px;
+}
+
+QMenu::separator {
+    height: 1px;
+}
+
+QMenu:selected {
+    border: 1px solid deepskyblue;
+}
+
+QMenu::item {
+    color: lightgrey;
+    font-weight: bold;
+    padding: 11px 17px 11px 17px;
+}
+
+QMenu::item:selected {
+    color: white;
+    background-color: rgb(49, 56, 68);
+}
+
+QToolBar {
+    border: none;
+    background-color: rgb(39, 46, 59);
+}
+
+QToolButton {
+    color: lightgrey;
+    background-color: rgb(41, 54, 82);
+    border: none;
+    padding: 5px;
+}
+
+QToolButton:hover {
+    color: white;
+    background-color: rgb(62, 74, 100);
+    border: none;
+}
+
+QTabWidget {
+    border: none;
+}
+
+QTabWidget::tab-bar {
+}
+
+QTabWidget::pane {
+    border: none;
+    background-color: rgb(41, 54, 82);
+}
+
+QTabBar {
+    font-weight:bold;
+}
+
+QTabBar::tab {
+    color: lightgrey;
+    background-color: rgb(73, 96, 163);
+    padding: 10px 18px 10px 18px;
+}
+
+QTabBar::tab:selected {
+    color: white;
+    background-color: rgb(41, 54, 82);
+}
+
+QGroupBox {
+    color: lightgrey;
+    border: 1px solid lightgrey;
+    padding: 5px;
+}
+
+QLabel {
+    color: lightgrey;
+}
+
+QRadioButton {
+    color: lightgrey;
+}
+
+QPlainTextEdit {
+    color: lightgrey;
+    background-color: rgb(41, 54, 82);
+}
+
+QLineEdit {
+    padding: 4px;
+}
+
+MainWindow {
+    background-color: rgb(73, 96, 163);
+}
+
+PlayerInfoPaneWidget {
+    background-color: rgb(41, 54, 82);
+    border:none;
+}

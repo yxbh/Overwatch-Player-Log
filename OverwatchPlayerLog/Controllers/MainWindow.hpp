@@ -35,12 +35,11 @@ private slots:
     void on_playerInfoChanged(void);
 
     void on_action_ExitApp_triggered(void);
-
     void on_action_AboutQt_triggered(void);
-
     void on_action_AddPlayer_triggered(void);
-
     void on_tabWidget_playerInfos_tabCloseRequested(int index);
+    void on_action_LoadCustomStylesheet_triggered(void);
+    void on_action_ResetStylesheet_triggered(void);
 };
 
 #endif // MAINWINDOW_HPP

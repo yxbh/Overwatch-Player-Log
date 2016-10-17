@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>UI/default.uis</file>
+    </qresource>
+</RCC>

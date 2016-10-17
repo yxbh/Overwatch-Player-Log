@@ -14,12 +14,16 @@ public:
     static void initialise(void);
 
     static QPoint getMainWindowPosition(void);
-    static void saveMainWindowPosition(QPoint pos);
+    static void saveMainWindowPosition(const QPoint & pos);
 
     static QSize getMainWindowSize(void);
-    static void saveMainWindowSize(QSize size);
+    static void saveMainWindowSize(const QSize & size);
 
     static QString getDatabasePath(void);
+
+    static QString getGlobalStylesheetPath(void);
+    static void saveGlobalStylesheetPath(const QString & stylesheetPath);
+    static QString getGlobalStylesheet(void);
 };
 
 #endif // CONFIG_H
