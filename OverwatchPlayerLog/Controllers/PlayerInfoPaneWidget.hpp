@@ -1,7 +1,7 @@
 #ifndef PLAYERINFOPANEWIDGET_HPP
 #define PLAYERINFOPANEWIDGET_HPP
 
-#include <QScrollArea>
+#include <QWidget>
 #include "Logics/Entities/OwPlayer.hpp"
 
 namespace Ui
