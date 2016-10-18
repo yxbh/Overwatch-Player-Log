@@ -2,16 +2,20 @@ QWidget {
     text-transform: uppercase;
 }
 
+QMessageBox QLabel{ /* fix color for About Qt message box. */
+    color: black;
+}
+
 QMenuBar {
-    background-color: rgb(39, 46, 59);
     color: lightgrey;
+    background-color: rgb(39, 46, 59);
 }
 QMenuBar::item {
     padding: 9px 13px 9px 13px;
 }
 QMenuBar::item:selected {
-    background-color: rgb(49, 56, 68);
     color: white;
+    background-color: rgb(49, 56, 68);
 }
 
 QMenu {
