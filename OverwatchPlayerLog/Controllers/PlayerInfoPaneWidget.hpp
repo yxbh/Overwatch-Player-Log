@@ -23,7 +23,7 @@ public:
     ~PlayerInfoPaneWidget(void);
 
 private:
-    void updateLabelUrls(void);
+    void updateStatsSiteButtons(void);
     void updateToolButtons(void);
 
     void saveCurrentPlayerInfo(void);
@@ -38,6 +38,9 @@ private slots:
     void on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag);
     void on_comboBox_owRegion_currentIndexChanged(const QString & region);
     void on_plainTextEdit_playerNote_textChanged(void);
+    void on_toolButton_openUrlPlayOverwatch_clicked();
+    void on_toolButton_openUrlMasterOverwatch_clicked();
+    void on_toolButton_openUrlOverbuff_clicked();
 };
 
 #endif // PLAYERINFOPANEWIDGET_HPP

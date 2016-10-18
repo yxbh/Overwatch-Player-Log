@@ -1,5 +1,6 @@
 #include "PlayerInfoPaneWidget.hpp"
 #include <QDebug>
+#include <QDesktopServices>
 #include <QMessageBox>
 #include "ui_PlayerInfoPaneWidget.h"
 #include "App.hpp"
@@ -13,7 +14,7 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     this->ui->lineEdit_playerBattleTag->setText(player.getBattleTag());
     this->ui->comboBox_owRegion->setCurrentText(player.getRegion());
 
-    this->updateLabelUrls();
+    this->updateStatsSiteButtons();
     this->updateToolButtons();
 }
 
@@ -22,33 +23,20 @@ PlayerInfoPaneWidget::~PlayerInfoPaneWidget(void)
     delete ui;
 }
 
-namespace
+void PlayerInfoPaneWidget::updateStatsSiteButtons(void)
 {
-    QString generateHrefAnchor(const QString & link, const QString & anchorText)
+    if (this->player.getBattleTag().isEmpty())
     {
-        return "<a href=\"" + link + "\">" + anchorText + "</a>";
+        this->ui->toolButton_openUrlPlayOverwatch->hide();
+        this->ui->toolButton_openUrlMasterOverwatch->hide();
+        this->ui->toolButton_openUrlOverbuff->hide();
     }
-}
-
-void PlayerInfoPaneWidget::updateLabelUrls(void)
-{
-    QString playerHyperBtag = player.getBattleTag();
-    if (playerHyperBtag.isEmpty())
+    else
     {
-        this->ui->label_openUrlPlayOverwatch->setText("");
-        this->ui->label_openUrlMasterOverwatch->setText("");
-        this->ui->label_openUrlOverbuff->setText("");
-        return;
+        this->ui->toolButton_openUrlPlayOverwatch->show();
+        this->ui->toolButton_openUrlMasterOverwatch->show();
+        this->ui->toolButton_openUrlOverbuff->show();
     }
-
-    playerHyperBtag.replace("#", "-");
-
-    QString platform = "pc";
-    QString region = this->ui->comboBox_owRegion->currentText().toLower();
-
-    this->ui->label_openUrlPlayOverwatch->setText(generateHrefAnchor("https://playoverwatch.com/en-us/career/" + platform + "/" + region +"/" + playerHyperBtag, "PlayOverwatch"));
-    this->ui->label_openUrlMasterOverwatch->setText(generateHrefAnchor("http://masteroverwatch.com/profile/" + platform + "/" + region +"/" + playerHyperBtag, "MasterOverwatch"));
-    this->ui->label_openUrlOverbuff->setText(generateHrefAnchor("https://www.overbuff.com/players/" + platform + "/" + playerHyperBtag, "Overbuff"));
 }
 
 void PlayerInfoPaneWidget::updateToolButtons(void)
@@ -126,7 +114,6 @@ void PlayerInfoPaneWidget::on_lineEdit_playerBattleTag_textEdited(const QString 
 {
     player.setBattleTag(newBattleTag);
     this->isPlayerInfoDirty = true;
-    this->updateLabelUrls();
     this->updateToolButtons();
 }
 
@@ -134,7 +121,7 @@ void PlayerInfoPaneWidget::on_comboBox_owRegion_currentIndexChanged(const QStrin
 {
     player.setRegion(region);
     this->isPlayerInfoDirty = true;
-    this->updateLabelUrls();
+    this->updateStatsSiteButtons();
     this->updateToolButtons();
 }
 
@@ -143,4 +130,19 @@ void PlayerInfoPaneWidget::on_plainTextEdit_playerNote_textChanged(void)
     player.setNote(this->ui->plainTextEdit_playerNote->toPlainText());
     this->isPlayerInfoDirty = true;
     this->updateToolButtons();
+}
+
+void PlayerInfoPaneWidget::on_toolButton_openUrlPlayOverwatch_clicked(void)
+{
+    QDesktopServices::openUrl(QUrl("https://playoverwatch.com/en-us/career/" + this->player.getPlatform() + "/" + this->player.getRegion() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
+}
+
+void PlayerInfoPaneWidget::on_toolButton_openUrlMasterOverwatch_clicked(void)
+{
+    QDesktopServices::openUrl(QUrl("http://masteroverwatch.com/profile/" + this->player.getPlatform() + "/" + this->player.getRegion() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
+}
+
+void PlayerInfoPaneWidget::on_toolButton_openUrlOverbuff_clicked(void)
+{
+    QDesktopServices::openUrl(QUrl("https://www.overbuff.com/players/" + this->player.getPlatform() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
 }

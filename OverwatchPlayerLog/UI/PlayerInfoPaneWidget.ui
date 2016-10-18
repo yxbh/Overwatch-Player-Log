@@ -189,34 +189,25 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLabel" name="label_openUrlPlayOverwatch">
-         <property name="text">
-          <string>Play Overwatch</string>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_openUrlMasterOverwatch">
-         <property name="text">
-          <string>Master Overwatch</string>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_openUrlOverbuff">
+        <widget class="QToolButton" name="toolButton_openUrlOverbuff">
          <property name="text">
           <string>Overbuff</string>
          </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="toolButton_openUrlMasterOverwatch">
+         <property name="text">
+          <string>MasterOverwatch</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="toolButton_openUrlPlayOverwatch">
+         <property name="text">
+          <string>PlayOverwatch</string>
          </property>
         </widget>
        </item>
