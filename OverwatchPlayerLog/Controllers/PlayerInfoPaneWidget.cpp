@@ -68,9 +68,10 @@ void PlayerInfoPaneWidget::updateStatsSiteButtons(void)
 
 void PlayerInfoPaneWidget::updateToolButtons(void)
 {
-    if (player.isNew())
+    auto dataSource = App::getInstance()->getDataSource();
+    if (this->player.isNew())
     {
-        if (this->isPlayerInfoDirty)
+        if (this->isPlayerInfoDirty && dataSource->validatePlayer(this->player))
             this->ui->toolButton_savePlayerInfo->show();
         else
             this->ui->toolButton_savePlayerInfo->hide();
@@ -80,7 +81,7 @@ void PlayerInfoPaneWidget::updateToolButtons(void)
     else
     {
         this->ui->toolButton_savePlayerInfo->hide();
-        if (this->isPlayerInfoDirty)
+        if (this->isPlayerInfoDirty && dataSource->validatePlayer(this->player))
             this->ui->toolButton_updatePlayerInfo->show();
         else
             this->ui->toolButton_updatePlayerInfo->hide();
