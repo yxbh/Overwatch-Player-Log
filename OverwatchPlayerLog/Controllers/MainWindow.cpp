@@ -55,7 +55,9 @@ void MainWindow::writeSettings(void)
 
 void MainWindow::setupModels(void)
 {
-    this->ui->listView_searchAll->setModel(&allPlayersModel);
+    this->allPlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    this->allPlayerFilterModel.setSourceModel(&this->allPlayersModel);
+    this->ui->listView_searchAll->setModel(&this->allPlayerFilterModel);
 }
 
 void MainWindow::refreshModels(void)
@@ -122,13 +124,20 @@ void MainWindow::on_action_ResetStylesheet_triggered(void)
     qApp->setStyleSheet("");
 }
 
-void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex &index)
+void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
 {
-    auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(index.row()));
+    auto row = this->allPlayerFilterModel.mapToSource(index).row();
+    auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(row));
+    auto player = item->getPlayer();
     auto tabWidget = ui->tabWidget_playerInfos;
-    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, item->getPlayer());
-    tabWidget->addTab(playerInfoPane, item->getPlayer().getBattleTag());
+    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, player);
+    tabWidget->addTab(playerInfoPane, player.getBattleTag());
     this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
     tabWidget->setCurrentWidget(playerInfoPane);
     playerInfoPane->setFocus();
+}
+
+void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
+{
+    this->allPlayerFilterModel.setFilterFixedString(searchText);
 }
