@@ -143,20 +143,18 @@ QComboBox QListView {
 
 QPlainTextEdit {
     color: black;
-    background-color: rgb(246,247,249);
+    background-color: lightgrey;
     border: none;
+    padding: 4px;
     text-transform: none;
 }
 QPlainTextEdit:focus {
-    background-color: white;
+    background-color: rgb(246,247,249);
 }
 
 QListView {
-    background-color: rgb(246,247,249);
+    background-color: lightgrey;
     border: none;
-}
-QListView:focus {
-    background-color: white;
 }
 
 QLineEdit {
