@@ -73,7 +73,7 @@ void PlayerInfoPaneWidget::updateToolButtons(void)
     }
 }
 
-void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
+void PlayerInfoPaneWidget::saveCurrentPlayerInfo(void)
 {
     if (!this->player.validate())
     {
@@ -89,25 +89,17 @@ void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
 
     this->isPlayerInfoDirty = false;
     this->updateToolButtons();
+}
+
+void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
+{
+    this->saveCurrentPlayerInfo();
     emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_updatePlayerInfo_clicked(void)
 {
-    if (!this->player.validate())
-    {
-        QMessageBox::critical(this, "Validation Error", "Validation failed. Save cancelled");
-        return;
-    }
-
-    if (!this->player.save())
-    {
-        QMessageBox::critical(this, "Save Error", "Player info failed to save.");
-        return;
-    }
-
-    this->isPlayerInfoDirty = false;
-    this->updateToolButtons();
+    this->saveCurrentPlayerInfo();
     emit playerInfoChanged(this->player);
 }
 

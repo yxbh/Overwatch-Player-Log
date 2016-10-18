@@ -26,6 +26,8 @@ private:
     void updateLabelUrls(void);
     void updateToolButtons(void);
 
+    void saveCurrentPlayerInfo(void);
+
 signals:
     void playerInfoChanged(const OwPlayer & player);
 
