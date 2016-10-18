@@ -90,9 +90,10 @@ void MainWindow::on_lastWindowClosed(void)
     this->writeSettings();
 }
 
-void MainWindow::on_playerInfoChanged(void)
+void MainWindow::on_playerInfoChanged(const OwPlayer & player)
 {
     this->refreshModels();
+    this->ui->tabWidget_playerInfos->setTabText(this->ui->tabWidget_playerInfos->currentIndex(), player.getBattleTag());
 }
 
 void MainWindow::on_action_ExitApp_triggered(void)

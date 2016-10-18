@@ -75,32 +75,32 @@ void PlayerInfoPaneWidget::updateToolButtons(void)
 
 void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
 {
-    if (!player.validate())
+    if (!this->player.validate())
     {
         QMessageBox::critical(this, "Validation Error", "Validation failed. Save cancelled");
         return;
     }
 
-    if (!player.save())
+    if (!this->player.save())
     {
         QMessageBox::critical(this, "Save Error", "Player info failed to save.");
         return;
     }
 
     this->isPlayerInfoDirty = false;
-    emit playerInfoChanged();
     this->updateToolButtons();
+    emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_updatePlayerInfo_clicked(void)
 {
-    if (!player.validate())
+    if (!this->player.validate())
     {
         QMessageBox::critical(this, "Validation Error", "Validation failed. Save cancelled");
         return;
     }
 
-    if (!player.save())
+    if (!this->player.save())
     {
         QMessageBox::critical(this, "Save Error", "Player info failed to save.");
         return;
@@ -108,7 +108,7 @@ void PlayerInfoPaneWidget::on_toolButton_updatePlayerInfo_clicked(void)
 
     this->isPlayerInfoDirty = false;
     this->updateToolButtons();
-    emit playerInfoChanged();
+    emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_deletePlayerInfo_clicked(void)
@@ -118,13 +118,13 @@ void PlayerInfoPaneWidget::on_toolButton_deletePlayerInfo_clicked(void)
     if (buttonPressed != QMessageBox::Yes)
         return;
 
-    if (!player.remove())
+    if (!this->player.remove())
     {
         QMessageBox::critical(this, "Save Error", "Failed to remove player info.");
         return;
     }
 
-    emit playerInfoChanged();
+    emit playerInfoChanged(this->player);
     this->updateToolButtons();
     this->deleteLater();
 }

@@ -27,7 +27,7 @@ private:
     void updateToolButtons(void);
 
 signals:
-    void playerInfoChanged(void);
+    void playerInfoChanged(const OwPlayer & player);
 
 private slots:
     void on_toolButton_savePlayerInfo_clicked(void);

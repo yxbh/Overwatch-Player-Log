@@ -37,7 +37,7 @@ private:
 
 private slots:
     void on_lastWindowClosed(void);
-    void on_playerInfoChanged(void);
+    void on_playerInfoChanged(const OwPlayer & player);
 
     void on_action_ExitApp_triggered(void);
     void on_action_AboutQt_triggered(void);
