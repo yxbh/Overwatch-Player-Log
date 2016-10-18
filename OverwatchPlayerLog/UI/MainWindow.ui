@@ -80,12 +80,6 @@
         <property name="tabBarAutoHide">
          <bool>false</bool>
         </property>
-        <widget class="QWidget" name="tab">
-         <attribute name="title">
-          <string>Page</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_5"/>
-        </widget>
        </widget>
       </item>
      </layout>
