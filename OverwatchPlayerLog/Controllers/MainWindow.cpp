@@ -37,7 +37,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::setupSignalsAndSlots(void)
 {
-    this->connect(qApp, QGuiApplication::lastWindowClosed, this, MainWindow::on_lastWindowClosed);
+    this->connect(qApp, &QGuiApplication::lastWindowClosed, this, &MainWindow::on_lastWindowClosed);
 }
 
 void MainWindow::readSettings(void)
@@ -80,7 +80,7 @@ void MainWindow::openPlayerInfoPane(const OwPlayer & player, const QString & lab
     auto tabWidget = ui->tabWidget_playerInfos;
     auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, player);
     tabWidget->addTab(playerInfoPane, label);
-    this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
+    this->connect(playerInfoPane, &PlayerInfoPaneWidget::playerInfoChanged, this, &MainWindow::on_playerInfoChanged);
     tabWidget->setCurrentWidget(playerInfoPane);
     playerInfoPane->setFocus();
 }
