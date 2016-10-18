@@ -36,6 +36,10 @@ QMenu::item:selected {
     color: white;
     background-color: rgb(49, 56, 68);
 }
+QMenu::item:disabled {
+    text-decoration: line-through;
+    background-color: rgb(29, 36, 48);
+}
 
 QToolBar {
     border: none;
