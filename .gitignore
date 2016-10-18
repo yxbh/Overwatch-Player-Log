@@ -59,5 +59,6 @@ CMakeLists.txt.user*
 
 # Project specific
 Build/
+Deploy/
 *.DEBUG
 *.RELEASE
