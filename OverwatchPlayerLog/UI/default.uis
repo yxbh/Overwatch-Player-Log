@@ -142,9 +142,22 @@ QComboBox::drop-down {
     height: 0px;
     border: none;
 }
-QComboBox:on {
-    border: none;
+QComboBox::item {
+    color: lightgrey;
+    background-color: rgb(41, 54, 82);
 }
+QComboBox::item:selected{
+    border: none;
+    background-color: rgb(62, 74, 100);
+}
+QComboBox::indicator{
+    /* hide selected indicator & column. */
+    background-color:transparent;
+    selection-background-color:transparent;
+    color:transparent;
+    selection-color:transparent;
+}
+
 QComboBox QListView {
     border: none;
     color: black;
