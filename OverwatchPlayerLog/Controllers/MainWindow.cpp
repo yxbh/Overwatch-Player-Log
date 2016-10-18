@@ -6,7 +6,6 @@
 #include "Logics/Config.hpp"
 #include "App.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
-#include "Logics/Entities/OwPlayer.hpp"
 #include "Logics/Exceptions/Exception.hpp"
 #include "Models/OwPlayerItem.hpp"
 
@@ -76,6 +75,16 @@ void MainWindow::refreshModels(void)
     }
 }
 
+void MainWindow::openPlayerInfoPane(const OwPlayer & player, const QString & label)
+{
+    auto tabWidget = ui->tabWidget_playerInfos;
+    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, player);
+    tabWidget->addTab(playerInfoPane, label);
+    this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
+    tabWidget->setCurrentWidget(playerInfoPane);
+    playerInfoPane->setFocus();
+}
+
 void MainWindow::on_lastWindowClosed(void)
 {
     this->writeSettings();
@@ -98,13 +107,7 @@ void MainWindow::on_action_AboutQt_triggered(void)
 
 void MainWindow::on_action_AddPlayer_triggered(void)
 {
-    OwPlayer newPlayer;
-    auto tabWidget = ui->tabWidget_playerInfos;
-    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, newPlayer);
-    tabWidget->addTab(playerInfoPane, "New Player");
-    this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
-    tabWidget->setCurrentWidget(playerInfoPane);
-    playerInfoPane->setFocus();
+    this->openPlayerInfoPane(OwPlayer(), "New Player");
 }
 
 void MainWindow::on_tabWidget_playerInfos_tabCloseRequested(int index)
@@ -129,12 +132,7 @@ void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
     auto row = this->allPlayerFilterModel.mapToSource(index).row();
     auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(row));
     auto player = item->getPlayer();
-    auto tabWidget = ui->tabWidget_playerInfos;
-    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, player);
-    tabWidget->addTab(playerInfoPane, player.getBattleTag());
-    this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
-    tabWidget->setCurrentWidget(playerInfoPane);
-    playerInfoPane->setFocus();
+    this->openPlayerInfoPane(player, player.getBattleTag());
 }
 
 void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)

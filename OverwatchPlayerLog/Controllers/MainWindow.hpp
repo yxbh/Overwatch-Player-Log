@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+#include "Logics/Entities/OwPlayer.hpp"
 
 namespace Ui
 {
@@ -32,6 +33,7 @@ private:
     void writeSettings(void);
     void setupModels(void);
     void refreshModels(void);
+    void openPlayerInfoPane(const OwPlayer & player, const QString & label);
 
 private slots:
     void on_lastWindowClosed(void);
