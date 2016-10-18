@@ -49,7 +49,11 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QListView" name="listView_searchAll"/>
+               <widget class="QListView" name="listView_searchAll">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
