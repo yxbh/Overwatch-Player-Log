@@ -138,4 +138,5 @@ void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
 void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
 {
     this->allPlayerFilterModel.setFilterFixedString(searchText);
+    this->ui->tabWidget_playerLists->setCurrentIndex(1);
 }
