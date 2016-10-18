@@ -9,7 +9,6 @@ QMenuBar {
 
 QMenuBar::item {
     padding: 9px 13px 9px 13px;
-    font-weight: bold;
 }
 
 QMenuBar::item:selected {
@@ -32,7 +31,6 @@ QMenu:selected {
 
 QMenu::item {
     color: lightgrey;
-    font-weight: bold;
     padding: 11px 17px 11px 17px;
 }
 
@@ -86,8 +84,8 @@ QTabBar::tab:selected {
 }
 
 QTabBar::close-button {
-    padding-left: 10px;
-    padding-right: 10px;
+    image: url(:/Resources/UI/cancel.png);
+    padding: 3px;
 }
 
 QGroupBox {
@@ -138,7 +136,7 @@ QComboBox:on {
 QComboBox QListView {
     border: none;
     color: black;
-    min-width: 50px;
+    min-width: 20px;
     background-color: rgb(246,247,249);
     selection-color: dimgrey;
     selection-background-color: lightgrey;
