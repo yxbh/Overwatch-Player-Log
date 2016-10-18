@@ -101,17 +101,14 @@ QLabel {
 QRadioButton {
     color: lightgrey;
 }
-
 QRadioButton::indicator {
     background-color: lightgrey;
     border: 3px solid rgb(41, 54, 82);
     border-radius: 1px;
 }
-
 QRadioButton::indicator:checked {
     background-color: rgb(73, 96, 163);
 }
-
 QRadioButton::indicator:unchecked {
     /* nothing */
 }
@@ -121,18 +118,15 @@ QComboBox {
     border: none;
     padding: 4px;
 }
-
 QComboBox::drop-down {
     /* don't display the arrow button. */
     width: 0px;
     height: 0px;
     border: none;
 }
-
 QComboBox:on {
     border: none;
 }
-
 QComboBox QListView {
     border: none;
     color: black;
@@ -148,7 +142,6 @@ QPlainTextEdit {
     border: none;
     text-transform: none;
 }
-
 QPlainTextEdit:focus {
     background-color: white;
 }
@@ -157,19 +150,21 @@ QListView {
     background-color: rgb(246,247,249);
     border: none;
 }
-
 QListView:focus {
     background-color: white;
 }
 
 QLineEdit {
+    font-style: italic;
+    font-weight: bold;
     text-transform: none;
-    background-color: rgb(246,247,249);
+    color: rgb(246,247,249);
+    background-color: rgb(41, 54, 82);
     border: none;
     padding: 4px;
 }
-
 QLineEdit:focus {
+    color: black;
     background-color: white;
 }
 
