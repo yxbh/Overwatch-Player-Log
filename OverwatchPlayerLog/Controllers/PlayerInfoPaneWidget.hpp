@@ -9,7 +9,7 @@ namespace Ui
 class PlayerInfoPaneWidget;
 }
 
-class PlayerInfoPaneWidget : public QScrollArea
+class PlayerInfoPaneWidget : public QWidget
 {
     Q_OBJECT
 
