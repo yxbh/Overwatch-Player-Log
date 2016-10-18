@@ -4,15 +4,18 @@
 #include <QMessageBox>
 #include "ui_PlayerInfoPaneWidget.h"
 #include "App.hpp"
+#include "Logics/Config.hpp"
 
 PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
-    QScrollArea(parent),
+    QWidget(parent),
     ui(new Ui::PlayerInfoPaneWidget),
     player(player)
 {
     ui->setupUi(this);
+    ui->plainTextEdit_playerNote->installEventFilter(this);
     this->ui->lineEdit_playerBattleTag->setText(player.getBattleTag());
     this->ui->comboBox_owRegion->setCurrentText(player.getRegion());
+    this->ui->plainTextEdit_playerNote->setPlainText(player.getNote());
 
     this->updateStatsSiteButtons();
     this->updateToolButtons();
@@ -21,6 +24,30 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
 PlayerInfoPaneWidget::~PlayerInfoPaneWidget(void)
 {
     delete ui;
+}
+
+bool PlayerInfoPaneWidget::eventFilter(QObject * object, QEvent * event)
+{
+    if (object != this->ui->plainTextEdit_playerNote)
+        return QWidget::eventFilter(object, event);
+
+    switch (event->type())
+    {
+        case QEvent::FocusOut:
+            this->ui->plainTextEdit_playerNote->setStyleSheet(Config::getGlobalStylesheet());
+        break;
+
+        case QEvent::FocusIn:
+        {
+            QString stylesheet = Config::getGlobalStylesheet().section("QPlainTextEdit:focus {", 1, 1).section("}", 0, 0);
+            this->ui->plainTextEdit_playerNote->setStyleSheet(stylesheet);
+        }
+        break;
+
+    default: /* do nothing. */ break;
+    }
+
+    return QWidget::eventFilter(object, event);
 }
 
 void PlayerInfoPaneWidget::updateStatsSiteButtons(void)

@@ -22,6 +22,9 @@ public:
     explicit PlayerInfoPaneWidget(QWidget *parent, OwPlayer player);
     ~PlayerInfoPaneWidget(void);
 
+protected:
+    virtual bool eventFilter(QObject * object, QEvent * event) override;
+
 private:
     void updateStatsSiteButtons(void);
     void updateToolButtons(void);
