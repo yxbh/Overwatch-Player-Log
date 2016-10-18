@@ -42,13 +42,13 @@ QToolBar {
     background-color: rgb(39, 46, 59);
 }
 
-QToolButton {
+QToolButton, QPushButton {
     color: lightgrey;
     background-color: rgb(41, 54, 82);
     border: none;
     padding: 5px;
 }
-QToolButton:hover {
+QToolButton:hover, QPushButton:hover {
     color: white;
     background-color: rgb(62, 74, 100);
     border: none;
@@ -142,19 +142,26 @@ QComboBox QListView {
 }
 
 QPlainTextEdit {
-    color: black;
-    background-color: lightgrey;
+    color: lightgrey;
+    background-color: rgb(41, 54, 82);
     border: none;
     padding: 4px;
     text-transform: none;
 }
+QPlainTextEdit:hover {
+    background-color: rgb(62, 74, 100);
+}
 QPlainTextEdit:focus {
+    color: black;
     background-color: rgb(246,247,249);
 }
 
 QListView {
     background-color: lightgrey;
     border: none;
+}
+QListView:focus {
+    background-color: white;
 }
 
 QLineEdit {
