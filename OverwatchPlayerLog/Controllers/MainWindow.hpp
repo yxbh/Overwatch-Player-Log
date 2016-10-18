@@ -40,6 +40,7 @@ private slots:
     void on_tabWidget_playerInfos_tabCloseRequested(int index);
     void on_action_LoadCustomStylesheet_triggered(void);
     void on_action_ResetStylesheet_triggered(void);
+    void on_listView_searchAll_doubleClicked(const QModelIndex &index);
 };
 
 #endif // MAINWINDOW_HPP

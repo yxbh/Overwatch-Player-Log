@@ -99,7 +99,7 @@ void MainWindow::on_action_AddPlayer_triggered(void)
     OwPlayer newPlayer;
     auto tabWidget = ui->tabWidget_playerInfos;
     auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, newPlayer);
-    tabWidget->addTab(playerInfoPane, "TODO: add player nane here");
+    tabWidget->addTab(playerInfoPane, "New Player");
     this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
     tabWidget->setCurrentWidget(playerInfoPane);
     playerInfoPane->setFocus();
@@ -120,4 +120,15 @@ void MainWindow::on_action_ResetStylesheet_triggered(void)
 {
     qDebug() << "Resetting stylesheet";
     qApp->setStyleSheet("");
+}
+
+void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex &index)
+{
+    auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(index.row()));
+    auto tabWidget = ui->tabWidget_playerInfos;
+    auto playerInfoPane = new PlayerInfoPaneWidget(tabWidget, item->getPlayer());
+    tabWidget->addTab(playerInfoPane, item->getPlayer().getBattleTag());
+    this->connect(playerInfoPane, PlayerInfoPaneWidget::playerInfoChanged, this, MainWindow::on_playerInfoChanged);
+    tabWidget->setCurrentWidget(playerInfoPane);
+    playerInfoPane->setFocus();
 }

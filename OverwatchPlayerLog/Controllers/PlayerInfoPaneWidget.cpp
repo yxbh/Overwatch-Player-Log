@@ -10,6 +10,9 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     player(player)
 {
     ui->setupUi(this);
+    this->ui->lineEdit_playerBattleTag->setText(player.getBattleTag());
+    this->ui->comboBox_owRegion->setCurrentText(player.getRegion());
+
     this->updateLabelUrls();
     this->updateToolButtons();
 }
