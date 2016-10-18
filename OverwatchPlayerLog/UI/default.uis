@@ -1,5 +1,5 @@
 QWidget {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 QMenuBar {
@@ -77,7 +77,7 @@ QTabBar {
 QTabBar::tab {
     color: lightgrey;
     background-color: rgb(43, 66, 133);
-    padding: 10px 18px 10px 18px;
+    padding: 10px 17px 10px 17px;
 }
 
 QTabBar::tab:selected {
@@ -86,8 +86,8 @@ QTabBar::tab:selected {
 }
 
 QTabBar::close-button {
+    padding-left: 10px;
     padding-right: 10px;
-    background-color: yellow;
 }
 
 QGroupBox {
@@ -100,29 +100,48 @@ QLabel {
     color: lightgrey;
 }
 
-a {
-    color: lightgrey;
-}
-
 QRadioButton {
     color: lightgrey;
 }
 
 QRadioButton::indicator {
-    border: 2px solid darkgrey;
+    background-color: lightgrey;
+    border: 3px solid rgb(41, 54, 82);
+    border-radius: 1px;
 }
 
 QRadioButton::indicator:checked {
     background-color: rgb(73, 96, 163);
-    padding: 1px;
 }
 
 QRadioButton::indicator:unchecked {
-    background-color: white;
+    /* nothing */
 }
 
 QComboBox {
+    background-color: rgb(246,247,249);
     border: none;
+    padding: 4px;
+}
+
+QComboBox::drop-down {
+    /* don't display the arrow button. */
+    width: 0px;
+    height: 0px;
+    border: none;
+}
+
+QComboBox:on {
+    border: none;
+}
+
+QComboBox QListView {
+    border: none;
+    color: black;
+    min-width: 50px;
+    background-color: rgb(246,247,249);
+    selection-color: dimgrey;
+    selection-background-color: lightgrey;
 }
 
 QPlainTextEdit {
@@ -146,6 +165,7 @@ QListView:focus {
 }
 
 QLineEdit {
+    text-transform: none;
     background-color: rgb(246,247,249);
     border: none;
     padding: 4px;
