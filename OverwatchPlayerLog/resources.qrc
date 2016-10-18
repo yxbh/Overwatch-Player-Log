@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>UI/default.uis</file>
+        <file>Resources/UI/cancel.png</file>
     </qresource>
 </RCC>
