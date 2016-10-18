@@ -75,6 +75,10 @@ QTabBar::tab {
     background-color: rgb(43, 66, 133);
     padding: 10px 17px 10px 17px;
 }
+QTabBar::tab:hover {
+    color: white;
+    background-color: rgb(43, 66, 143);
+}
 QTabBar::tab:selected {
     color: white;
     background-color: rgb(41, 54, 82);
@@ -82,7 +86,12 @@ QTabBar::tab:selected {
 
 QTabBar::close-button {
     image: url(:/Resources/UI/cancel.png);
-    padding: 3px;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+}
+QTabBar::close-button:hover {
+    background-color: rgb(62, 74, 100);
 }
 
 QGroupBox {
@@ -115,8 +124,8 @@ QRadioButton::indicator:unchecked {
 }
 
 QComboBox {
-    background-color: rgb(41, 54, 82);
     color: lightgrey;
+    background-color: rgb(41, 54, 82);
     border: none;
     padding: 4px;
 }
