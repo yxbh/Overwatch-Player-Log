@@ -30,7 +30,27 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_playerBattleTag"/>
+      <widget class="QLineEdit" name="lineEdit_playerBattleTag">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maxLength">
+        <number>50</number>
+       </property>
+       <property name="placeholderText">
+        <string>Player BattleTag</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Region</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QComboBox" name="comboBox_owRegion">
