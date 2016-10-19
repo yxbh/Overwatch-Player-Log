@@ -16,6 +16,11 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     this->ui->lineEdit_playerBattleTag->setText(player.getBattleTag());
     this->ui->comboBox_owRegion->setCurrentText(player.getRegion());
     this->ui->plainTextEdit_playerNote->setPlainText(player.getNote());
+    this->ui->checkBox_isFavorite->setChecked(player.isFavorite());
+    this->ui->radioButton_likesPlayer->setChecked(player.getRating() == OwPlayer::Rating::Like);
+    this->ui->radioButto_undecidedPlayer->setChecked(player.getRating() == OwPlayer::Rating::Undecided);
+    this->ui->radioButton_dislikesPlayer->setChecked(player.getRating() == OwPlayer::Rating::Dislike);
+    this->isPlayerInfoDirty = false;
 
     this->updateStatsSiteButtons();
     this->updateToolButtons();
@@ -97,6 +102,9 @@ void PlayerInfoPaneWidget::saveCurrentPlayerInfo(void)
         return;
     }
 
+    this->player.setBattleTag(this->player.getBattleTag().trimmed());
+    this->ui->lineEdit_playerBattleTag->setText(this->player.getBattleTag());
+
     if (!this->player.save())
     {
         QMessageBox::critical(this, "Save Error", "Player info failed to save.");
@@ -160,6 +168,33 @@ void PlayerInfoPaneWidget::on_plainTextEdit_playerNote_textChanged(void)
     this->updateToolButtons();
 }
 
+void PlayerInfoPaneWidget::on_checkBox_isFavorite_toggled(bool checked)
+{
+    player.setFavorite(checked);
+    this->isPlayerInfoDirty = true;
+    this->updateToolButtons();
+}
+
+void PlayerInfoPaneWidget::on_radioButton_likesPlayer_toggled(bool checked)
+{
+    if (checked)
+    {
+        player.setRating(OwPlayer::Rating::Like);
+        this->isPlayerInfoDirty = true;
+        this->updateToolButtons();
+    }
+}
+
+void PlayerInfoPaneWidget::on_radioButto_undecidedPlayer_toggled(bool checked)
+{
+    if (checked)
+    {
+        player.setRating(OwPlayer::Rating::Undecided);
+        this->isPlayerInfoDirty = true;
+        this->updateToolButtons();
+    }
+}
+
 void PlayerInfoPaneWidget::on_toolButton_openUrlPlayOverwatch_clicked(void)
 {
     QDesktopServices::openUrl(QUrl("https://playoverwatch.com/en-us/career/" + this->player.getPlatform() + "/" + this->player.getRegion() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
@@ -173,4 +208,15 @@ void PlayerInfoPaneWidget::on_toolButton_openUrlMasterOverwatch_clicked(void)
 void PlayerInfoPaneWidget::on_toolButton_openUrlOverbuff_clicked(void)
 {
     QDesktopServices::openUrl(QUrl("https://www.overbuff.com/players/" + this->player.getPlatform() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
+}
+
+
+void PlayerInfoPaneWidget::on_radioButton_dislikesPlayer_toggled(bool checked)
+{
+    if (checked)
+    {
+        player.setRating(OwPlayer::Rating::Dislike);
+        this->isPlayerInfoDirty = true;
+        this->updateToolButtons();
+    }
 }

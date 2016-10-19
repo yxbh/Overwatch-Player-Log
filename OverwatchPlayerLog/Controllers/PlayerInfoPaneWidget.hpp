@@ -41,6 +41,10 @@ private slots:
     void on_lineEdit_playerBattleTag_textEdited(const QString & newBattleTag);
     void on_comboBox_owRegion_currentIndexChanged(const QString & region);
     void on_plainTextEdit_playerNote_textChanged(void);
+    void on_checkBox_isFavorite_toggled(bool checked);
+    void on_radioButton_likesPlayer_toggled(bool checked);
+    void on_radioButto_undecidedPlayer_toggled(bool checked);
+    void on_radioButton_dislikesPlayer_toggled(bool checked);
     void on_toolButton_openUrlPlayOverwatch_clicked();
     void on_toolButton_openUrlMasterOverwatch_clicked();
     void on_toolButton_openUrlOverbuff_clicked();
