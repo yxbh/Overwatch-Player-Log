@@ -99,6 +99,9 @@ QGroupBox {
     border: 0px solid lightgrey;
     padding: 5px;
 }
+QGroupBox::title {
+    padding: 3px;
+}
 
 QLabel {
     color: lightgrey;
@@ -151,6 +154,7 @@ QComboBox {
     padding: 4px;
 }
 QComboBox:hover {
+    color: white;
     background-color: rgb(62, 74, 100);
 }
 QComboBox:focus {
