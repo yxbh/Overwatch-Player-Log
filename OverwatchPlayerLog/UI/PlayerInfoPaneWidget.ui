@@ -224,6 +224,21 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_playerBattleTag</tabstop>
+  <tabstop>comboBox_owRegion</tabstop>
+  <tabstop>checkBox_isFavorite</tabstop>
+  <tabstop>radioButton_likesPlayer</tabstop>
+  <tabstop>radioButto_undecidedPlayer</tabstop>
+  <tabstop>radioButton_dislikesPlayer</tabstop>
+  <tabstop>plainTextEdit_playerNote</tabstop>
+  <tabstop>toolButton_savePlayerInfo</tabstop>
+  <tabstop>toolButton_updatePlayerInfo</tabstop>
+  <tabstop>toolButton_deletePlayerInfo</tabstop>
+  <tabstop>toolButton_openUrlOverbuff</tabstop>
+  <tabstop>toolButton_openUrlMasterOverwatch</tabstop>
+  <tabstop>toolButton_openUrlPlayOverwatch</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
