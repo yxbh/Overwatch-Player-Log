@@ -195,6 +195,16 @@ void PlayerInfoPaneWidget::on_radioButto_undecidedPlayer_toggled(bool checked)
     }
 }
 
+void PlayerInfoPaneWidget::on_radioButton_dislikesPlayer_toggled(bool checked)
+{
+    if (checked)
+    {
+        player.setRating(OwPlayer::Rating::Dislike);
+        this->isPlayerInfoDirty = true;
+        this->updateToolButtons();
+    }
+}
+
 void PlayerInfoPaneWidget::on_toolButton_openUrlPlayOverwatch_clicked(void)
 {
     QDesktopServices::openUrl(QUrl("https://playoverwatch.com/en-us/career/" + this->player.getPlatform() + "/" + this->player.getRegion() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
@@ -208,15 +218,4 @@ void PlayerInfoPaneWidget::on_toolButton_openUrlMasterOverwatch_clicked(void)
 void PlayerInfoPaneWidget::on_toolButton_openUrlOverbuff_clicked(void)
 {
     QDesktopServices::openUrl(QUrl("https://www.overbuff.com/players/" + this->player.getPlatform() + "/" + QString(this->player.getBattleTag()).replace("#", "-")));
-}
-
-
-void PlayerInfoPaneWidget::on_radioButton_dislikesPlayer_toggled(bool checked)
-{
-    if (checked)
-    {
-        player.setRating(OwPlayer::Rating::Dislike);
-        this->isPlayerInfoDirty = true;
-        this->updateToolButtons();
-    }
 }
