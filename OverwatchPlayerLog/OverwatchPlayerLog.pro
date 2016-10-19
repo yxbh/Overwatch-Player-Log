@@ -77,7 +77,8 @@ SOURCES += \
     Logics/DataSources/SqliteDataSource.cpp \
     Controllers/PlayerInfoPaneWidget.cpp \
     Logics/Exceptions/Exception.cpp \
-    Models/OwPlayerItem.cpp
+    Models/OwPlayerItem.cpp \
+    Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -90,7 +91,8 @@ HEADERS  += \
     Logics/DataSources/SqliteDataSource.hpp \
     Controllers/PlayerInfoPaneWidget.hpp \
     Logics/Exceptions/Exception.hpp \
-    Models/OwPlayerItem.hpp
+    Models/OwPlayerItem.hpp \
+    Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
