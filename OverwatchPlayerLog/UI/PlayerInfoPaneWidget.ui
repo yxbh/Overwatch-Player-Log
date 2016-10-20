@@ -96,12 +96,18 @@
        <property name="text">
         <string>save</string>
        </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_updatePlayerInfo">
        <property name="text">
         <string>update</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
        </property>
       </widget>
      </item>
