@@ -2,8 +2,8 @@ QWidget {
     text-transform: uppercase;
 }
 
-QMessageBox QLabel{ /* fix color for About Qt message box. */
-    color: black;
+QMessageBox {
+    background-color: rgb(41, 54, 82);
 }
 
 QMenuBar {
