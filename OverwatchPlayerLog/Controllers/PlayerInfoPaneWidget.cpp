@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include "ui_PlayerInfoPaneWidget.h"
 #include "App.hpp"
+#include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
 #include "Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp"
 #include "Logics/Config.hpp"
 
@@ -13,6 +14,7 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     player(player)
 {
     this->ui->setupUi(this);
+    this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->ui->plainTextEdit_playerNote->installEventFilter(new WidgetStyleApplicatorEventFilter(this));
     this->ui->lineEdit_playerBattleTag->setText(player.getBattleTag());
     this->ui->comboBox_owRegion->setCurrentText(player.getRegion());

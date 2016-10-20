@@ -3,6 +3,7 @@
 #include <QEvent>
 #include <QWidget>
 #include "Logics/Config.hpp"
+#include "Helpers/QEventNameHelper.hpp"
 
 WidgetStyleApplicatorEventFilter::WidgetStyleApplicatorEventFilter(QObject *parent) : QObject(parent)
 {
@@ -13,10 +14,11 @@ bool WidgetStyleApplicatorEventFilter::eventFilter(QObject *watched, QEvent *eve
 {
     static unsigned callCount = 0;
     ++callCount;
-    qDebug() << "eventFilter on " << watched->metaObject()->className() << ": " << callCount;
+    qDebug() << "eventFilter on " << watched->metaObject()->className() << ": " << callCount << "Event:" << QEventNameHelper::getEventClassName(event);
     if (nullptr == watched || nullptr == event)
-    { /* do nothing */ }
-    else if (watched->metaObject()->className() == QString("QPlainTextEdit"))
+        return false;
+
+    if (watched->metaObject()->className() == QString("QPlainTextEdit"))
     {
         switch (event->type())
         {
@@ -32,7 +34,6 @@ bool WidgetStyleApplicatorEventFilter::eventFilter(QObject *watched, QEvent *eve
         }
 
     }
-
 
     return false;
 }

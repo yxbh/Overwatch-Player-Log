@@ -6,6 +6,7 @@
 #include "Logics/Config.hpp"
 #include "App.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
+#include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
 #include "Logics/Exceptions/Exception.hpp"
 #include "Models/OwPlayerItem.hpp"
 
@@ -13,9 +14,10 @@ MainWindow::MainWindow(QWidget * parent) noexcept:
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    ui->mainToolBar->addAction(ui->action_LoadCustomStylesheet);
-    ui->mainToolBar->addAction(ui->action_ResetStylesheet);
+    this->ui->setupUi(this);
+    this->ui->mainToolBar->addAction(ui->action_LoadCustomStylesheet);
+    this->ui->mainToolBar->addAction(ui->action_ResetStylesheet);
+    this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->setupSignalsAndSlots();
     this->readSettings();
 

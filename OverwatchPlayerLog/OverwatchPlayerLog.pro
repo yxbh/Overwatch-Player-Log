@@ -78,7 +78,9 @@ SOURCES += \
     Controllers/PlayerInfoPaneWidget.cpp \
     Logics/Exceptions/Exception.cpp \
     Models/OwPlayerItem.cpp \
-    Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp
+    Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp \
+    Helpers/QEventNameHelper.cpp \
+    Extensions/Filters/WidgetFocusHandlerEventFilter.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -92,7 +94,9 @@ HEADERS  += \
     Controllers/PlayerInfoPaneWidget.hpp \
     Logics/Exceptions/Exception.hpp \
     Models/OwPlayerItem.hpp \
-    Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp
+    Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp \
+    Helpers/QEventNameHelper.hpp \
+    Extensions/Filters/WidgetFocusHandlerEventFilter.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
