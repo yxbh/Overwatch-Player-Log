@@ -3,8 +3,8 @@
 #include <QDebug>
 #include <QGuiApplication>
 #include <QMessageBox>
-#include "Logics/Config.hpp"
 #include "App.hpp"
+#include "Logics/Config.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
 #include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
 #include "Logics/Exceptions/Exception.hpp"
