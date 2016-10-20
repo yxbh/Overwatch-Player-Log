@@ -11,6 +11,9 @@ WidgetFocusHandlerEventFilter::WidgetFocusHandlerEventFilter(QObject *parent) : 
 
 bool WidgetFocusHandlerEventFilter::eventFilter(QObject *watched, QEvent *event)
 {
+    if (nullptr == watched || nullptr == event)
+        return false;
+
     auto focusWidget = qApp->focusWidget();
     if (nullptr != focusWidget && watched != focusWidget)
     {

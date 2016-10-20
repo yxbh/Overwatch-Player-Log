@@ -12,9 +12,9 @@ WidgetStyleApplicatorEventFilter::WidgetStyleApplicatorEventFilter(QObject *pare
 
 bool WidgetStyleApplicatorEventFilter::eventFilter(QObject *watched, QEvent *event)
 {
-    static unsigned callCount = 0;
-    ++callCount;
-    qDebug() << "eventFilter on " << watched->metaObject()->className() << ": " << callCount << "Event:" << QEventNameHelper::getEventClassName(event);
+//    static unsigned callCount = 0;
+//    ++callCount;
+//    qDebug() << "eventFilter on " << watched->metaObject()->className() << ": " << callCount << "Event:" << QEventNameHelper::getEventClassName(event);
     if (nullptr == watched || nullptr == event)
         return false;
 
