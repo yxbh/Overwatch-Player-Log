@@ -142,6 +142,14 @@ void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
     this->openPlayerInfoPane(player, player.getBattleTag());
 }
 
+void MainWindow::on_listView_favoritePlayers_doubleClicked(const QModelIndex &index)
+{
+    auto row = this->favoritePlayerFilterModel.mapToSource(index).row();
+    auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(row));
+    auto player = item->getPlayer();
+    this->openPlayerInfoPane(player, player.getBattleTag());
+}
+
 void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
 {
     this->allPlayerFilterModel.setFilterFixedString(searchText);

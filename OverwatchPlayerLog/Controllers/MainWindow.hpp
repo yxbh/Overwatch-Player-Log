@@ -48,6 +48,7 @@ private slots:
     void on_action_LoadCustomStylesheet_triggered(void);
     void on_action_ResetStylesheet_triggered(void);
     void on_listView_searchAll_doubleClicked(const QModelIndex & index);
+    void on_listView_favoritePlayers_doubleClicked(const QModelIndex &index);
     void on_lineEdit_searchBar_textChanged(const QString & searchText);
 };
 
