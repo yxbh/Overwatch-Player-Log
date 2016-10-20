@@ -45,9 +45,9 @@ private slots:
     void on_radioButton_likesPlayer_toggled(bool checked);
     void on_radioButto_undecidedPlayer_toggled(bool checked);
     void on_radioButton_dislikesPlayer_toggled(bool checked);
-    void on_toolButton_openUrlPlayOverwatch_clicked();
-    void on_toolButton_openUrlMasterOverwatch_clicked();
-    void on_toolButton_openUrlOverbuff_clicked();
+    void on_toolButton_openUrlPlayOverwatch_clicked(void);
+    void on_toolButton_openUrlMasterOverwatch_clicked(void);
+    void on_toolButton_openUrlOverbuff_clicked(void);
 };
 
 #endif // PLAYERINFOPANEWIDGET_HPP
