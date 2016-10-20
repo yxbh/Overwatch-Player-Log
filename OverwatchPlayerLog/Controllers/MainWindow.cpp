@@ -56,6 +56,10 @@ void MainWindow::writeSettings(void)
 
 void MainWindow::setupModels(void)
 {
+    this->favoritePlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    this->favoritePlayerFilterModel.setSourceModel(&this->allPlayersModel);
+    this->ui->listView_favoritePlayers->setModel(&this->favoritePlayerFilterModel);
+
     this->allPlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     this->allPlayerFilterModel.setSourceModel(&this->allPlayersModel);
     this->ui->listView_searchAll->setModel(&this->allPlayerFilterModel);
@@ -141,5 +145,6 @@ void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
 void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
 {
     this->allPlayerFilterModel.setFilterFixedString(searchText);
+    this->favoritePlayerFilterModel.setFilterFixedString(searchText);
     this->ui->tabWidget_playerLists->setCurrentIndex(1);
 }

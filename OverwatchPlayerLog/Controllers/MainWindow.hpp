@@ -4,6 +4,7 @@
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 #include "Logics/Entities/OwPlayer.hpp"
+#include "Models/FavoriteOwPlayerSortFilterProxyModel.hpp"
 
 namespace Ui
 {
@@ -17,6 +18,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
 
+    FavoriteOwPlayerSortFilterProxyModel favoritePlayerFilterModel;
     QSortFilterProxyModel allPlayerFilterModel;
     QStandardItemModel allPlayersModel;
 

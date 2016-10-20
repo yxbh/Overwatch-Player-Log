@@ -7,6 +7,7 @@ class OwPlayerItem : public QStandardItem
 {
 public:
     static constexpr int OwPlayerType = QStandardItem::UserType + 1;
+    static constexpr int OwPlayerIsFavoriteFlag = OwPlayerType + 1;
 
 private:
     OwPlayer player;
@@ -19,8 +20,11 @@ public:
     inline const OwPlayer & getPlayer(void) const { return this->player; }
 
     virtual int type(void) const final { return OwPlayerType; }
-    virtual QStandardItem * clone(void) const final { return new OwPlayerItem(this->player); }
-    virtual QVariant data(int role = Qt::UserRole + 1) const final;
+    virtual OwPlayerItem * clone(void) const final { return new OwPlayerItem(this->player); }
+    virtual QVariant data(int role = OwPlayerIsFavoriteFlag) const final;
 };
+
+Q_DECLARE_METATYPE(OwPlayerItem*)
+Q_DECLARE_METATYPE(const OwPlayerItem*)
 
 #endif // OWPLAYERITEM_H

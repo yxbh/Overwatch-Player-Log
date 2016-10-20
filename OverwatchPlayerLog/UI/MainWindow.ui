@@ -42,7 +42,7 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QListView" name="listView"/>
+               <widget class="QListView" name="listView_favoritePlayers"/>
               </item>
              </layout>
             </widget>

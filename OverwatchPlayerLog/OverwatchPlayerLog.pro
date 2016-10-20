@@ -79,7 +79,8 @@ SOURCES += \
     Models/OwPlayerItem.cpp \
     Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp \
     Helpers/QEventNameHelper.cpp \
-    Extensions/Filters/WidgetFocusHandlerEventFilter.cpp
+    Extensions/Filters/WidgetFocusHandlerEventFilter.cpp \
+    Models/FavoriteOwPlayerSortFilterProxyModel.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -94,7 +95,8 @@ HEADERS  += \
     Models/OwPlayerItem.hpp \
     Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp \
     Helpers/QEventNameHelper.hpp \
-    Extensions/Filters/WidgetFocusHandlerEventFilter.hpp
+    Extensions/Filters/WidgetFocusHandlerEventFilter.hpp \
+    Models/FavoriteOwPlayerSortFilterProxyModel.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
