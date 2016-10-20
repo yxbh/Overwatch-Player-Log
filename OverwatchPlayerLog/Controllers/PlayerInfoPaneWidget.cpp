@@ -117,19 +117,19 @@ void PlayerInfoPaneWidget::saveCurrentPlayerInfo(void)
     this->isPlayerInfoDirty = false;
     this->updateToolButtons();
     this->updateStatsSiteButtons();
-    qApp->focusWidget()->clearFocus();
+    if (qApp->focusWidget() && this->findChild<QWidget*>(qApp->focusWidget()->objectName()))
+        qApp->focusWidget()->clearFocus();
+    emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_savePlayerInfo_clicked(void)
 {
     this->saveCurrentPlayerInfo();
-    emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_updatePlayerInfo_clicked(void)
 {
     this->saveCurrentPlayerInfo();
-    emit playerInfoChanged(this->player);
 }
 
 void PlayerInfoPaneWidget::on_toolButton_deletePlayerInfo_clicked(void)
