@@ -42,7 +42,11 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QListView" name="listView_favoritePlayers"/>
+               <widget class="QListView" name="listView_favoritePlayers">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
