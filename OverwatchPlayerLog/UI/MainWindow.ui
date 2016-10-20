@@ -162,7 +162,7 @@
   </action>
   <action name="action_LoadCustomStylesheet">
    <property name="text">
-    <string>Load Custom Stylesheet</string>
+    <string>Reload Custom Stylesheet</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
