@@ -134,12 +134,34 @@ void MainWindow::on_action_ResetStylesheet_triggered(void)
     qApp->setStyleSheet("");
 }
 
+namespace
+{
+    QWidget * findTab(QTabWidget * tabWidget, const QString & tabText)
+    {
+        for (int tabIdx = 0; tabIdx < tabWidget->count(); ++tabIdx)
+        {
+            if (tabWidget->tabText(tabIdx) == tabText)
+                return tabWidget->widget(tabIdx);
+        }
+        return nullptr;
+    }
+}
+
 void MainWindow::on_listView_searchAll_doubleClicked(const QModelIndex & index)
 {
     auto row = this->allPlayerFilterModel.mapToSource(index).row();
     auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(row));
     auto player = item->getPlayer();
-    this->openPlayerInfoPane(player, player.getBattleTag());
+
+    auto existingTab = ::findTab(this->ui->tabWidget_playerInfos, player.getBattleTag());
+    if (nullptr != existingTab)
+    {
+        this->ui->tabWidget_playerInfos->setCurrentWidget(existingTab);
+    }
+    else
+    {
+        this->openPlayerInfoPane(player, player.getBattleTag());
+    }
 }
 
 void MainWindow::on_listView_favoritePlayers_doubleClicked(const QModelIndex &index)
@@ -147,7 +169,16 @@ void MainWindow::on_listView_favoritePlayers_doubleClicked(const QModelIndex &in
     auto row = this->favoritePlayerFilterModel.mapToSource(index).row();
     auto item = static_cast<OwPlayerItem*>(this->allPlayersModel.item(row));
     auto player = item->getPlayer();
-    this->openPlayerInfoPane(player, player.getBattleTag());
+
+    auto existingTab = ::findTab(this->ui->tabWidget_playerInfos, player.getBattleTag());
+    if (nullptr != existingTab)
+    {
+        this->ui->tabWidget_playerInfos->setCurrentWidget(existingTab);
+    }
+    else
+    {
+        this->openPlayerInfoPane(player, player.getBattleTag());
+    }
 }
 
 void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
