@@ -70,7 +70,6 @@ SOURCES += \
     Controllers/MainWindow.cpp \
     App.cpp \
     Logics/Config.cpp \
-    Logics/Helpers/JsonHelper.cpp \
     Logics/Entities/IEntity.cpp \
     Logics/Entities/OwPlayer.cpp \
     Logics/DataSources/IDataSource.cpp \
@@ -86,7 +85,6 @@ HEADERS  += \
     Controllers/MainWindow.hpp \
     App.hpp \
     Logics/Config.hpp \
-    Logics/Helpers/JsonHelper.hpp \
     Logics/Entities/IEntity.hpp \
     Logics/Entities/OwPlayer.hpp \
     Logics/DataSources/IDataSource.hpp \
