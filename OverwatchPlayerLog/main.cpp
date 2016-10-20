@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    qApp->setStyleSheet(Config::getGlobalStylesheet());
+
     qDebug() << "Creating main window";
     MainWindow window;
     qDebug() << "Showing main window";
