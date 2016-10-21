@@ -6,8 +6,11 @@
 class OwPlayerItem : public QStandardItem
 {
 public:
-    static constexpr int OwPlayerType = QStandardItem::UserType + 1;
-    static constexpr int OwPlayerIsFavoriteFlag = OwPlayerType + 1;
+    enum Role
+    {
+        OwPlayerType = QStandardItem::UserType + 1,
+        OwPlayerIsFavoriteFlag
+    };
 
 private:
     OwPlayer player;
