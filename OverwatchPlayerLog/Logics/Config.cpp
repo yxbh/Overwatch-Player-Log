@@ -37,7 +37,8 @@ QString Config::getDatabasePath(void)
 
 QString Config::getGlobalStylesheetPath(void)
 {
-    return settings->value("ui/stylesheet/global/path", ":/UI/default.uis").toString();
+//    return settings->value("ui/stylesheet/global/path", ":/UI/default.uis").toString();
+    return settings->value("ui/stylesheet/global/path", QCoreApplication::applicationDirPath() + "/default.uis").toString();
 }
 
 void Config::saveGlobalStylesheetPath(const QString & stylesheetPath)
@@ -48,6 +49,9 @@ void Config::saveGlobalStylesheetPath(const QString & stylesheetPath)
 
 QString Config::getGlobalStylesheet(void)
 {
+    if (!isUsingCustomStyleSheet())
+        return "";
+
     auto path = Config::getGlobalStylesheetPath();
     QFile stylesheetFile(path);
     if (!stylesheetFile.exists())
@@ -63,4 +67,14 @@ QString Config::getGlobalStylesheet(void)
     }
 
     return stylesheetFile.readAll();
+}
+
+bool Config::isUsingCustomStyleSheet(void)
+{
+    return settings->value("ui/stylesheet/useCustom", true).toBool();
+}
+
+void Config::setIsUsingCustomStyleSheet(bool isUsingCustomStyleSheet)
+{
+    settings->setValue("ui/stylesheet/useCustom", isUsingCustomStyleSheet);
 }

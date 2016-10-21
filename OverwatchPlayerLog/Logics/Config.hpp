@@ -24,6 +24,9 @@ public:
     static QString getGlobalStylesheetPath(void);
     static void saveGlobalStylesheetPath(const QString & stylesheetPath);
     static QString getGlobalStylesheet(void);
+
+    static bool isUsingCustomStyleSheet(void);
+    static void setIsUsingCustomStyleSheet(bool isUsingCustomStyleSheet = true);
 };
 
 #endif // CONFIG_H

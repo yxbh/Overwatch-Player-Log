@@ -125,13 +125,15 @@ void MainWindow::on_tabWidget_playerInfos_tabCloseRequested(int index)
 void MainWindow::on_action_LoadCustomStylesheet_triggered(void)
 {
     qDebug() << "Loading custom stylesheet";
+    Config::setIsUsingCustomStyleSheet(true);
     qApp->setStyleSheet(Config::getGlobalStylesheet());
 }
 
 void MainWindow::on_action_ResetStylesheet_triggered(void)
 {
     qDebug() << "Resetting stylesheet";
-    qApp->setStyleSheet("");
+    Config::setIsUsingCustomStyleSheet(false);
+    qApp->setStyleSheet(Config::getGlobalStylesheet());
 }
 
 namespace
