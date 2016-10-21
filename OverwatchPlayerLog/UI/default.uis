@@ -236,7 +236,7 @@ QDateTimeEdit {
     color: lightgrey;
     background-color: rgb(41, 54, 82);
     border: none;
-    padding: 4px 2px 2px 4px;
+    padding: 4px 2px 4px 2px;
 }
 
 MainWindow {
