@@ -155,8 +155,6 @@ void PlayerInfoPaneWidget::saveCurrentPlayerInfo(void)
     this->updateToolButtons();
     this->updatePlayerInfoDateTimes();
     this->updateStatsSiteButtons();
-//    if (qApp->focusWidget() && this->findChild<QWidget*>(qApp->focusWidget()->objectName()))
-//        qApp->focusWidget()->clearFocus();
     this->clearFocus();
     emit playerInfoChanged(this->player);
 }
