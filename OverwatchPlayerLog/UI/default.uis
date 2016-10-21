@@ -29,7 +29,7 @@ QMenu:selected {
     border: 1px solid deepskyblue;
 }
 QMenu::item {
-    color: lightgrey;
+    color: white;
     padding: 11px 17px 11px 17px;
 }
 QMenu::item:selected {
@@ -37,6 +37,7 @@ QMenu::item:selected {
     background-color: rgb(49, 56, 68);
 }
 QMenu::item:disabled {
+    color: lightgrey;
     text-decoration: line-through;
     background-color: rgb(29, 36, 48);
 }
