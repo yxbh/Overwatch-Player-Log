@@ -245,6 +245,23 @@
       </layout>
      </item>
      <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_12">
+     <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -266,6 +283,11 @@
          </property>
          <item>
           <widget class="QLabel" name="label_creationDateTime">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Created</string>
            </property>
@@ -278,6 +300,11 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
            </property>
            <property name="readOnly">
             <bool>true</bool>
@@ -296,6 +323,11 @@
          </property>
          <item>
           <widget class="QLabel" name="label_lastUpdateDateTime">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Updated</string>
            </property>
@@ -303,6 +335,17 @@
          </item>
          <item>
           <widget class="QDateTimeEdit" name="dateTimeEdit_lastUpdate">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="readOnly">
             <bool>true</bool>
            </property>
@@ -327,12 +370,14 @@
   <tabstop>radioButto_undecidedPlayer</tabstop>
   <tabstop>radioButton_dislikesPlayer</tabstop>
   <tabstop>plainTextEdit_playerNote</tabstop>
-  <tabstop>toolButton_savePlayerInfo</tabstop>
-  <tabstop>toolButton_updatePlayerInfo</tabstop>
-  <tabstop>toolButton_deletePlayerInfo</tabstop>
   <tabstop>toolButton_openUrlOverbuff</tabstop>
   <tabstop>toolButton_openUrlMasterOverwatch</tabstop>
   <tabstop>toolButton_openUrlPlayOverwatch</tabstop>
+  <tabstop>toolButton_savePlayerInfo</tabstop>
+  <tabstop>toolButton_updatePlayerInfo</tabstop>
+  <tabstop>toolButton_deletePlayerInfo</tabstop>
+  <tabstop>dateTimeEdit_creation</tabstop>
+  <tabstop>dateTimeEdit_lastUpdate</tabstop>
  </tabstops>
  <resources/>
  <connections/>
