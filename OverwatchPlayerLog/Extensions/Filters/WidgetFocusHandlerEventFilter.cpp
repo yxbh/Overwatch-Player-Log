@@ -2,8 +2,21 @@
 #include <QDebug>
 #include <QApplication>
 #include <QMouseEvent>
+#include <QStringList>
 #include <QWidget>
 #include "Helpers/QEventNameHelper.hpp"
+
+namespace
+{
+    static const QStringList WidgetList = []() {
+        QStringList list;
+        list.append("QLineEdit");
+        list.append("QPlainTextEdit");
+        list.append("QListView");
+        list.append("QDateTimeEdit");
+        return list;
+    }();
+}
 
 WidgetFocusHandlerEventFilter::WidgetFocusHandlerEventFilter(QObject *parent) : QObject(parent)
 {
@@ -24,9 +37,7 @@ bool WidgetFocusHandlerEventFilter::eventFilter(QObject *watched, QEvent *event)
         event->type() == QEvent::MouseButtonDblClick)
     {
         auto focusWidgetClassName = focusWidget->metaObject()->className();
-        if (focusWidgetClassName == QString("QLineEdit") ||
-            focusWidgetClassName == QString("QPlainTextEdit") ||
-            focusWidgetClassName == QString("QListView"))
+        if (::WidgetList.contains(focusWidgetClassName))
         {
             auto mouseEvent = static_cast<const QMouseEvent*>(event);
             if (!focusWidget->rect().contains(focusWidget->mapFromGlobal(mouseEvent->globalPos())))
