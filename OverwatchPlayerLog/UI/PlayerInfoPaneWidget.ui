@@ -19,64 +19,82 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
-      <widget class="QLabel" name="label_playerBattleTag">
-       <property name="text">
-        <string>Player</string>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>2</number>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_playerBattleTag">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maxLength">
-        <number>50</number>
-       </property>
-       <property name="placeholderText">
-        <string>Player BattleTag</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Region</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox_owRegion">
        <item>
-        <property name="text">
-         <string>US</string>
-        </property>
+        <widget class="QLabel" name="label_playerBattleTag">
+         <property name="text">
+          <string>Player</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string>EU</string>
-        </property>
+        <widget class="QLineEdit" name="lineEdit_playerBattleTag">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maxLength">
+          <number>50</number>
+         </property>
+         <property name="placeholderText">
+          <string>Player BattleTag</string>
+         </property>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string>KR</string>
-        </property>
-       </item>
-      </widget>
+      </layout>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_isFavorite">
-       <property name="text">
-        <string>Favorite</string>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <property name="spacing">
+        <number>2</number>
        </property>
-      </widget>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Region</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_owRegion">
+         <item>
+          <property name="text">
+           <string>US</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>EU</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>KR</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QCheckBox" name="checkBox_isFavorite">
+         <property name="text">
+          <string>Favorite</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <spacer name="horizontalSpacer">
@@ -85,43 +103,53 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>37</width>
+         <height>17</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_savePlayerInfo">
-       <property name="text">
-        <string>save</string>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <property name="spacing">
+        <number>2</number>
        </property>
-       <property name="shortcut">
-        <string>Ctrl+S</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="toolButton_updatePlayerInfo">
-       <property name="text">
-        <string>update</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+S</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="toolButton_deletePlayerInfo">
-       <property name="text">
-        <string>delete</string>
-       </property>
-      </widget>
+       <item>
+        <widget class="QToolButton" name="toolButton_savePlayerInfo">
+         <property name="text">
+          <string>save</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+S</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="toolButton_updatePlayerInfo">
+         <property name="text">
+          <string>update</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+S</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="toolButton_deletePlayerInfo">
+         <property name="text">
+          <string>delete</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item>
       <widget class="QRadioButton" name="radioButton_likesPlayer">
        <property name="text">
@@ -187,22 +215,12 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="spacing">
+        <number>2</number>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QToolButton" name="toolButton_openUrlOverbuff">
          <property name="text">
@@ -223,6 +241,77 @@
           <string>PlayOverwatch</string>
          </property>
         </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="spacing">
+          <number>1</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_creationDateTime">
+           <property name="text">
+            <string>Created</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateTimeEdit" name="dateTimeEdit_creation">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="spacing">
+          <number>1</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_lastUpdateDateTime">
+           <property name="text">
+            <string>Updated</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateTimeEdit" name="dateTimeEdit_lastUpdate">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>

@@ -27,6 +27,7 @@ protected:
 
 private:
     void updateStatsSiteButtons(void);
+    void updatePlayerInfoDateTimes(void);
     void updateToolButtons(void);
 
     void saveCurrentPlayerInfo(void);

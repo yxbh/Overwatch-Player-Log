@@ -51,7 +51,7 @@ QToolButton, QPushButton {
     color: lightgrey;
     background-color: rgb(41, 54, 82);
     border: none;
-    padding: 5px;
+    padding: 4px 4px 4px 4px;
 }
 QToolButton:hover, QPushButton:hover {
     color: white;
@@ -110,7 +110,7 @@ QLabel {
 
 QRadioButton {
     color: lightgrey;
-    padding: 3px;
+    padding: 4px 2px 4px 2px;
 }
 QRadioButton:hover {
     color: white;
@@ -130,7 +130,7 @@ QRadioButton::indicator:unchecked {
 
 QCheckBox {
     color: lightgrey;
-    padding: 3px;
+    padding: 4px 3px 4px 3px;
 }
 QCheckBox:hover {
     color: white;
@@ -152,7 +152,7 @@ QComboBox {
     color: lightgrey;
     background-color: rgb(41, 54, 82);
     border: none;
-    padding: 4px;
+    padding: 4px 2px 4px 2px;
 }
 QComboBox:hover {
     color: white;
@@ -221,7 +221,7 @@ QLineEdit {
     color: rgb(246,247,249);
     background-color: rgb(41, 54, 82);
     border: none;
-    padding: 4px;
+    padding: 4px 2px 4px 2px;
 }
 QLineEdit:hover {
     background-color: rgb(62, 74, 100);
@@ -229,6 +229,14 @@ QLineEdit:hover {
 QLineEdit:focus {
     color: black;
     background-color: white;
+}
+
+QDateTimeEdit {
+    qproperty-alignment: "AlignLeft | AlignTop";
+    color: lightgrey;
+    background-color: rgb(41, 54, 82);
+    border: none;
+    padding: 4px 2px 2px 4px;
 }
 
 MainWindow {

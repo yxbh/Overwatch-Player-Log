@@ -1,5 +1,6 @@
 #ifndef OWPLAYERENTITY_H
 #define OWPLAYERENTITY_H
+#include <QDateTime>
 #include <QString>
 #include <QUuid>
 #include "IEntity.hpp"
@@ -26,6 +27,9 @@ private:
     Rating rating;
     QString note;
 
+    QDateTime creationDateTime;
+    QDateTime lastUpdateDateTime;
+
 public:
     OwPlayer();
 
@@ -36,6 +40,8 @@ public:
     inline const QString & getRegion(void) const { return this->region; }
     inline Rating getRating(void) const { return this->rating; }
     inline const QString & getNote(void) const { return this->note; }
+    inline const QDateTime & getCreationDateTime(void) const { return this->creationDateTime; }
+    inline const QDateTime & getLastUpdateDateTime(void) const { return this->lastUpdateDateTime; }
     inline bool isFavorite(void) const { return this->isFavoritePlayer; }
 
     inline OwPlayer & setBattleTag(const QString & btag) { this->battleTag = btag; return *this; }
@@ -43,6 +49,8 @@ public:
     inline OwPlayer & setRegion(const QString & region) { this->region = region; return *this; }
     inline OwPlayer & setRating(Rating rating) { this->rating = rating; return *this; }
     inline OwPlayer & setNote(const QString & note) { this->note = note; return *this; }
+    inline OwPlayer & setCreationDateTime(const QDateTime & dateTime) { this->creationDateTime = dateTime; return *this; }
+    inline OwPlayer & setLastUpdateDateTime(const QDateTime & dateTime) { this->lastUpdateDateTime = dateTime; return *this; }
     inline OwPlayer & setFavorite(bool isFavorite) { this->isFavoritePlayer = isFavorite; return *this; }
 
     virtual bool validate(void);

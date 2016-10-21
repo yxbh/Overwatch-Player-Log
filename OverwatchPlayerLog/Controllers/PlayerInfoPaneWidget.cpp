@@ -25,6 +25,7 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     this->ui->radioButton_dislikesPlayer->setChecked(player.getRating() == OwPlayer::Rating::Dislike);
     this->isPlayerInfoDirty = false;
 
+    this->updatePlayerInfoDateTimes();
     this->updateStatsSiteButtons();
     this->updateToolButtons();
 }
@@ -74,6 +75,27 @@ void PlayerInfoPaneWidget::updateStatsSiteButtons(void)
     }
 }
 
+void PlayerInfoPaneWidget::updatePlayerInfoDateTimes(void)
+{
+    this->ui->dateTimeEdit_creation->setDateTime(this->player.getCreationDateTime());
+    this->ui->dateTimeEdit_lastUpdate->setDateTime(this->player.getLastUpdateDateTime());
+
+    if (this->player.isNew())
+    {
+        this->ui->label_creationDateTime->hide();
+        this->ui->dateTimeEdit_creation->hide();
+        this->ui->label_lastUpdateDateTime->hide();
+        this->ui->dateTimeEdit_lastUpdate->hide();
+    }
+    else
+    {
+        this->ui->label_creationDateTime->show();
+        this->ui->dateTimeEdit_creation->show();
+        this->ui->label_lastUpdateDateTime->show();
+        this->ui->dateTimeEdit_lastUpdate->show();
+    }
+}
+
 void PlayerInfoPaneWidget::updateToolButtons(void)
 {
     auto dataSource = App::getInstance()->getDataSource();
@@ -99,26 +121,43 @@ void PlayerInfoPaneWidget::updateToolButtons(void)
 
 void PlayerInfoPaneWidget::saveCurrentPlayerInfo(void)
 {
+    // simple process battle tag
+    auto battleTag = this->ui->lineEdit_playerBattleTag->text().trimmed();
+    this->ui->lineEdit_playerBattleTag->setText(battleTag);
+    this->player.setBattleTag(battleTag);
+
+    // validate player
     if (!this->player.validate())
     {
         QMessageBox::critical(this, "Validation Error", "Validation failed. Save cancelled");
         return;
     }
 
-    this->player.setBattleTag(this->player.getBattleTag().trimmed());
-    this->ui->lineEdit_playerBattleTag->setText(this->player.getBattleTag());
+    // setup update datetime
+    bool isNewPlayer = this->player.isNew();
+    auto previousLastUpdateDateTime = this->player.getLastUpdateDateTime();
+    auto currentDateTime = QDateTime::currentDateTime();
+    if (isNewPlayer)
+    {
+        this->player.setCreationDateTime(currentDateTime);
+    }
+    this->player.setLastUpdateDateTime(currentDateTime);
 
     if (!this->player.save())
     {
+        this->player.setLastUpdateDateTime(previousLastUpdateDateTime); // restore previous update datetime.
         QMessageBox::critical(this, "Save Error", "Player info failed to save.");
         return;
     }
 
+    // update controller states.
     this->isPlayerInfoDirty = false;
     this->updateToolButtons();
+    this->updatePlayerInfoDateTimes();
     this->updateStatsSiteButtons();
-    if (qApp->focusWidget() && this->findChild<QWidget*>(qApp->focusWidget()->objectName()))
-        qApp->focusWidget()->clearFocus();
+//    if (qApp->focusWidget() && this->findChild<QWidget*>(qApp->focusWidget()->objectName()))
+//        qApp->focusWidget()->clearFocus();
+    this->clearFocus();
     emit playerInfoChanged(this->player);
 }
 
