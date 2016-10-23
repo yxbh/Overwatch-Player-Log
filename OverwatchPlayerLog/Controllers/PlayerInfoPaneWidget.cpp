@@ -13,6 +13,7 @@ PlayerInfoPaneWidget::PlayerInfoPaneWidget(QWidget *parent, OwPlayer player) :
     ui(new Ui::PlayerInfoPaneWidget),
     player(player)
 {
+    this->setAttribute(Qt::WA_DeleteOnClose);
     this->ui->setupUi(this);
     this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->ui->plainTextEdit_playerNote->installEventFilter(new WidgetStyleApplicatorEventFilter(this));
