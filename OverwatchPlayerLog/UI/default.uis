@@ -2,6 +2,10 @@ QWidget {
     text-transform: uppercase;
 }
 
+QDialog {
+    background-color: rgb(73, 96, 163);
+}
+
 QMessageBox {
     background-color: rgb(41, 54, 82);
 }
@@ -232,7 +236,7 @@ QLineEdit:focus {
 }
 
 QDateTimeEdit {
-    qproperty-alignment: "AlignLeft | AlignTop";
+    qproperty-alignment: "AlignLeft | AlignVCenter";
     color: lightgrey;
     background-color: rgb(41, 54, 82);
     border: none;

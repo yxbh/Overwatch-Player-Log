@@ -6,6 +6,7 @@
 #include "App.hpp"
 #include "Logics/Config.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
+#include "Controllers/PreferencesDialog.hpp"
 #include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
 #include "Logics/Exceptions/Exception.hpp"
 #include "Models/OwPlayerItem.hpp"
@@ -188,4 +189,9 @@ void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
     this->allPlayerFilterModel.setFilterFixedString(searchText);
     this->favoritePlayerFilterModel.setFilterFixedString(searchText);
     this->ui->tabWidget_playerLists->setCurrentIndex(1);
+}
+
+void MainWindow::on_actionPreferences_triggered(void)
+{
+    (new PreferencesDialog(this))->show();
 }

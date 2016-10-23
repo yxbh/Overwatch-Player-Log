@@ -80,7 +80,8 @@ SOURCES += \
     Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp \
     Helpers/QEventNameHelper.cpp \
     Extensions/Filters/WidgetFocusHandlerEventFilter.cpp \
-    Models/FavoriteOwPlayerSortFilterProxyModel.cpp
+    Models/FavoriteOwPlayerSortFilterProxyModel.cpp \
+    Controllers/PreferencesDialog.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -96,11 +97,13 @@ HEADERS  += \
     Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp \
     Helpers/QEventNameHelper.hpp \
     Extensions/Filters/WidgetFocusHandlerEventFilter.hpp \
-    Models/FavoriteOwPlayerSortFilterProxyModel.hpp
+    Models/FavoriteOwPlayerSortFilterProxyModel.hpp \
+    Controllers/PreferencesDialog.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
-    UI/PlayerInfoPaneWidget.ui
+    UI/PlayerInfoPaneWidget.ui \
+    UI/PreferencesDialog.ui
 
 DISTFILES += \
     Resources/OPL.config

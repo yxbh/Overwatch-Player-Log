@@ -110,9 +110,9 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="separator"/>
     <addaction name="action_AddPlayer"/>
+    <addaction name="separator"/>
+    <addaction name="actionPreferences"/>
     <addaction name="separator"/>
     <addaction name="action_ExitApp"/>
    </widget>
@@ -171,6 +171,11 @@
   <action name="action_ResetStylesheet">
    <property name="text">
     <string>Reset Stylesheet</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
    </property>
   </action>
  </widget>

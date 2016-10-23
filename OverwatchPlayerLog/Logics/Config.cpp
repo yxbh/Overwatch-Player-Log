@@ -37,8 +37,7 @@ QString Config::getDatabasePath(void)
 
 QString Config::getGlobalStylesheetPath(void)
 {
-//    return settings->value("ui/stylesheet/global/path", ":/UI/default.uis").toString();
-    return settings->value("ui/stylesheet/global/path", QCoreApplication::applicationDirPath() + "/default.uis").toString();
+    return settings->value("ui/stylesheet/global/path", ":/UI/default.uis").toString();
 }
 
 void Config::saveGlobalStylesheetPath(const QString & stylesheetPath)
