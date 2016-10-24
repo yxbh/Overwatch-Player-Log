@@ -38,6 +38,9 @@ void PreferencesDialog::on_pushButton_browseCustomStylesheet_clicked(void)
     }
 
     Config::saveGlobalStylesheetPath(stylesheetPath);
+    Config::setIsUsingCustomStyleSheet(true);
+    qApp->setStyleSheet(Config::getGlobalStylesheet());
+    this->ui->checkBox_useCustomStylesheet->setChecked(Config::isUsingCustomStyleSheet());
 }
 
 void PreferencesDialog::on_pushButton_reloadCustomStylesheet_clicked(void)
