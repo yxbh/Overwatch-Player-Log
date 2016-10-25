@@ -106,6 +106,7 @@ QGroupBox {
 }
 QGroupBox::title {
     padding: 3px;
+    top: -4px;
 }
 
 QLabel {
