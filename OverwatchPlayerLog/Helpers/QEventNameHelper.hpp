@@ -6,7 +6,7 @@
 class QEventNameHelper
 {
 public:
-    static QString getEventClassName(const QEvent * event);
+    static QString toEventName(const QEvent * event);
 private:
     QEventNameHelper(void) = delete;
 };

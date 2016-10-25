@@ -9,7 +9,7 @@ namespace
 }
 
 // ref: http://stackoverflow.com/questions/22535469/how-to-get-human-readable-event-type-from-qevent
-QString QEventNameHelper::getEventClassName(const QEvent * event)
+QString QEventNameHelper::toEventName(const QEvent * event)
 {
     static int eventEnumIndex = QEvent::staticMetaObject.indexOfEnumerator("Type");
     if (event)
