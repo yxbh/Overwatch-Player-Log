@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget * parent) noexcept:
     ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
-    this->ui->mainToolBar->addAction(ui->action_LoadCustomStylesheet);
-    this->ui->mainToolBar->addAction(ui->action_ResetStylesheet);
     this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->setupSignalsAndSlots();
     this->readSettings();
@@ -191,7 +189,7 @@ void MainWindow::on_lineEdit_searchBar_textChanged(const QString & searchText)
     this->ui->tabWidget_playerLists->setCurrentIndex(1);
 }
 
-void MainWindow::on_actionPreferences_triggered(void)
+void MainWindow::on_action_Preferences_triggered(void)
 {
     (new PreferencesDialog(this))->show();
 }

@@ -112,7 +112,7 @@
     </property>
     <addaction name="action_AddPlayer"/>
     <addaction name="separator"/>
-    <addaction name="actionPreferences"/>
+    <addaction name="action_Preferences"/>
     <addaction name="separator"/>
     <addaction name="action_ExitApp"/>
    </widget>
@@ -129,6 +129,10 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_AddPlayer"/>
+   <addaction name="separator"/>
+   <addaction name="action_LoadCustomStylesheet"/>
+   <addaction name="action_ResetStylesheet"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_About">
@@ -146,10 +150,10 @@
   </action>
   <action name="action_AddPlayer">
    <property name="text">
-    <string>Add New Player</string>
+    <string>New Player</string>
    </property>
    <property name="toolTip">
-    <string>Add New Player</string>
+    <string>Add a new player entry.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -173,7 +177,7 @@
     <string>Reset Stylesheet</string>
    </property>
   </action>
-  <action name="actionPreferences">
+  <action name="action_Preferences">
    <property name="text">
     <string>Preferences</string>
    </property>
