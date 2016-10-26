@@ -1,9 +1,11 @@
 #include "PreferencesDialog.hpp"
 #include "ui_PreferencesDialog.h"
 #include <QDebug>
-#include "QFileDialog"
+#include <QFileDialog>
+#include <QMessageBox>
 #include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
 #include "Logics/Config.hpp"
+#include "Logics/Exceptions/Exception.hpp"
 
 PreferencesDialog::PreferencesDialog(QWidget *parent) :
     QDialog(parent),
@@ -16,6 +18,7 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) :
 
     this->ui->checkBox_useCustomStylesheet->setChecked(Config::isUsingCustomStyleSheet());
     this->ui->lineEdit_customStylesheetPath->setText(Config::getGlobalStylesheetPath());
+    this->ui->lineEdit_playerInforDatabasePath->setText(Config::getDatabasePath());
 }
 
 PreferencesDialog::~PreferencesDialog(void)
@@ -61,4 +64,20 @@ void PreferencesDialog::on_checkBox_useCustomStylesheet_toggled(bool checked)
 {
     Config::setIsUsingCustomStyleSheet(checked);
     qApp->setStyleSheet(Config::getGlobalStylesheet());
+}
+
+void PreferencesDialog::on_pushButton_browsePlayerInfoDatabase_clicked(void)
+{
+    auto databasePath = QFileDialog::getOpenFileName(this, "Open Database");
+    if (databasePath.isEmpty())
+        return;
+
+    try
+    {
+        Config::saveDatabasePath(databasePath);
+    }
+    catch (Exception & e)
+    {
+        QMessageBox::critical(this, "Error Saving database path", e.what());
+    }
 }

@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QFile>
+#include "Logics/Exceptions/Exception.hpp"
 
 std::unique_ptr<QSettings> Config::settings; // { QSettings::IniFormat, QSettings::UserScope, QCoreApplication::organizationName(), QCoreApplication::applicationName() };
 
@@ -33,6 +34,16 @@ void Config::saveMainWindowSize(const QSize & size)
 QString Config::getDatabasePath(void)
 {
     return settings->value("datasource/database/path", "datasource.sqlite3").toString();
+}
+
+void Config::saveDatabasePath(const QString & databasePath)
+{
+    if (databasePath.isEmpty())
+        throw Exception("Tried to save empty database path");
+    if (databasePath.section(".", 1, 1) != "sqlite3")
+        throw Exception("Tried to save invalid database file [" + databasePath + "]");
+
+    settings->setValue("datasource/database/path", databasePath);
 }
 
 QString Config::getGlobalStylesheetPath(void)

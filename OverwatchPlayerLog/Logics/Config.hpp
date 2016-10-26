@@ -20,6 +20,7 @@ public:
     static void saveMainWindowSize(const QSize & size);
 
     static QString getDatabasePath(void);
+    static void saveDatabasePath(const QString & databasePath);
 
     static QString getGlobalStylesheetPath(void);
     static void saveGlobalStylesheetPath(const QString & stylesheetPath);
