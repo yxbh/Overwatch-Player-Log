@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>UI/default.uis</file>
         <file>Resources/UI/cancel.png</file>
+        <file alias="APP_ICON_SVG">Resources/Icons/app-icon.svg</file>
+        <file alias="APP_ICON">Resources/Icons/app-icon.ico</file>
+        <file>Resources/Icons/app-icon.png.hqx</file>
+        <file>Resources/Icons/app-icon.png.icns</file>
     </qresource>
 </RCC>
