@@ -75,6 +75,7 @@ void PreferencesDialog::on_pushButton_browsePlayerInfoDatabase_clicked(void)
     try
     {
         Config::saveDatabasePath(databasePath);
+        this->ui->lineEdit_playerInforDatabasePath->setText(databasePath);
     }
     catch (Exception & e)
     {
