@@ -97,6 +97,22 @@ PRE_TARGETDEPS += gen_version
 HEADERS  += version.hpp
 #
 
+#
+# Read in build number for Windows rc file build number purpose.
+# This requires qmake to be executed again each time before the rc file is updated with a newer build number.
+# The build number will always be behind to the true build number by atleast 1 due to the fact that the resource
+# object is compiled before the scripts are executed to replace the build number.
+# (there's no way AFAIK to circumvent this with out using a manually generated rc file instead of the qmake generated one)
+#
+win32 {
+    RC_INJECT_VERHEADER_CMD = rc-verheader-inject.bat $${TARGET}_resource.rc 000 build-no.txt
+    rc_verheader_inject.commands = $${RC_INJECT_VERHEADER_CMD}
+    rc_verheader_inject.depends = FORCE
+    QMAKE_EXTRA_TARGETS += rc_verheader_inject
+    PRE_TARGETDEPS += rc_verheader_inject
+}
+#
+
 target.path += $${DESTDIR}
 target.files = Resources/OPL.config
 INSTALLS += target
