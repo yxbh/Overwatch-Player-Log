@@ -74,7 +74,7 @@ void MainWindow::refreshModels(void)
             this->allPlayersModel.appendRow(new OwPlayerItem(player));
         }
     }
-    catch (Exception & e)
+    catch (const Exception & e)
     {
         QMessageBox::critical(this, tr("Critical Error"), tr("Error refreshing the data models.\n") + e.what());
     }
