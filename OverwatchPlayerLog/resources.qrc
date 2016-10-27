@@ -4,7 +4,7 @@
         <file>Resources/UI/cancel.png</file>
         <file alias="APP_ICON_SVG">Resources/Icons/app-icon.svg</file>
         <file alias="APP_ICON">Resources/Icons/app-icon.ico</file>
-        <file>Resources/Icons/app-icon.png.hqx</file>
-        <file>Resources/Icons/app-icon.png.icns</file>
+        <file>Resources/Icons/app-icon.hqx</file>
+        <file>Resources/Icons/app-icon.icns</file>
     </qresource>
 </RCC>
