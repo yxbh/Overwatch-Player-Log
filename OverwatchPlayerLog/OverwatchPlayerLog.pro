@@ -12,6 +12,24 @@ TARGET = OverwatchPlayerLogger
 TEMPLATE = app
 
 #
+# Version configuration
+#
+APP_VERSION_MAJOR = 1
+APP_VERSION_MINOR = 0
+APP_VERSION_PATCH = 0
+VERSION = $${APP_VERSION_MAJOR}.$${APP_VERSION_MINOR}.$${APP_VERSION_PATCH}.000
+#
+
+#
+# Organisation, product & copyright details.
+#
+QMAKE_TARGET_COMPANY = Benjamin huang @ Infinity Box Studio
+QMAKE_TARGET_PRODUCT = Overwatch Player Log
+QMAKE_TARGET_DESCRIPTION = Cool App
+QMAKE_TARGET_COPYRIGHT = All rights reserved.
+#
+
+#
 # Configure release & debug build directories.
 #   - DESTDIR:      binary output
 #   - OBJECTS_DIR:  object files output
@@ -59,6 +77,24 @@ CONFIG(release, debug|release) { # Release build dirs
     unix!macx:  RCC_DIR     = $${BUILDDIRUNIXREL}/rsc
     unix!macx:  UI_DIR      = $${BUILDDIRUNIXREL}/ui
 }
+#
+
+#
+# Logic for generating a C++ version header file.
+#
+#
+VERSION_GEN_CMD = dummyValue
+win32 {
+    VERSION_GEN_CMD = version-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+}
+unix {
+    VERSION_GEN_CMD = version-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+}
+gen_version.commands = $${VERSION_GEN_CMD}
+gen_version.depends = FORCE
+QMAKE_EXTRA_TARGETS += gen_version
+PRE_TARGETDEPS += gen_version
+HEADERS  += version.hpp
 #
 
 target.path += $${DESTDIR}
