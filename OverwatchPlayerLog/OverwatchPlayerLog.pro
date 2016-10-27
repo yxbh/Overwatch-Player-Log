@@ -111,12 +111,13 @@ DISTFILES += \
 RESOURCES += \
     resources.qrc
 
-# Windows
-RC_FILE = Resources/app_windows.rc
-
-# MacOS
+#
+# App icon configuration.
+#
 macx {
     ICON = Resources/Icons/app-icon.icns
-} else {
-    ICON = Resources/Icons/app-icon.svg
 }
+win32 {
+    RC_ICONS = Resources/Icons/app-icon.ico
+}
+#
