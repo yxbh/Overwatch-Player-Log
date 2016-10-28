@@ -62,3 +62,5 @@ Build/
 Deploy/
 *.DEBUG
 *.RELEASE
+*.rc
+OverwatchPlayerLog/version.hpp
