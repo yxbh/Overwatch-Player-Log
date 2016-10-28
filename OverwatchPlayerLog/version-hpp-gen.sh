@@ -11,8 +11,8 @@ cat <<EOT > version.hpp
 #define APP_VER_MINOR $2
 #define APP_VER_PATCH $3
 #define APP_VER_BUILD_NUMBER $number
-#define APP_VER_SEMANTIC "%1.%2.%3"
-#define APP_VER_FULL "%1.%2.%3.%var%"
+#define APP_VER_SEMANTIC "$1.$2.$3"
+#define APP_VER_FULL "$1.$2.$3.$number"
 
 namespace app
 {
@@ -22,8 +22,8 @@ static constexpr unsigned MAJOR = $1;
 static constexpr unsigned MINOR = $2;
 static constexpr unsigned PATCH = $3;
 static constexpr unsigned BUILD_NUMBER = $number;
-static const     char* const SEMANTIC = "%1.%2.%3";
-static const     char* const FULL = "%1.%2.%3.%var%";
+static const     char* const SEMANTIC = "$1.$2.$3";
+static const     char* const FULL = "$1.$2.$3.$number";
 }
 }
 EOT
