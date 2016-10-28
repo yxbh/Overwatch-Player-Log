@@ -203,3 +203,9 @@ void MainWindow::on_action_Preferences_triggered(void)
 {
     (new PreferencesDialog(this))->show();
 }
+
+void MainWindow::on_action_FindPlayer_triggered(void)
+{
+    qDebug() << "Action: find player";
+    this->ui->lineEdit_searchBar->setFocus();
+}

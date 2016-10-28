@@ -52,6 +52,7 @@ private slots:
     void on_listView_favoritePlayers_doubleClicked(const QModelIndex &index);
     void on_lineEdit_searchBar_textChanged(const QString & searchText);
     void on_action_Preferences_triggered(void);
+    void on_action_FindPlayer_triggered(void);
 };
 
 #endif // MAINWINDOW_HPP
