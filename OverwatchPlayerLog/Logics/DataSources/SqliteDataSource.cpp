@@ -81,8 +81,9 @@ SqliteDataSource::SqliteDataSource(void)
 bool SqliteDataSource::connect(void)
 {
     qDebug() << "connecting data source.";
-    this->database = QSqlDatabase::addDatabase("QSQLITE");
+    this->database = QSqlDatabase::addDatabase("QSQLITE", "playerInfo");
     this->database.setDatabaseName(Config::getDatabasePath());
+    qDebug() << "opening database [" << Config::getDatabasePath() << "]";
     if (!this->database.open())
     {
         qDebug() << "Failure opening database. error: " + this->database.lastError().text();
