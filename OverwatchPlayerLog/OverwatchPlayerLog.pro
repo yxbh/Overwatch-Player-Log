@@ -85,10 +85,10 @@ CONFIG(release, debug|release) { # Release build dirs
 #
 VERSION_GEN_CMD = dummyValue
 win32 {
-    VERSION_GEN_CMD = version-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+    VERSION_GEN_CMD = version-hpp-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
 }
 unix {
-    VERSION_GEN_CMD = version-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+    VERSION_GEN_CMD = version-hpp-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
 }
 gen_version.commands = $${VERSION_GEN_CMD}
 gen_version.depends = FORCE
