@@ -13,6 +13,7 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) :
 {
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->ui->tabWidget->setFocus();
 
