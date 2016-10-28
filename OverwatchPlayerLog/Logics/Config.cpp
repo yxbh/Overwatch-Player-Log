@@ -1,6 +1,7 @@
 #include "Config.hpp"
 #include <QDebug>
 #include <QCoreApplication>
+#include <QDir>
 #include <QFile>
 #include "Logics/Exceptions/Exception.hpp"
 
@@ -33,7 +34,16 @@ void Config::saveMainWindowSize(const QSize & size)
 
 QString Config::getDatabasePath(void)
 {
-    return settings->value("datasource/database/path", "datasource.sqlite3").toString();
+    auto dbFileName = "datasource.sqlite3";
+#if defined(Q_OS_MAC)
+    QDir dir;
+    dir.cd("..");dir.cd("..");dir.cd("..");
+    auto defaultDbPath = dir.absolutePath() + "/" + dbFileName;
+#else
+    auto defaultDbPath = dbFileName;
+#endif
+            ;
+    return settings->value("datasource/database/path", defaultDbPath).toString();
 }
 
 void Config::saveDatabasePath(const QString & databasePath)
