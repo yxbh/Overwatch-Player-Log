@@ -64,3 +64,4 @@ Deploy/
 *.RELEASE
 *.rc
 OverwatchPlayerLog/version.hpp
+OverwatchPlayerLog/appinfo.hpp
