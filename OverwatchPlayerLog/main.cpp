@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QString>
+#include <QSqlError>
 #include "Controllers/MainWindow.hpp"
 #include "Logics/Config.hpp"
 #include "App.hpp"
@@ -19,8 +20,9 @@ int main(int argc, char *argv[])
 
     if (!App::getInstance()->intitaliseDataSource())
     {
-        QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"), "Error initialising the applicaiton data source.");
-        return -1;
+        QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"),
+                              "Error initialising the applicaiton data source.\n\"" +
+                              App::getInstance()->getDataSource()->getConnection()->lastError().text() + '"');
     }
 
     qApp->setStyleSheet(Config::getGlobalStylesheet());
