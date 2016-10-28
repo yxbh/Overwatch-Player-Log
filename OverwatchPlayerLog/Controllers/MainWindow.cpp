@@ -56,24 +56,28 @@ void MainWindow::writeSettings(void)
 
 void MainWindow::setupModels(void)
 {
-    this->favoritePlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
-    this->favoritePlayerFilterModel.setSourceModel(&this->allPlayersModel);
-    this->ui->listView_favoritePlayers->setModel(&this->favoritePlayerFilterModel);
-
-    this->allPlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     this->allPlayerFilterModel.setSourceModel(&this->allPlayersModel);
+    this->allPlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    this->allPlayerFilterModel.setSortCaseSensitivity(Qt::CaseInsensitive);
     this->ui->listView_searchAll->setModel(&this->allPlayerFilterModel);
+
+    this->favoritePlayerFilterModel.setSourceModel(&this->allPlayersModel);
+    this->favoritePlayerFilterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    this->favoritePlayerFilterModel.setSortCaseSensitivity(Qt::CaseInsensitive);
+    this->ui->listView_favoritePlayers->setModel(&this->favoritePlayerFilterModel);
 }
 
 void MainWindow::refreshModels(void)
 {
-    this->allPlayersModel.clear();
     try
     {
+        this->allPlayersModel.clear();
         for (auto player : App::getInstance()->getDataSource()->getAllPlayers())
         {
             this->allPlayersModel.appendRow(new OwPlayerItem(player));
         }
+        this->allPlayerFilterModel.sort(0);
+        this->favoritePlayerFilterModel.sort(0);
     }
     catch (const Exception & e)
     {
