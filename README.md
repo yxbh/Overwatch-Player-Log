@@ -1,2 +1,2 @@
-# Overwatch-Player-Log
-An application for recording info of players that enjoyed (or otherwise) playing with.
+# Overwatch Player Log
+Overwatch Player Log is a simple utility application that allows you to record your favorite (or not!) players that you have met.
