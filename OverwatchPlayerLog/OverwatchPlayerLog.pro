@@ -168,7 +168,7 @@ win32 {
     VERSION_GEN_CMD = version-hpp-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
 }
 unix {
-    VERSION_GEN_CMD = version-hpp-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+    VERSION_GEN_CMD = bash version-hpp-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
 }
 gen_version.commands = $${VERSION_GEN_CMD}
 gen_version.depends = FORCE
@@ -186,7 +186,7 @@ win32 {
     APPINFO_GEN_CMD = appinfo-hpp-gen.bat \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
 }
 unix {
-    APPINFO_GEN_CMD = appinfo-hpp-gen.sh \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
+    APPINFO_GEN_CMD = bash appinfo-hpp-gen.sh \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
 }
 gen_appinfo.commands = $${APPINFO_GEN_CMD}
 gen_appinfo.depends = FORCE
