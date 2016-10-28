@@ -13,10 +13,10 @@ namespace app
 {
 namespace info
 {
-static constexpr char* COMPANY = "%~1";
-static constexpr char* PRODUCT = "%~2";
-static constexpr char* DESCRIPTION = "%~3";
-static constexpr char* COPYRIGHT = "%~4";
+static const char* const COMPANY = "%~1";
+static const char* const PRODUCT = "%~2";
+static const char* const DESCRIPTION = "%~3";
+static const char* const COPYRIGHT = "%~4";
 }
 } 
 EOT

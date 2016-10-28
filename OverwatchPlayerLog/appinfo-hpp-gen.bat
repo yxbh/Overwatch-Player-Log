@@ -12,10 +12,10 @@ echo namespace app
 echo {
 echo namespace info
 echo {
-echo static constexpr char* COMPANY = "%~1";
-echo static constexpr char* PRODUCT = "%~2";
-echo static constexpr char* DESCRIPTION = "%~3";
-echo static constexpr char* COPYRIGHT = "%~4";
+echo static const char* const COMPANY = "%~1";
+echo static const char* const PRODUCT = "%~2";
+echo static const char* const DESCRIPTION = "%~3";
+echo static const char* const COPYRIGHT = "%~4";
 echo }
 echo } 
 ) >appinfo.hpp

@@ -11,6 +11,8 @@ echo #define APP_VER_MAJOR %1
 echo #define APP_VER_MINOR %2
 echo #define APP_VER_PATCH %3
 echo #define APP_VER_BUILD_NUMBER %var%
+echo #define APP_VER_SEMANTIC "%1.%2.%3"
+echo #define APP_VER_FULL "%1.%2.%3.%var%"
 echo.
 echo namespace app
 echo {
@@ -20,6 +22,8 @@ echo static constexpr unsigned MAJOR = %1;
 echo static constexpr unsigned MINOR = %2;
 echo static constexpr unsigned PATCH = %3;
 echo static constexpr unsigned BUILD_NUMBER = %var%;
+echo static const     char* const SEMANTIC = "%1.%2.%3";
+echo static const     char* const FULL = "%1.%2.%3.%var%";
 echo }
 echo } 
 ) >version.hpp
