@@ -21,10 +21,12 @@ int main(int argc, char *argv[])
     if (!App::getInstance()->intitaliseDataSource())
     {
         QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"),
-                              "Error initialising the applicaiton data source.\n\"" +
-                              App::getInstance()->getDataSource()->getConnection()->lastError().text() + '"');
-        App::destroyInstance();
-        return EXIT_FAILURE;
+                              QObject::tr("Error initialising the applicaiton data source.\n") +
+                              "\"" + App::getInstance()->getDataSource()->getConnection()->lastError().text() + "\"\n\n" +
+                              QObject::tr("The application may not have the correct access privilege to the database file or the file does not exist at path [") +
+                              Config::getDatabasePath() +"].");
+//        App::destroyInstance();
+//        return EXIT_FAILURE;
     }
 
     qApp->setStyleSheet(Config::getGlobalStylesheet());
