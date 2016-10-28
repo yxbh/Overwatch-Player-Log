@@ -34,7 +34,7 @@ void Config::saveMainWindowSize(const QSize & size)
 
 QString Config::getDatabasePath(void)
 {
-    auto dbFileName = "datasource.sqlite3";
+    auto dbFileName = "opl_db.sqlite3";
 #if defined(Q_OS_MAC)
     QDir dir(QCoreApplication::applicationDirPath());
     dir.cd("..");dir.cd("..");dir.cd("..");
