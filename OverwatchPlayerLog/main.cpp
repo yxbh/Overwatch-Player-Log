@@ -5,11 +5,14 @@
 #include "Controllers/MainWindow.hpp"
 #include "Logics/Config.hpp"
 #include "App.hpp"
+#include "appinfo.hpp"
+#include "version.hpp"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setOrganizationName("IBS");
-    QCoreApplication::setApplicationName("OPL");
+    QCoreApplication::setOrganizationName(app::info::COMPANY);
+    QCoreApplication::setApplicationName(app::info::PRODUCT);
+    QCoreApplication::setApplicationVersion(app::version::FULL);
     Config::initialise();
 
     QApplication app(argc, argv);
