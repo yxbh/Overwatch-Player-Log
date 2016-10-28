@@ -80,43 +80,8 @@ CONFIG(release, debug|release) { # Release build dirs
 #
 
 #
-# Logic for generating a C++ version header file.
+# Source files.
 #
-#
-VERSION_GEN_CMD = dummyValue
-win32 {
-    VERSION_GEN_CMD = version-hpp-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
-}
-unix {
-    VERSION_GEN_CMD = version-hpp-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
-}
-gen_version.commands = $${VERSION_GEN_CMD}
-gen_version.depends = FORCE
-QMAKE_EXTRA_TARGETS += gen_version
-PRE_TARGETDEPS += gen_version
-HEADERS  += version.hpp
-#
-
-#
-# Read in build number for Windows rc file build number purpose.
-# This requires qmake to be executed again each time before the rc file is updated with a newer build number.
-# The build number will always be behind to the true build number by atleast 1 due to the fact that the resource
-# object is compiled before the scripts are executed to replace the build number.
-# (there's no way AFAIK to circumvent this with out using a manually generated rc file instead of the qmake generated one)
-#
-win32 {
-    RC_INJECT_VERHEADER_CMD = rc-verheader-inject.bat $${TARGET}_resource.rc 000 build-no.txt
-    rc_verheader_inject.commands = $${RC_INJECT_VERHEADER_CMD}
-    rc_verheader_inject.depends = FORCE
-    QMAKE_EXTRA_TARGETS += rc_verheader_inject
-    PRE_TARGETDEPS += rc_verheader_inject
-}
-#
-
-target.path += $${DESTDIR}
-target.files = Resources/OPL.config
-INSTALLS += target
-
 SOURCES += \
     main.cpp\
     Controllers/MainWindow.cpp \
@@ -165,6 +130,7 @@ DISTFILES += \
 
 RESOURCES += \
     resources.qrc
+#
 
 #
 # App icon configuration.
@@ -175,4 +141,38 @@ macx {
 win32 {
     RC_ICONS = Resources/Icons/app-icon.ico
 }
+#
+
+#
+# Read in build number for Windows rc file build number purpose.
+# This requires qmake to be executed again each time before the rc file is updated with a newer build number.
+# The build number will always be behind to the true build number by atleast 1 due to the fact that the resource
+# object is compiled before the scripts are executed to replace the build number.
+# (there's no way AFAIK to circumvent this with out using a manually generated rc file instead of the qmake generated one)
+#
+win32 {
+    RC_INJECT_VERHEADER_CMD = rc-verheader-inject.bat $${TARGET}_resource.rc 000 build-no.txt
+    rc_verheader_inject.commands = $${RC_INJECT_VERHEADER_CMD}
+    rc_verheader_inject.depends = FORCE
+    QMAKE_EXTRA_TARGETS += rc_verheader_inject
+    PRE_TARGETDEPS += rc_verheader_inject
+}
+#
+
+#
+# Logic for generating a C++ version header file.
+#
+#
+VERSION_GEN_CMD = dummyValue
+win32 {
+    VERSION_GEN_CMD = version-hpp-gen.bat $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+}
+unix {
+    VERSION_GEN_CMD = version-hpp-gen.sh $${APP_VERSION_MAJOR} $${APP_VERSION_MINOR} $${APP_VERSION_PATCH}
+}
+gen_version.commands = $${VERSION_GEN_CMD}
+gen_version.depends = FORCE
+QMAKE_EXTRA_TARGETS += gen_version
+PRE_TARGETDEPS += gen_version
+HEADERS  += version.hpp
 #
