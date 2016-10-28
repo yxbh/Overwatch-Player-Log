@@ -133,7 +133,8 @@ SOURCES += \
     Helpers/QEventNameHelper.cpp \
     Extensions/Filters/WidgetFocusHandlerEventFilter.cpp \
     Models/FavoriteOwPlayerSortFilterProxyModel.cpp \
-    Controllers/PreferencesDialog.cpp
+    Controllers/PreferencesDialog.cpp \
+    Controllers/AboutDialog.cpp
 
 HEADERS  += \
     Controllers/MainWindow.hpp \
@@ -150,12 +151,14 @@ HEADERS  += \
     Helpers/QEventNameHelper.hpp \
     Extensions/Filters/WidgetFocusHandlerEventFilter.hpp \
     Models/FavoriteOwPlayerSortFilterProxyModel.hpp \
-    Controllers/PreferencesDialog.hpp
+    Controllers/PreferencesDialog.hpp \
+    Controllers/AboutDialog.hpp
 
 FORMS    += \
     UI/MainWindow.ui \
     UI/PlayerInfoPaneWidget.ui \
-    UI/PreferencesDialog.ui
+    UI/PreferencesDialog.ui \
+    UI/AboutDialog.ui
 
 DISTFILES += \
     Resources/OPL.config
