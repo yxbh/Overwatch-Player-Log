@@ -53,6 +53,7 @@ private slots:
     void on_lineEdit_searchBar_textChanged(const QString & searchText);
     void on_action_Preferences_triggered(void);
     void on_action_FindPlayer_triggered(void);
+    void on_tabWidget_playerLists_currentChanged(int index);
 };
 
 #endif // MAINWINDOW_HPP

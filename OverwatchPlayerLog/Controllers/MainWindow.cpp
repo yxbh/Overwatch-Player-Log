@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget * parent) noexcept:
     ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
+    this->ui->tabWidget_playerLists->setCurrentIndex(Config::getLastMainWindowPlayerListTabWidgetIndex());
     this->installEventFilter(new WidgetFocusHandlerEventFilter(this));
     this->setupSignalsAndSlots();
     this->readSettings();
@@ -208,4 +209,9 @@ void MainWindow::on_action_FindPlayer_triggered(void)
 {
     qDebug() << "Action: find player";
     this->ui->lineEdit_searchBar->setFocus();
+}
+
+void MainWindow::on_tabWidget_playerLists_currentChanged(int index)
+{
+    Config::setLastMainWindowPlayerListTabWidgetIndex(index);
 }

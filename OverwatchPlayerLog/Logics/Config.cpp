@@ -88,3 +88,13 @@ void Config::setIsUsingCustomStyleSheet(bool isUsingCustomStyleSheet)
 {
     settings->setValue("ui/stylesheet/useCustom", isUsingCustomStyleSheet);
 }
+
+int Config::getLastMainWindowPlayerListTabWidgetIndex(void)
+{
+    return settings->value("mainWindow/currentPlayerListTabIndex", 0).toInt();
+}
+
+void Config::setLastMainWindowPlayerListTabWidgetIndex(int index)
+{
+    settings->setValue("mainWindow/currentPlayerListTabIndex", index);
+}

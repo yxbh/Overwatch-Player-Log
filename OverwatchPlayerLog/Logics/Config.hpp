@@ -28,6 +28,9 @@ public:
 
     static bool isUsingCustomStyleSheet(void);
     static void setIsUsingCustomStyleSheet(bool isUsingCustomStyleSheet = true);
+
+    static int getLastMainWindowPlayerListTabWidgetIndex(void);
+    static void setLastMainWindowPlayerListTabWidgetIndex(int index);
 };
 
 #endif // CONFIG_H
