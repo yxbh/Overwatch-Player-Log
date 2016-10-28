@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     if (!App::getInstance()->intitaliseDataSource())
     {
-        QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"), "Error initialising the applicaiton data soruce.");
+        QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"), "Error initialising the applicaiton data source.");
         return -1;
     }
 
