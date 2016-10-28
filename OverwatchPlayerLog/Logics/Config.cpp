@@ -36,7 +36,7 @@ QString Config::getDatabasePath(void)
 {
     auto dbFileName = "datasource.sqlite3";
 #if defined(Q_OS_MAC)
-    QDir dir;
+    QDir dir(QCoreApplication::applicationDirPath());
     dir.cd("..");dir.cd("..");dir.cd("..");
     auto defaultDbPath = dir.absolutePath() + "/" + dbFileName;
 #else
