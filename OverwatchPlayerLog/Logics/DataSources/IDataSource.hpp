@@ -1,5 +1,6 @@
 #ifndef IDATASOURCE_H
 #define IDATASOURCE_H
+#include <QSqlDatabase>
 #include <QStringList>
 #include <QVector>
 #include "Logics/Entities/OwPlayer.hpp"
@@ -14,6 +15,8 @@ public:
     /// \return true if successful.
     ///
     virtual bool connect(void) = 0;
+
+    virtual QSqlDatabase * getConnection(void) = 0;
 
     ///
     /// \brief Initialise the inner database's tables. Create and/or update them if necessary

@@ -91,6 +91,11 @@ bool SqliteDataSource::connect(void)
     return true;
 }
 
+QSqlDatabase * SqliteDataSource::getConnection(void)
+{
+    return &this->database;
+}
+
 bool SqliteDataSource::initialiseTables(void)
 {
     qDebug() << "Initialising database tables.";

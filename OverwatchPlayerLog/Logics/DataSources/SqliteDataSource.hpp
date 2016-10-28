@@ -13,6 +13,9 @@ public:
     SqliteDataSource(void);
 
     virtual bool connect(void) final;
+
+    virtual QSqlDatabase * getConnection(void) final;
+
     virtual bool initialiseTables(void) final;
 
     virtual QStringList getAllPlayerNames(void) final;
