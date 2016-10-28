@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "App.hpp"
 #include "Logics/Config.hpp"
+#include "Controllers/AboutDialog.hpp"
 #include "Controllers/PlayerInfoPaneWidget.hpp"
 #include "Controllers/PreferencesDialog.hpp"
 #include "Extensions/Filters/WidgetFocusHandlerEventFilter.hpp"
@@ -109,6 +110,11 @@ void MainWindow::on_action_ExitApp_triggered(void)
 void MainWindow::on_action_AboutQt_triggered(void)
 {
     qApp->aboutQt();
+}
+
+void MainWindow::on_action_About_triggered(void)
+{
+    (new AboutDialog(this))->show();
 }
 
 void MainWindow::on_action_AddPlayer_triggered(void)

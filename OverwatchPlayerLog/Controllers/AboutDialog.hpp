@@ -11,12 +11,13 @@ class AboutDialog : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit AboutDialog(QWidget *parent = 0);
-    ~AboutDialog();
-
 private:
     Ui::AboutDialog *ui;
+
+public:
+    explicit AboutDialog(QWidget *parent = nullptr);
+    ~AboutDialog(void);
+
 };
 
 #endif // ABOUTDIALOG_HPP

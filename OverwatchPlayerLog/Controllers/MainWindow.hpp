@@ -43,6 +43,7 @@ private slots:
 
     void on_action_ExitApp_triggered(void);
     void on_action_AboutQt_triggered(void);
+    void on_action_About_triggered(void);
     void on_action_AddPlayer_triggered(void);
     void on_tabWidget_playerInfos_tabCloseRequested(int index);
     void on_action_LoadCustomStylesheet_triggered(void);
