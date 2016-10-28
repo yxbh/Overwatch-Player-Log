@@ -176,3 +176,21 @@ QMAKE_EXTRA_TARGETS += gen_version
 PRE_TARGETDEPS += gen_version
 HEADERS  += version.hpp
 #
+
+#
+# Logic for generating a C++ app info header file.
+#
+#
+APPINFO_GEN_CMD = dummyValue
+win32 {
+    APPINFO_GEN_CMD = appinfo-hpp-gen.bat \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
+}
+unix {
+    APPINFO_GEN_CMD = appinfo-hpp-gen.sh \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
+}
+gen_appinfo.commands = $${APPINFO_GEN_CMD}
+gen_appinfo.depends = FORCE
+QMAKE_EXTRA_TARGETS += gen_appinfo
+PRE_TARGETDEPS += gen_appinfo
+HEADERS  += appinfo.hpp
+#
