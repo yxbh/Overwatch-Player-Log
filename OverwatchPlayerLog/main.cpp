@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
         QMessageBox::critical(nullptr, QObject::tr("Critical DataSource Error"),
                               "Error initialising the applicaiton data source.\n\"" +
                               App::getInstance()->getDataSource()->getConnection()->lastError().text() + '"');
+        App::destroyInstance();
+        return EXIT_FAILURE;
     }
 
     qApp->setStyleSheet(Config::getGlobalStylesheet());
