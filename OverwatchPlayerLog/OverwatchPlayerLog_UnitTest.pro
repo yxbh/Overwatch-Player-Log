@@ -62,50 +62,10 @@ CONFIG(release, debug|release) { # Release build dirs
 #
 
 SOURCES += \
-    Controllers/MainWindow.cpp \
-    App.cpp \
-    Logics/Config.cpp \
-    Logics/Entities/IEntity.cpp \
-    Logics/Entities/OwPlayer.cpp \
-    Logics/DataSources/IDataSource.cpp \
-    Logics/DataSources/SqliteDataSource.cpp \
-    Controllers/PlayerInfoPaneWidget.cpp \
-    Logics/Exceptions/Exception.cpp \
-    Models/OwPlayerItem.cpp \
-    Extensions/Filters/WidgetStyleApplicatorEventFilter.cpp \
-    Helpers/QEventNameHelper.cpp \
-    Extensions/Filters/WidgetFocusHandlerEventFilter.cpp \
-    Models/FavoriteOwPlayerSortFilterProxyModel.cpp \
-    Controllers/PreferencesDialog.cpp \
     main_unittest.cpp \
     Helpers/QEventNameHelper_UnitTest.cpp
 
 HEADERS  += \
-    Controllers/MainWindow.hpp \
-    App.hpp \
-    Logics/Config.hpp \
-    Logics/Entities/IEntity.hpp \
-    Logics/Entities/OwPlayer.hpp \
-    Logics/DataSources/IDataSource.hpp \
-    Logics/DataSources/SqliteDataSource.hpp \
-    Controllers/PlayerInfoPaneWidget.hpp \
-    Logics/Exceptions/Exception.hpp \
-    Models/OwPlayerItem.hpp \
-    Extensions/Filters/WidgetStyleApplicatorEventFilter.hpp \
     Helpers/QEventNameHelper.hpp \
-    Extensions/Filters/WidgetFocusHandlerEventFilter.hpp \
-    Models/FavoriteOwPlayerSortFilterProxyModel.hpp \
-    Controllers/PreferencesDialog.hpp \
     Libs/CatchUnitTest/Catch \
     Libs/CatchUnitTest/catch.hpp
-
-FORMS    += \
-    UI/MainWindow.ui \
-    UI/PlayerInfoPaneWidget.ui \
-    UI/PreferencesDialog.ui
-
-DISTFILES += \
-    Resources/OPL.config
-
-RESOURCES += \
-    resources.qrc
