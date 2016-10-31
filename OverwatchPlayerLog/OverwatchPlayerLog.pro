@@ -183,7 +183,7 @@ win32 {
 #
 APPINFO_GEN_CMD = dummyValue
 win32 {
-    APPINFO_GEN_CMD = powershell . .\appinfo-hpp-gen.ps1 -targetCompany \"\"\"$${QMAKE_TARGET_COMPANY}\"\"\" -targetProduct \"\"\"$${QMAKE_TARGET_PRODUCT}\"\"\" -targetDescription \"\"\"$${QMAKE_TARGET_DESCRIPTION}\"\"\" -targetCopyright \"\"\"$${QMAKE_TARGET_COPYRIGHT}\"\"\"
+    APPINFO_GEN_CMD = powershell . .\appinfo-hpp-gen.ps1 -targetCompany \\\"\\\"\\\"$${QMAKE_TARGET_COMPANY}\\\"\\\"\\\" -targetProduct \\\"\\\"\\\"$${QMAKE_TARGET_PRODUCT}\\\"\\\"\\\" -targetDescription \\\"\\\"\\\"$${QMAKE_TARGET_DESCRIPTION}\\\"\\\"\\\" -targetCopyright \\\"\\\"\\\"$${QMAKE_TARGET_COPYRIGHT}\\\"\\\"\\\"
 }
 unix {
     APPINFO_GEN_CMD = bash appinfo-hpp-gen.sh \"$${QMAKE_TARGET_COMPANY}\" \"$${QMAKE_TARGET_PRODUCT}\" \"$${QMAKE_TARGET_DESCRIPTION}\" \"$${QMAKE_TARGET_COPYRIGHT}\"
