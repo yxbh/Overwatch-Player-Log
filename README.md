@@ -5,6 +5,7 @@
 [![Latest release](https://img.shields.io/github/release/yxbh/Overwatch-Player-Log.svg)](https://github.com/yxbh/Overwatch-Player-Log/releases/latest)
 [![license](https://img.shields.io/github/license/yxbh/Overwatch-Player-Log.svg)](https://github.com/yxbh/Overwatch-Player-Log/LICENSE)
 [![Build Status](https://travis-ci.org/yxbh/Overwatch-Player-Log.svg?branch=master)](https://travis-ci.org/yxbh/Overwatch-Player-Log)
+[![AppVeyor](https://img.shields.io/appveyor/ci/yxbh/Overwatch-Player-Log.svg)](https://ci.appveyor.com/project/yxbh/overwatch-player-log)
 [![Github Releases](https://img.shields.io/github/downloads/yxbh/Overwatch-Player-Log/latest/total.svg)](https://github.com/yxbh/Overwatch-Player-Log/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/yxbh/Overwatch-Player-Log/total.svg)](https://github.com/vlc-qt/vlc-qt/releases)
 
