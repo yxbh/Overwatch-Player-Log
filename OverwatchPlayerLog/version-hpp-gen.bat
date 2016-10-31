@@ -1,7 +1,9 @@
 @REM reference: http://stackoverflow.com/questions/1417061/automatic-increment-of-build-number-in-qt-creator
 @REM build.no.txt file may not exist when first run. Create the file with '0' as content.
 
-@echo off 
+@echo off
+set file="build-no.txt"
+if not EXIST %file% type nul>%file%
 set /p var= <build-no.txt 
 set /a var= %var%+1 
 >build-no.txt echo %var%
