@@ -63,6 +63,7 @@ CONFIG(release, debug|release) { # Release build dirs
 
 SOURCES += \
     main_unittest.cpp \
+    Helpers/QEventNameHelper.cpp \
     Helpers/QEventNameHelper_UnitTest.cpp
 
 HEADERS  += \
