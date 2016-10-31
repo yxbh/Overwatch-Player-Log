@@ -3,4 +3,4 @@ install:
   - set PATH=%PATH%;%QTDIR%\bin;%QTDIR%\Tools\mingw530_32\bin;C:\MinGW\bin
 
 build_script:
-  - . .\Scripts/CI/AppVeyor/build_script.ps1
+  - powershell . .\Scripts/CI/AppVeyor/build_script.ps1
