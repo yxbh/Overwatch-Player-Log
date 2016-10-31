@@ -2,11 +2,11 @@
 @REM build.no.txt file may not exist when first run. Create the file with '0' as content.
 
 @echo off
-set file="build-no.txt"
-if not EXIST %file% type nul>%file%
-set /p var= <build-no.txt 
+set bldNumFile="build-no.txt"
+if not EXIST %bldNumFile% type nul>%bldNumFile%
+set /p var= <%bldNumFile%
 set /a var= %var%+1 
->build-no.txt echo %var%
+>%bldNumFile% echo %var%
 (
 echo #pragma once
 echo #define APP_VER_MAJOR %1
