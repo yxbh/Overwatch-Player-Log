@@ -2,6 +2,8 @@ install:
   - set QTDIR=C:\Qt\5.7\mingw53_32
   - set PATH=%PATH%;%QTDIR%\bin;%QTDIR%\Tools\mingw530_32\binC:\MinGW\bin
 build_script:
+  - pwd
+  - ls -l
   - cd Overwatch-Player-Log
   - qmake Overwatch-Player-Log.pro
   - mingw32-make
