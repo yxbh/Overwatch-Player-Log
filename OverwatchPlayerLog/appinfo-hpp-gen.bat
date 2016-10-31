@@ -1,6 +1,6 @@
 @REM reference: http://stackoverflow.com/questions/1417061/automatic-increment-of-build-number-in-qt-creator
 
-@echo off 
+REM @echo off
 (
 echo #pragma once
 echo #define APP_INFO_COMPANY     "%~1"
