@@ -6,8 +6,8 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      compiler: gcc
-    - os: osx
+      compiler: g++
+    # - os: osx
 
 before_install: . Scripts/CI/Travis-CI/$TRAVIS_OS_NAME/before_install.sh
 
