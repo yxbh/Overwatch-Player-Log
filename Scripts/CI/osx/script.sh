@@ -10,3 +10,5 @@ ls -l
 make
 qmake OverwatchPlayerLog_UnitTest.pro -r
 make
+
+popd
