@@ -4,6 +4,6 @@ install:
 build_script:
   - pwd
   - ls -l
-  - cd Overwatch-Player-Log
+  - cd OverwatchPlayerLog
   - qmake Overwatch-Player-Log.pro
   - mingw32-make
