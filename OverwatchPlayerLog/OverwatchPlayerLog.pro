@@ -169,7 +169,7 @@ HEADERS  += version.hpp
 # (there's no way AFAIK to circumvent this with out using a manually generated rc file instead of the qmake generated one)
 #
 win32 {
-    RC_INJECT_VERHEADER_CMD = rc-verheader-inject.bat $${TARGET}_resource.rc 000 build-no.txt
+    RC_INJECT_VERHEADER_CMD = rc-verheader-inject.bat \"$${TARGET}_resource.rc\" \"000\" \"build-no.txt\"
     rc_verheader_inject.commands = $${RC_INJECT_VERHEADER_CMD}
     rc_verheader_inject.depends = FORCE
     QMAKE_EXTRA_TARGETS += rc_verheader_inject
