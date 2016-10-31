@@ -27,6 +27,8 @@ script:
   - qmake OverwatchPlayerLog.pro -r "CONFIG+=debug"
   - ls -l
   - make
+  - qmake OverwatchPlayerLog_UnitTest.pro -r
+  - make
 
 notifications:
   email: false
