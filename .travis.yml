@@ -22,8 +22,7 @@ install:
 script:
   - qmake OverwatchPlayerLog/OverwatchPlayerLog.pro -r "CONFIG+=debug"
   - cd OverwatchPlayerLog
-  - make
-  - make check
+  - make Makefile.Debug
 
 notifications:
   email: false
