@@ -14,6 +14,5 @@ install: . Scripts/CI/$TRAVIS_OS_NAME/install.sh
 
 script: . Scripts/CI/$TRAVIS_OS_NAME/script.sh
 
-
 notifications:
   email: false
