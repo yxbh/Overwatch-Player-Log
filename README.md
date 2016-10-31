@@ -1,5 +1,7 @@
 ![Overwatch Player Log](https://raw.githubusercontent.com/yxbh/Overwatch-Player-Log/v1.0.0/OverwatchPlayerLog/Resources/Icons/app-icon.ico)
 # Overwatch Player Log
+[![Build Status](https://travis-ci.org/yxbh/Overwatch-Player-Log.svg?branch=master)](https://travis-ci.org/yxbh/Overwatch-Player-Log)
+
 Overwatch Player Log is a simple utility application that allows you to record your favorite (or not!) players that you have met in Overwatch.
 
 ![Overwatch Player Log](https://raw.githubusercontent.com/yxbh/Overwatch-Player-Log/v1.0.0/Doc/screenshots/mainWindow.png)
