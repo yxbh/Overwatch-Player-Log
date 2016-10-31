@@ -1,7 +1,7 @@
 # reference: http://stackoverflow.com/questions/1417061/automatic-increment-of-build-number-in-qt-creator
 
 #!/bin/bash
-let file="build-no.txt"
+file="build-no.txt"
 touch "$file" 2>/dev/null || { echo "Cannot write to $file" >&2; exit 1; }
 
 number=`cat build-no.txt`
