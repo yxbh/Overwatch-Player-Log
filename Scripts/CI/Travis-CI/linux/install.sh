@@ -8,5 +8,5 @@ cat /opt/qt57/bin/qt57-env.sh
 echo '#### end script content ####'
 
 echo $0
-source /opt/qt57/bin/qt57-env.sh
-#echo 'bash /opt/qt57/bin/qt57-env.sh'
+# source /opt/qt57/bin/qt57-env.sh
+echo 'source /opt/qt57/bin/qt57-env.sh'
