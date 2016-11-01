@@ -2,11 +2,11 @@
 set -ev
 
 pwd
-ls -l
+# ls -l
 cd OverwatchPlayerLog
-ls -l
+# ls -l
 qmake OverwatchPlayerLog.pro -r "CONFIG+=debug"
-ls -l
+# ls -l
 make
 qmake OverwatchPlayerLog_UnitTest.pro -r
 make
