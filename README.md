@@ -19,3 +19,7 @@ You can create entries of individual players. Highlight them as your favorite. F
 
 The data is stored in a local SQLite3 database. The location is configurable.
 
+##Copyright & Warranty
+
+See LICENSE file for information on copyright and warranty.
+
