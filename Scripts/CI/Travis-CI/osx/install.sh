@@ -1,5 +1,3 @@
-# #!/bin/bash
-# set -ev
 
 # Install from homebrew
 brew install qt5

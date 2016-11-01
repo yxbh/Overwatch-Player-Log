@@ -1,7 +1,4 @@
-# #!/bin/bash
-# set -ev
 
-pwd
 cd OverwatchPlayerLog
 
 qmake OverwatchPlayerLog.pro "CONFIG+=debug"
