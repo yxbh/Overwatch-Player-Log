@@ -4,12 +4,12 @@ set -ev
 pwd
 cd OverwatchPlayerLog
 
-qmake OverwatchPlayerLog.pro -r "CONFIG+=debug"
+qmake OverwatchPlayerLog.pro "CONFIG+=debug"
 make
 
 make clean
-qmake OverwatchPlayerLog.pro -r
+qmake OverwatchPlayerLog.pro
 make
 
-qmake OverwatchPlayerLog_UnitTest.pro -r
+qmake OverwatchPlayerLog_UnitTest.pro
 make
