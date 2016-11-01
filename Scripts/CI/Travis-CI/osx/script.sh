@@ -1,14 +1,16 @@
 #!/bin/bash
 set -ev
 
-pwd
-ls -l
 cd OverwatchPlayerLog
-ls -l
-qmake OverwatchPlayerLog.pro -r "CONFIG+=debug"
-ls -l
+
+qmake OverwatchPlayerLog.pro "CONFIG+=debug"
 make
-qmake OverwatchPlayerLog_UnitTest.pro -r
+
+make clean
+qmake OverwatchPlayerLog.pro
+make
+
+qmake OverwatchPlayerLog_UnitTest.pro
 make
 
 popd
