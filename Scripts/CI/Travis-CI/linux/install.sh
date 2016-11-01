@@ -1,3 +1,5 @@
+#!/bin/bash
+set -ev
 
 sudo apt-get install -qq qt57base
 
