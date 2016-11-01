@@ -1,5 +1,5 @@
-#!/bin/bash
-set -ev
+# #!/bin/bash
+# set -ev
 
 cd OverwatchPlayerLog
 
