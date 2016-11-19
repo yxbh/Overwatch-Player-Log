@@ -1,238 +1,47 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="640"
-   height="640"
-   viewBox="0 0 640 640"
-   id="svg2"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="app-icon.svg"
-   inkscape:export-filename="D:\GitHub\Overwatch-Player-Log\OverwatchPlayerLog\Resources\Icons\app-icon.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
-  <defs
-     id="defs4">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4396">
-      <stop
-         style="stop-color:#003e67;stop-opacity:1;"
-         offset="0"
-         id="stop4398" />
-      <stop
-         style="stop-color:#003e67;stop-opacity:0;"
-         offset="1"
-         id="stop4400" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient4352">
-      <stop
-         id="stop4354"
-         style="stop-color:#000000;stop-opacity:1"
-         offset="0" />
-      <stop
-         id="stop4356"
-         style="stop-color:#ffffff;stop-opacity:1"
-         offset="1" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient4959">
-      <stop
-         offset="0"
-         style="stop-color:#000000;stop-opacity:1"
-         id="stop4961" />
-      <stop
-         offset="1"
-         style="stop-color:#ffffff;stop-opacity:1"
-         id="stop4963" />
-    </linearGradient>
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       xlink:href="#linearGradient4959"
-       id="linearGradient4965"
-       y2="505.0625"
-       x2="300"
-       y1="96.734383"
-       x1="300" />
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       xlink:href="#linearGradient4959"
-       id="linearGradient4973"
-       y2="16.369165"
-       x2="300.00049"
-       y1="583.62787"
-       x1="300.00049" />
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       xlink:href="#linearGradient4959"
-       id="linearGradient4235"
-       y2="505.0625"
-       x2="300"
-       y1="96.734383"
-       x1="300" />
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       xlink:href="#linearGradient4959"
-       id="linearGradient4237"
-       y2="16.369165"
-       x2="300.00049"
-       y1="583.62787"
-       x1="300.00049" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4396"
-       id="linearGradient4404"
-       x1="537.49341"
-       y1="276.47672"
-       x2="23.326715"
-       y2="271.5618"
-       gradientUnits="userSpaceOnUse" />
-    <filter
-       inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter4430"
-       x="-0.017589212"
-       width="1.0351784"
-       y="-0.018430434"
-       height="1.0368609">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="5.0464286"
-         id="feGaussianBlur4432" />
-    </filter>
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#ffffff"
-     borderopacity="0"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="404.93373"
-     inkscape:cy="366.15678"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer7"
-     showgrid="false"
-     units="px"
-     width="640px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1387"
-     inkscape:window-x="-8"
-     inkscape:window-y="22"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-        <dc:creator>
-          <cc:Agent>
-            <dc:title>Benjamin YanXiang Huang</dc:title>
-          </cc:Agent>
-        </dc:creator>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:groupmode="layer"
-     id="layer4"
-     inkscape:label="shadow"
-     style="opacity:1">
-    <rect
-       style="fill:#003e67;fill-opacity:0.73964497;stroke:none"
-       id="rect4267"
-       width="534"
-       height="514"
-       x="58.571423"
-       y="73.571396"
-       ry="53.479496" />
-  </g>
-  <g
-     inkscape:label="notebook"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-412.3622)">
-    <rect
-       style="fill:#0094ce;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.04444325px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect3354"
-       width="534"
-       height="514"
-       x="53"
-       y="480.36221"
-       ry="50.657467" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer7"
-     inkscape:label="notebook gradient"
-     style="display:inline;opacity:1">
-    <rect
-       style="opacity:0.308;fill:url(#linearGradient4404);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4430)"
-       id="rect4390"
-       width="688.57141"
-       height="657.14288"
-       x="-21.428572"
-       y="-0.71428764"
-       ry="53.4795"
-       transform="matrix(0.78075428,0,0,0.77983251,70.920898,74.040782)" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="OW icon"
-     style="display:inline"
-     sodipodi:insensitive="true">
-    <g
-       id="g4239"
-       transform="matrix(0.60741118,0,0,0.60735428,137.77665,159.07784)">
-      <path
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#a6aeab;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:9;marker:none;enable-background:accumulate"
-         id="path3961-5"
-         d="M 296.70405,0.00424149 C 229.93779,0.43221149 163.9322,24.232681 112.07437,66.087451 l 56.66164,65.785689 C 216.5573,94.134131 280.99173,78.755181 340.75427,90.636091 c 32.84344,6.31836 64.09548,20.739679 90.46333,41.237049 L 487.87924,66.087451 C 434.24075,22.804341 365.76667,-1.0306785 296.70405,0.00424149 Z"
-         inkscape:connector-curvature="0" />
-      <path
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4a4c4e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:9;marker:none;enable-background:accumulate"
-         id="path4052-4"
-         d="M 93.627932,82.252881 C 33.924062,138.34244 -1.0821983,219.87731 0.02552166,302.12246 0.06092166,387.49363 39.004212,471.35277 103.6776,526.81868 c 59.78108,52.2845 141.08577,78.91882 220.46136,72.18109 86.01035,-6.40518 167.64782,-52.34458 218.11716,-122.14284 49.12454,-66.32853 68.37083,-153.7971 52.06401,-234.90882 C 582.33252,179.85678 549.77957,122.31301 503.48268,79.542111 L 446.82104,145.3278 c 45.65578,43.03442 70.58508,106.55713 65.88486,169.22459 -2.05604,31.04856 -11.0736,61.69033 -26.31427,88.95944 l -115.47207,-111.53814 -58.26,-125.58266 -0.0876,190.17825 116.69522,112.92659 c -52.0019,40.40208 -123.35295,53.80249 -186.57773,35.89403 -25.74389,-7.18124 -50.12185,-19.23034 -71.30879,-35.39816 L 288.86927,356.56928 c -0.20481,-61.83078 0.7175,-128.57681 -6.9e-4,-190.3826 L 230.52166,291.97369 114.05785,404.43746 c -35.530468,-62.02488 -36.380378,-142.2105 -2.18183,-204.92738 10.69103,-20.0919 24.84106,-38.42801 41.25655,-54.18228 L 96.470932,79.542111 c -0.94767,0.90359 -1.89534,1.80717 -2.843,2.71077 z"
-         inkscape:connector-curvature="0" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456px" height="456px" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="91.0848614%" x2="0%" y2="6.38182909%" id="linearGradient-1">
+            <stop stop-color="#007BAC" offset="0%"></stop>
+            <stop stop-color="#049CD8" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="9" y="1" width="440" height="440" rx="54"></rect>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="2" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M0.392592593,0.00145963609 L0.392592593,100.916599 L32.1962963,48.8096824 L64,100.916599 L64,0.00145963609 L0.392592593,0.00145963609 Z M64,100.916599 L0.392592593,100.916599 L0.392592593,101 L64,101 L64,100.916599 Z" id="path-4"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Android" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="play/ic_launcher_APP" transform="translate(-32.000000, -30.000000)">
+            <g id="icon" transform="translate(27.000000, 35.000000)">
+                <g id="book" transform="translate(2.000000, 0.000000)">
+                    <g id="rect3354">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    </g>
+                    <g id="bookmark" transform="translate(65.000000, -1.000000)">
+                        <g id="rect4243">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                            <use fill="#D0C02A" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        </g>
+                    </g>
+                </g>
+                <g id="Overwatch-icon" transform="translate(76.000000, 81.000000)" fill-rule="evenodd">
+                    <path d="M152.520667,0.517316625 C118.199482,0.737777539 84.2693199,12.9981538 57.6118111,34.5588726 L86.7387176,68.4471664 C111.321244,49.0066066 144.443752,41.0844219 175.164675,47.2046553 C192.04784,50.4594428 208.112946,57.8883214 221.667335,68.4471664 L250.794241,34.5588726 C223.221385,12.2623706 188.022295,-0.0158034678 152.520667,0.517316625 Z" id="path3961-5" fill="#A6AEAB"></path>
+                    <path d="M48.1294227,42.8861981 C17.4386584,71.7797079 -0.556303854,113.780904 0.013119405,156.147988 C0.0313167691,200.125384 20.0501086,243.323885 53.2954529,271.896134 C84.025907,298.829537 125.820569,312.549719 166.623578,309.078901 C210.837184,305.77939 252.802912,282.114549 278.746667,246.159252 C303.999129,211.991324 313.892681,166.933491 305.510163,125.150273 C299.347934,93.1650604 282.614096,63.5224404 258.815187,41.4897945 L229.688281,75.3780883 C253.157627,97.5464822 265.972529,130.269044 263.556382,162.551039 C262.499475,178.545136 257.864,194.329683 250.029536,208.376866 L190.671137,150.920035 L160.722594,86.2284257 L160.677564,184.195271 L220.664722,242.367337 C193.933154,263.179729 157.255159,270.082705 124.754471,260.85749 C111.520829,257.158205 98.9893424,250.951332 88.0981995,242.622775 L148.4932,184.195271 C148.387917,152.344276 148.86203,117.96128 148.492845,86.1231586 L118.499621,150.920035 L58.6314186,208.853688 C40.3669875,176.902706 39.9300914,135.596551 57.5098493,103.289098 C63.0055715,92.9391237 70.279392,83.4936121 78.7177719,75.3780883 L49.5908664,41.4897945 C49.1037168,41.9552624 48.6165672,42.4207251 48.1294227,42.8861981 Z" id="path4052-4" fill="#4A4C4E"></path>
+                </g>
+            </g>
+        </g>
     </g>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer6"
-     inkscape:label="bookmark shadow"
-     sodipodi:insensitive="true">
-    <path
-       style="display:inline;fill:#000000;fill-opacity:0.2071006"
-       d="m 116,67.235597 0,118.824823 36.57954,-61.35447 36.57953,61.35447 0,-118.824823 -73.15907,0 z m 73.15907,118.824823 -73.15907,0 0,0.0982 73.15907,0 0,-0.0982 z"
-       id="rect4243-4"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="bookmark"
-     style="display:inline"
-     sodipodi:insensitive="true">
-    <path
-       style="fill:#d0c02a;fill-opacity:1"
-       d="m 114,67.106585 0,115.796875 36.5,-59.79101 36.5,59.79101 0,-115.796875 -73,0 z m 73,115.796875 -73,0 0,0.0957 73,0 0,-0.0957 z"
-       id="rect4243"
-       inkscape:connector-curvature="0" />
-  </g>
 </svg>
