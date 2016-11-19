@@ -125,9 +125,6 @@ FORMS    += \
     UI/PreferencesDialog.ui \
     UI/AboutDialog.ui
 
-DISTFILES += \
-    Resources/OPL.config
-
 RESOURCES += \
     resources.qrc
 #
