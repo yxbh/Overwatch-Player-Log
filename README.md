@@ -1,5 +1,4 @@
-![Overwatch Player Log](https://raw.githubusercontent.com/yxbh/Overwatch-Player-Log/v1.0.0/OverwatchPlayerLog/Resources/Icons/app-icon.ico)
-
+<img src="https://cdn.rawgit.com/yxbh/Overwatch-Player-Log/master/OverwatchPlayerLog/Resources/Icons/app-icon.svg" width="126">
 # Overwatch Player Log
 
 [![Latest release](https://img.shields.io/github/release/yxbh/Overwatch-Player-Log.svg)](https://github.com/yxbh/Overwatch-Player-Log/releases/latest)
