@@ -6,7 +6,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/yxbh/Overwatch-Player-Log.svg?branch=master)](https://travis-ci.org/yxbh/Overwatch-Player-Log)
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/v0ljvgopeld7jsv5?svg=true)](https://ci.appveyor.com/project/yxbh/overwatch-player-log)
 [![Github Releases](https://img.shields.io/github/downloads/yxbh/Overwatch-Player-Log/latest/total.svg)](https://github.com/yxbh/Overwatch-Player-Log/releases)
-[![Github All Releases](https://img.shields.io/github/downloads/yxbh/Overwatch-Player-Log/total.svg)](https://github.com/vlc-qt/vlc-qt/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/yxbh/Overwatch-Player-Log/total.svg)](https://github.com/yxbh/Overwatch-Player-Log/releases)
 
 Overwatch Player Log is a simple utility application that allows you to record your favorite (or not!) players that you have met in Overwatch.
 
