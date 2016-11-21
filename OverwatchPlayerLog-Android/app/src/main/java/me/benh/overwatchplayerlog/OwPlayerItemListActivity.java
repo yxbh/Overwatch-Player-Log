@@ -4,21 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
 
 import me.benh.overwatchplayerlog.dummy.DummyContent;
-
-import java.util.List;
 
 /**
  * An activity representing a list of OwPlayerItems. This activity
@@ -45,7 +46,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,46 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_owplayeritem_list, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(this.getLocalClassName(), "onOptionsItemSelected");
+        View menuView = this.getWindow().getDecorView().findViewById(R.id.content);
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home: {
+                // This ID represents the Home or Up button. In the case of this
+                // activity, the Up button is shown. For
+                // more details, see the Navigation pattern on Android Design:
+                //
+                // http://developer.android.com/design/patterns/navigation.html#up-vs-back
+                //
+                navigateUpTo(new Intent(this, OwPlayerItemListActivity.class));
+                return true;
+            }
+
+            case R.id.searchPlayer: {
+                Snackbar.make(menuView, "Player search action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+
+            case R.id.removeAllPlayerRecords: {
+                Snackbar.make(menuView, "Remove all player records action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+
+            case R.id.settings: {
+                Snackbar.make(menuView, "Settings action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
