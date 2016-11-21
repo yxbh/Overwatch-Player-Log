@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">OverwatchPlayerLog-Android</string>
+    <string name="title_owplayeritem_detail">OwPlayerItem Detail</string>
+</resources>
