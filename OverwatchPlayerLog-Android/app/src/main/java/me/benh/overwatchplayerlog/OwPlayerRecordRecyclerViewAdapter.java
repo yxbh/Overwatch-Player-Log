@@ -67,6 +67,14 @@ class OwPlayerRecordRecyclerViewAdapter
         return records.size();
     }
 
+    public void removeItem(int position) {
+        // TODO: remove record from data source.
+        
+        this.records.remove(position);
+        this.notifyItemRemoved(position);
+        this.notifyItemRangeChanged(position, this.records.size());
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;

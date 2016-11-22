@@ -31,10 +31,12 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
     private Paint paint = new Paint();
     private Drawable iconDelete;
     private Drawable iconEdit;
+    private OwPlayerRecordRecyclerViewAdapter adapter;
 
-    public OwPlayerRecordRecyclerViewItemGestureCallback(Context context) {
+    public OwPlayerRecordRecyclerViewItemGestureCallback(Context context, OwPlayerRecordRecyclerViewAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.context = context;
+        this.adapter = adapter;
         paint.setColor(Color.RED);
         iconEdit = ContextCompat.getDrawable(context, R.drawable.ic_edit);
         Assert.assertNotNull(iconEdit);
@@ -52,10 +54,10 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
 
-        switch (position) {
+        switch (direction) {
             case ItemTouchHelper.LEFT: {
                 Log.v(TAG, "onSwiped:LEFT");
-                // TODO: delete
+                adapter.removeItem(position);
                 break;
             }
             case ItemTouchHelper.RIGHT: {

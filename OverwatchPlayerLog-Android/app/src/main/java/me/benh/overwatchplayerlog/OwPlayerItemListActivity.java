@@ -114,9 +114,10 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS)); // TODO: replace with actual data source loading of OwPlayerRecords.
+        OwPlayerRecordRecyclerViewAdapter adapter = new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS);
+        recyclerView.setAdapter(adapter); // TODO: replace with actual data source loading of OwPlayerRecords.
 
         // setup swipe gesture callback.
-        new ItemTouchHelper(new OwPlayerRecordRecyclerViewItemGestureCallback(this)).attachToRecyclerView(recyclerView);
+        new ItemTouchHelper(new OwPlayerRecordRecyclerViewItemGestureCallback(this, adapter)).attachToRecyclerView(recyclerView);
     }
 }
