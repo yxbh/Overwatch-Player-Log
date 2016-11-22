@@ -67,6 +67,7 @@ class OwPlayerRecordRecyclerViewAdapter
         return records.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView playerBattleTag;
