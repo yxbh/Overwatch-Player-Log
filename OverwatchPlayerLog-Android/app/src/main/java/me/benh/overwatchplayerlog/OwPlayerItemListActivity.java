@@ -38,6 +38,10 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
      */
     private boolean isTwoPane;
 
+    public boolean isTwoPane() {
+        return isTwoPane;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,74 +119,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
-    }
-
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final List<OwPlayerRecord> values;
-
-        public SimpleItemRecyclerViewAdapter(List<OwPlayerRecord> items) {
-            values = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.owplayeritem_list_content, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.item = values.get(position);
-            holder.playerBattleTag.setText(values.get(position).getBattleTag());
-
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putString(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
-                        OwPlayerItemDetailFragment fragment = new OwPlayerItemDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.owplayeritem_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, OwPlayerItemDetailActivity.class);
-                        intent.putExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
-
-                        context.startActivity(intent);
-                    }
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return values.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View view;
-            public final TextView playerBattleTag;
-            public OwPlayerRecord item;
-
-            public ViewHolder(View view) {
-                super(view);
-                this.view = view;
-                playerBattleTag = (TextView) view.findViewById(R.id.playerBattleTag);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + playerBattleTag.getText() + "'";
-            }
-        }
+        recyclerView.setAdapter(new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS)); // TODO: replace with actual data source loading of OwPlayerRecords.
     }
 }
