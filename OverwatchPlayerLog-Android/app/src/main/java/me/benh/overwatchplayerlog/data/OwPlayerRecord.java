@@ -96,4 +96,10 @@ public class OwPlayerRecord {
         // TODO: implement
         return null;
     }
+
+    public static boolean HasId(String id) {
+        // TODO: implement
+        return false;
+    }
+
 }

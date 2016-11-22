@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
@@ -21,11 +22,11 @@ class OwPlayerRecordRecyclerViewAdapter
         extends RecyclerView.Adapter<OwPlayerRecordRecyclerViewAdapter.ViewHolder> {
 
     private final OwPlayerItemListActivity activity;
-    private final List<OwPlayerRecord> records;
+    private final List<OwPlayerRecord> records = new ArrayList<>();
 
     OwPlayerRecordRecyclerViewAdapter(OwPlayerItemListActivity activity, List<OwPlayerRecord> records) {
         this.activity = activity;
-        this.records = records;
+        this.records.addAll(records);
     }
 
     @Override
@@ -73,6 +74,12 @@ class OwPlayerRecordRecyclerViewAdapter
         this.records.remove(position);
         this.notifyItemRemoved(position);
         this.notifyItemRangeChanged(position, this.records.size());
+    }
+
+    public void swapData(List<OwPlayerRecord> items) {
+        this.records.clear();
+        this.records.addAll(items);
+        this.notifyDataSetChanged();
     }
 
 

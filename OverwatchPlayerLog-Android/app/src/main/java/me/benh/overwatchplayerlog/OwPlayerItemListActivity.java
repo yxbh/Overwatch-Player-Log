@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,9 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
      */
     private boolean isTwoPane;
 
+    private OwPlayerRecordRecyclerViewAdapter recordsViewAdapter;
+    private RecyclerView recordsView;
+
     public boolean isTwoPane() {
         return isTwoPane;
     }
@@ -54,9 +58,12 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.owplayeritem_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        recordsView = (RecyclerView) findViewById(R.id.owplayeritem_list);
+        assert recordsView != null;
+        recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS);
+        assert recordsViewAdapter != null;
+        setupRecyclerView(recordsView, recordsViewAdapter);
+        setupSwipeRefreshLayout(recordsViewAdapter);
 
         if (findViewById(R.id.owplayeritem_detail_container) != null) {
             // The detail container view will be present only in the
@@ -113,11 +120,24 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        OwPlayerRecordRecyclerViewAdapter adapter = new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS);
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, @NonNull OwPlayerRecordRecyclerViewAdapter adapter) {
         recyclerView.setAdapter(adapter); // TODO: replace with actual data source loading of OwPlayerRecords.
 
         // setup swipe gesture callback.
         new ItemTouchHelper(new OwPlayerRecordRecyclerViewItemGestureCallback(this, adapter)).attachToRecyclerView(recyclerView);
     }
+
+    private void setupSwipeRefreshLayout(@NonNull final OwPlayerRecordRecyclerViewAdapter adapter) {
+        final SwipeRefreshLayout layout = (SwipeRefreshLayout) findViewById(R.id.owplayeritem_list_swipeRefreshLayout);
+        assert layout != null;
+
+        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.swapData(DummyContent.ITEMS);
+                layout.setRefreshing(false);
+            }
+        });
+    }
+
 }
