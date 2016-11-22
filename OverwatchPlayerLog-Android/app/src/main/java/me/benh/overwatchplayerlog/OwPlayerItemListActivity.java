@@ -77,7 +77,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(this.getLocalClassName(), "onOptionsItemSelected");
+        Log.v(this.getLocalClassName(), "onOptionsItemSelected");
         View menuView = this.getWindow().getDecorView().findViewById(R.id.content);
         int id = item.getItemId();
         switch (id) {
