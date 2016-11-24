@@ -9,7 +9,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="me.benh.overwatchplayerlog.OwPlayerItemListActivity">
+    tools:context="me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemListActivity">
 
     <!--
     This layout is a two-pane layout for the OwPlayerItems
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
-            tools:context="me.benh.overwatchplayerlog.OwPlayerItemListActivity"
+            tools:context="me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemListActivity"
             tools:listitem="@layout/owplayeritem_list_content" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

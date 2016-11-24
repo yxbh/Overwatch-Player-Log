@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+
+import me.benh.overwatchplayerlog.R;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This

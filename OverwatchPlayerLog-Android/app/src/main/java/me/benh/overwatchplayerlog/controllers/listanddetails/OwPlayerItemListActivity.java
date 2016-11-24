@@ -1,11 +1,13 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
 import me.benh.overwatchplayerlog.dummy.DummyContent;
 
 /**
@@ -35,6 +39,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     private OwPlayerRecordRecyclerViewAdapter recordsViewAdapter;
     private RecyclerView recordsView;
+    private ActionBarDrawerToggle drawerToggle;
 
     public boolean isTwoPane() {
         return isTwoPane;
@@ -49,12 +54,21 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
+        // setup drawer toggle
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        drawerToggle.syncState();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(OwPlayerItemListActivity.this, OwPlayerRecordCreateActivity.class);
+                startActivity(intent);
             }
         });
 

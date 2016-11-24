@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:context="me.benh.overwatchplayerlog.OwPlayerItemListActivity"
+        tools:context="me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemListActivity"
         tools:listitem="@layout/owplayeritem_list_content" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

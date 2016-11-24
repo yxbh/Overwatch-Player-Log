@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 
 /**

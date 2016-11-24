@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.dummy.DummyContent;
 

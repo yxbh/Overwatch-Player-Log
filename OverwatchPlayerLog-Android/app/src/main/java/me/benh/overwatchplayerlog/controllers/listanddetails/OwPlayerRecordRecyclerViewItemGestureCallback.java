@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 
 import junit.framework.Assert;
+
+import me.benh.overwatchplayerlog.R;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
