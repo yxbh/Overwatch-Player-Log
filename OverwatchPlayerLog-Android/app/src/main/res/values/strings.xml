@@ -6,6 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_ow_player_record_create">Create New</string>
+    <string name="title_activity_ow_player_record_edit">Edit</string>
 
     <string name="prompt_battletag">BattleTag (e.g. EdgeBro#123)</string>
     <string name="prompt_email">Email</string>

@@ -1,6 +1,7 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,6 +18,7 @@ import android.view.View;
 import junit.framework.Assert;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -55,6 +57,7 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
+        adapter.notifyItemChanged(position); // reset the item view.
 
         switch (direction) {
             case ItemTouchHelper.LEFT: {
@@ -64,7 +67,8 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
             }
             case ItemTouchHelper.RIGHT: {
                 Log.v(TAG, "onSwiped:RIGHT");
-                // TODO: edit
+                Intent intent = new Intent(context, OwPlayerRecordEditActivity.class);
+                context.startActivity(intent);
                 break;
             }
         }

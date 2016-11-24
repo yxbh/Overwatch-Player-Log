@@ -33,9 +33,11 @@
                 android:value="me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemListActivity" />
         </activity>
         <activity
-            android:name=".OwPlayerRecordCreateActivity"
+            android:name=".controllers.OwPlayerRecordCreateActivity"
             android:label="@string/title_activity_ow_player_record_create" />
-        <activity android:name=".controllers.OwPlayerRecordEditActivity"></activity>
+        <activity
+            android:name=".controllers.OwPlayerRecordEditActivity"
+            android:label="@string/title_activity_ow_player_record_edit" />
     </application>
 
 </manifest>
