@@ -24,6 +24,8 @@ class OwPlayerRecordRecyclerViewAdapter
 
     private final OwPlayerItemListActivity activity;
     private final List<OwPlayerRecord> records = new ArrayList<>();
+    private OwPlayerItemDetailFragment detailFragment;
+    private int currentDetailFragmentItemPosition;
 
     OwPlayerRecordRecyclerViewAdapter(OwPlayerItemListActivity activity, List<OwPlayerRecord> records) {
         this.activity = activity;
@@ -44,17 +46,18 @@ class OwPlayerRecordRecyclerViewAdapter
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (activity.isTwoPane()) {
+                    currentDetailFragmentItemPosition = holder.getAdapterPosition();
                     Bundle arguments = new Bundle();
                     arguments.putString(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
-                    OwPlayerItemDetailFragment fragment = new OwPlayerItemDetailFragment();
-                    fragment.setArguments(arguments);
+                    detailFragment = new OwPlayerItemDetailFragment();
+                    detailFragment.setArguments(arguments);
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.owplayeritem_detail_container, fragment)
+                            .replace(R.id.owplayeritem_detail_container, detailFragment)
                             .commit();
                 } else {
-                    Context context = v.getContext();
+                    Context context = view.getContext();
                     Intent intent = new Intent(context, OwPlayerItemDetailActivity.class);
                     intent.putExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
 
@@ -71,7 +74,14 @@ class OwPlayerRecordRecyclerViewAdapter
 
     public void removeItem(int position) {
         // TODO: remove record from data source.
-        
+
+        // remove fragment
+        if (position == currentDetailFragmentItemPosition) {
+            activity.getSupportFragmentManager().beginTransaction()
+                    .remove(this.detailFragment).commit();
+        }
+
+        // remove from container and refresh view
         this.records.remove(position);
         this.notifyItemRemoved(position);
         this.notifyItemRangeChanged(position, this.records.size());

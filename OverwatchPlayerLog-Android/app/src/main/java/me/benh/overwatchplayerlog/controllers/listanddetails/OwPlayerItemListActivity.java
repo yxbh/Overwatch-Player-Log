@@ -63,6 +63,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         drawerToggle.syncState();
 
+        // setup floating action buttons
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +73,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             }
         });
 
+        // setup list view
         recordsView = (RecyclerView) findViewById(R.id.owplayeritem_list);
         assert recordsView != null;
         recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS);
