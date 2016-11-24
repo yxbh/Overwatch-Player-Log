@@ -36,7 +36,11 @@
         </activity>
         <activity
             android:name=".controllers.OwPlayerRecordEditActivity"
-            android:label="@string/title_activity_ow_player_record_edit" />
+            android:label="@string/title_activity_ow_player_record_edit">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controllers.listanddetails.OwPlayerItemListActivity"/>
+        </activity>
     </application>
 
 </manifest>

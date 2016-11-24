@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_ow_player_record_edit"
     android:layout_width="match_parent"
@@ -9,5 +10,126 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity">
+
+    <ScrollView
+        android:id="@+id/create_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/owplayerrecord_create_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/edit_row_margin_bottom"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/playerBattleTag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_battletag"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/edit_field_margin_start" />
+
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_width"
+                    app:srcCompat="@drawable/ic_person"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="@dimen/edit_row_margin_bottom"-->
+            <!--android:paddingRight="12dp"-->
+            <!--android:gravity="center_vertical"></LinearLayout>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/edit_row_margin_bottom"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_width"
+                    app:srcCompat="@drawable/ic_pin_drop"
+                    android:layout_marginEnd="12dp" />
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/region"
+                    android:entries="@array/regions"
+                    android:gravity="start"
+                    android:layout_marginStart="@dimen/edit_field_margin_start"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/edit_row_margin_bottom"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_width"
+                    app:srcCompat="@drawable/ic_computer"
+                    android:layout_marginEnd="12dp" />
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/platform"
+                    android:entries="@array/platforms"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/edit_field_margin_start" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/edit_row_margin_bottom"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_width"
+                    app:srcCompat="@drawable/ic_content"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/editText"
+                    android:layout_marginLeft="@dimen/edit_field_margin_start" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

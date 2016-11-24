@@ -42,6 +42,8 @@ public class DummyContent {
     private static OwPlayerRecord createDummyItem(int position) {
         OwPlayerRecord newRecord = new OwPlayerRecord();
         newRecord.setBattleTag("BattleTag#" + String.valueOf(position));
+        newRecord.setPlatform("PC");
+        newRecord.setRegion("US");
         return newRecord;
     }
 

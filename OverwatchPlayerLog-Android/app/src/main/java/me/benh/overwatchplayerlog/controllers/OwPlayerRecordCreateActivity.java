@@ -9,11 +9,10 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,15 +46,14 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
             }
         });
 
-//        Button mEmailSignInButton = (Button) findViewById(R.id.owplayerrecord_create_button);
-//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
-
         createFormView = findViewById(R.id.create_form);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_owplayerrecord_save, menu);
+        return true;
     }
 
     @Override
@@ -64,6 +62,12 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+
+            case R.id.save: {
+                // TODO: add new item into datasource. potentially pass it back to calling activity.
+                return true;
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }

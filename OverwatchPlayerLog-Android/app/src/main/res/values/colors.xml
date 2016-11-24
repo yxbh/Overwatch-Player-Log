@@ -6,6 +6,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorAppBarIcon">#FFFFFF</color>
 
-    <color name="colorSwipeToEditBackground">#058c1b</color>
+    <color name="colorSwipeToEditBackground">@color/colorAccent</color>
     <color name="colorSwipeToDeleteBackground">#be1515</color>
 </resources>

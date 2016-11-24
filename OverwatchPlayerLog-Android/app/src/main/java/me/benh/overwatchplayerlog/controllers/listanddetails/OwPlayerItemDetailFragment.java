@@ -1,8 +1,10 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
+import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.dummy.DummyContent;
 
@@ -30,6 +34,8 @@ public class OwPlayerItemDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private OwPlayerRecord item;
+
+    private static final int REQUEST_EDIT_RECORD = 999;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,11 +67,35 @@ public class OwPlayerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.owplayeritem_detail, container, false);
 
+        // setup floating action buttons
+        FloatingActionButton fabEdit = (FloatingActionButton) rootView.findViewById(R.id.fab_edit);
+        if (null != fabEdit) {
+            fabEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), OwPlayerRecordEditActivity.class);
+                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
+                }
+            });
+        }
+
         // Show the dummy content as text in a TextView.
         if (item != null) {
             ((TextView) rootView.findViewById(R.id.owplayeritem_detail)).setText(item.getBattleTag());
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_EDIT_RECORD: {
+                // TODO: update this fragment.
+                break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

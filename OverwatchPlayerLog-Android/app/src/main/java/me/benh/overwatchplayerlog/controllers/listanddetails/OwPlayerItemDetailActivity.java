@@ -2,13 +2,21 @@ package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
+import me.benh.overwatchplayerlog.data.OwPlayerRecord;
+import me.benh.overwatchplayerlog.dummy.DummyContent;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This
@@ -18,12 +26,32 @@ import me.benh.overwatchplayerlog.R;
  */
 public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
+    private static final int REQUEST_EDIT_RECORD = 999;
+
+    private OwPlayerRecord playerRecord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owplayeritem_detail);
+
+        // get the player record item
+        playerRecord = DummyContent.ITEM_MAP.get(getIntent().getStringExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID));
+
+        // setup tool bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+
+        // set activity title
+        setTitle(playerRecord.getBattleTag());
+        TextView actionBarPlayerRegion = (TextView) findViewById(R.id.player_region);
+        if (null != actionBarPlayerRegion) {
+            actionBarPlayerRegion.setText(playerRecord.getRegion());
+        }
+        TextView actionBarPlayerPlatform = (TextView) findViewById(R.id.player_platform);
+        if (null != actionBarPlayerPlatform) {
+            actionBarPlayerPlatform.setText(playerRecord.getPlatform());
+        }
 
         // Setup menu listener.
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -37,6 +65,18 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        // setup floating action buttons
+        FloatingActionButton fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
+        if (null != fabEdit) {
+            fabEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(OwPlayerItemDetailActivity.this, OwPlayerRecordEditActivity.class);
+                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
+                }
+            });
         }
 
         // savedInstanceState is non-null when there is fragment state
