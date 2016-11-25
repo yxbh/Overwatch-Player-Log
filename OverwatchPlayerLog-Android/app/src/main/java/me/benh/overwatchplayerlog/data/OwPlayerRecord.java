@@ -34,7 +34,7 @@ public class OwPlayerRecord {
     private Rating rating;
 
     public OwPlayerRecord() {
-        this.id = UuidHelper.NewUuidString();
+        this.id = UuidHelper.newUuidString();
     }
 
     public String getId() {

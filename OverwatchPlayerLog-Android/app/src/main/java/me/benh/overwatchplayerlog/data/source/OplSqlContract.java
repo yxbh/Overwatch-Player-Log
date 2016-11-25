@@ -34,16 +34,16 @@ public final class OplSqlContract {
             }
 
             public static class OwPlayerRecord {
-                public static final String TABLE_NAME = "OwPlayerRecord";
-                public static final String COLUMN_NAME_ID = "Id";
-                public static final String COLUMN_NAME_BATTLETAG = "BattleTag";
-                public static final String COLUMN_NAME_PLATFORM = "Platform";
-                public static final String COLUMN_NAME_REGION = "Region";
-                public static final String COLUMN_NAME_IS_FAVORITE = "IsFavorite";
-                public static final String COLUMN_NAME_RATING = "Rating";
-                public static final String COLUMN_NAME_NOTE = "Note";
-                public static final String COLUMN_NAME_CREATION_DATETIME = "CreationDateTime";
-                public static final String COLUMN_NAME_LASTUPDATE_DATETIME = "LastUpdateDateTime";
+                public static final String TABLE_NAME       = "OwPlayerRecord";
+                public static final String COLUMN_NAME_ID   = "Id";
+                public static final String COLUMN_NAME_BATTLETAG    = "BattleTag";
+                public static final String COLUMN_NAME_PLATFORM     = "Platform";
+                public static final String COLUMN_NAME_REGION       = "Region";
+                public static final String COLUMN_NAME_IS_FAVORITE  = "IsFavorite";
+                public static final String COLUMN_NAME_RATING       = "Rating";
+                public static final String COLUMN_NAME_NOTE         = "Note";
+                public static final String COLUMN_NAME_CREATION_DATETIME    = "CreationDateTime";
+                public static final String COLUMN_NAME_LASTUPDATE_DATETIME  = "LastUpdateDateTime";
 
                 public static final String SQL_CREATE_TABLE =
                         "CREATE TABLE " + TABLE_NAME + " (" +
@@ -62,7 +62,7 @@ public final class OplSqlContract {
                         "DROP TABLE IF EXISTS " + TABLE_NAME;
 
                 public static final String SQL_SELECT_WITH_ID =
-                        "SELECT COUNT(*) FROM " + TABLE_NAME + "WHERE " + COLUMN_NAME_ID + " = ?";
+                        "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_ID + " = ?";
             }
 
         } // V1
