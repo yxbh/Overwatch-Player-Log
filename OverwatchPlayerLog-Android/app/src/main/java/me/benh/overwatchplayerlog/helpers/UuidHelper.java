@@ -7,6 +7,8 @@ import java.util.UUID;
  */
 
 public final class UuidHelper {
+    private UuidHelper() {}
+
     public static String NewUuidString() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }

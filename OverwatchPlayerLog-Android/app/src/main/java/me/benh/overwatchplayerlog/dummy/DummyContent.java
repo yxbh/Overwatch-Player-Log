@@ -44,6 +44,7 @@ public class DummyContent {
         newRecord.setBattleTag("BattleTag#" + String.valueOf(position));
         newRecord.setPlatform("PC");
         newRecord.setRegion("US");
+
         return newRecord;
     }
 

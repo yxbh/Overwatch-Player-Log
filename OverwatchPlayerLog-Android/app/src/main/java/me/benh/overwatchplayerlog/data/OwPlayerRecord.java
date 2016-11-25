@@ -19,10 +19,16 @@ public class OwPlayerRecord {
     private Date recordCreateDatetime;
     private Date recordLastUpdateDatetime;
 
-    enum Rating {
-        Dislike,
-        Undecided,
-        Like
+    private String note;
+
+    public enum Rating {
+        Dislike(-1),
+        Undecided(0),
+        Like(1);
+
+        private final int value;
+        private Rating(int value) { this.value = value; }
+        public int getValue() { return value; }
     }
 
     private Rating rating;
@@ -85,6 +91,14 @@ public class OwPlayerRecord {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public static List<OwPlayerRecord> GetAll() {
