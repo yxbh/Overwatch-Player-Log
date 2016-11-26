@@ -142,7 +142,6 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                     Log.v(TAG, "Received " + playerRecord.toString());
 
                     setupViewContent(playerRecord);
-                    detailFragment.setupViewContent(playerRecord);
                 }
                 break;
             }
@@ -160,6 +159,10 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
         if (null != playerPlatform) {
             playerPlatform.setText(playerRecord.getPlatform());
+        }
+
+        if (null != detailFragment) {
+            detailFragment.setupViewContent(playerRecord);
         }
     }
 }

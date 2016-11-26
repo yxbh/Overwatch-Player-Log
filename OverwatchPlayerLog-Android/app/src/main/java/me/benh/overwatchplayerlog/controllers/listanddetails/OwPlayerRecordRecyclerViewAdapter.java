@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,7 +45,8 @@ class OwPlayerRecordRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = records.get(position);
-        holder.playerBattleTag.setText(records.get(position).getBattleTag());
+        holder.playerBattleTag.setText(holder.item.getBattleTag());
+        holder.playerFavorite.setVisibility(holder.item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +81,6 @@ class OwPlayerRecordRecyclerViewAdapter
     }
 
     public void removeItem(int position) {
-        // TODO: remove record from data source.
-
         // remove fragment
         if (activity.isTwoPane() && position == currentDetailFragmentItemPosition) {
             activity.getSupportFragmentManager().beginTransaction()
@@ -103,12 +103,14 @@ class OwPlayerRecordRecyclerViewAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView playerBattleTag;
+        public final ImageView playerFavorite;
         public OwPlayerRecord item;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            playerBattleTag = (TextView) view.findViewById(R.id.playerBattleTag);
+            playerBattleTag = (TextView) view.findViewById(R.id.player_battletag);
+            playerFavorite = (ImageView) view.findViewById(R.id.player_favorite);
         }
 
         @Override

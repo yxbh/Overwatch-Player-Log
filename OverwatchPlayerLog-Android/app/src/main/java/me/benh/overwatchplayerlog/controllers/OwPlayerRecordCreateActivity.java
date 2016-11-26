@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     // UI references.
     private EditText playerBattleTag;
+    private CheckBox playerFavorite;
     private Spinner playerPlatform;
     private Spinner playerRegion;
     private EditText playerNote;
@@ -58,7 +60,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
         playerBattleTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.playerBattleTag || id == EditorInfo.IME_NULL) {
+                if (id == R.id.player_battletag || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
@@ -81,6 +83,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
             }
         });
+        playerFavorite = (CheckBox) findViewById(R.id.player_favorite);
         playerPlatform = (Spinner) findViewById(R.id.player_platform);
         playerRegion = (Spinner) findViewById(R.id.player_region);
         playerNote = (EditText) findViewById(R.id.player_note);
@@ -115,6 +118,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
                 // create new record object.
                 OwPlayerRecord newRecord = new OwPlayerRecord();
                 newRecord.setBattleTag(playerBattleTag.getText().toString());
+                newRecord.setFavorite(playerFavorite.isChecked());
                 newRecord.setPlatform(playerPlatform.getSelectedItem().toString());
                 newRecord.setRegion(playerRegion.getSelectedItem().toString());
                 newRecord.setNote(playerNote.getText().toString());

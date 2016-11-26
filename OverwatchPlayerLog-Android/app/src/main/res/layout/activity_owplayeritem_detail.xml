@@ -52,6 +52,7 @@
                     android:textColor="@color/colorWhite"
                     android:text="@string/dummy_text"
                     android:drawableStart="@drawable/ic_pin_drop"
+                    android:drawableTint="@color/colorWhite"
                     android:drawablePadding="5dp" />
                 <View android:layout_width="10dp" android:layout_height="2dp" />
                 <TextView
@@ -63,6 +64,7 @@
                     android:textColor="@color/colorWhite"
                     android:text="@string/dummy_text"
                     android:drawableStart="@drawable/ic_computer"
+                    android:drawableTint="@color/colorWhite"
                     android:drawablePadding="5dp" />
             </LinearLayout>
             
@@ -75,9 +77,6 @@
         android:id="@+id/owplayeritem_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton

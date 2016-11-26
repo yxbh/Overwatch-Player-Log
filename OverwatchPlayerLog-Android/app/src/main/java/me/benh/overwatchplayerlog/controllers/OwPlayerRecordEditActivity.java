@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -30,6 +31,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     Menu menu;
     EditText playerBattleTag;
+    CheckBox playerFavorite;
     Spinner playerPlatform;
     Spinner playerRegion;
     EditText playerNote;
@@ -41,6 +43,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
         // setup view connections.
         playerBattleTag = (EditText) findViewById(R.id.player_battletag);
+        playerFavorite = (CheckBox) findViewById(R.id.player_favorite);
         playerPlatform = (Spinner) findViewById(R.id.player_platform);
         playerRegion = (Spinner) findViewById(R.id.player_region);
         playerNote = (EditText) findViewById(R.id.player_note);
@@ -131,6 +134,10 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
             playerBattleTag.setText(record.getBattleTag());
         }
 
+        if (playerFavorite != null) {
+            playerFavorite.setChecked(record.isFavorite());
+        }
+
         if (playerPlatform != null) {
             SpinnerHelper.selectSpinnerValue(playerPlatform, record.getPlatform());
         }
@@ -146,6 +153,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     private void saveViewContentToRecord() {
         record.setBattleTag(playerBattleTag.getText().toString());
+        record.setFavorite(playerFavorite.isChecked());
         record.setPlatform(playerPlatform.getSelectedItem().toString());
         record.setRegion(playerRegion.getSelectedItem().toString());
         record.setNote(playerNote.getText().toString());

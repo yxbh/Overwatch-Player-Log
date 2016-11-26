@@ -61,14 +61,29 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/edit_row_margin_bottom"
+                android:gravity="center_vertical">
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_marginBottom="@dimen/edit_row_margin_bottom"-->
-            <!--android:paddingRight="12dp"-->
-            <!--android:gravity="center_vertical"></LinearLayout>-->
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_width"
+                    app:srcCompat="@drawable/ic_favorite"
+                    android:tint="@color/colorAccent"
+                    android:layout_marginEnd="12dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/player_favorite"
+                    android:entries="@array/regions"
+                    android:layout_marginStart="@dimen/edit_field_margin_start"
+                    android:layout_centerVertical="true"
+                    android:text="@string/form_favorite" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

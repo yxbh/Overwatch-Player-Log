@@ -56,6 +56,7 @@ public class DataSource {
         ContentValues values = new ContentValues();
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID, record.getId());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_BATTLETAG, record.getBattleTag());
+        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_IS_FAVORITE, record.isFavorite());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_PLATFORM, record.getPlatform());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_REGION, record.getRegion());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_RATING, record.getRating().getValue());
@@ -80,6 +81,7 @@ public class DataSource {
 
         ContentValues values = new ContentValues();
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_BATTLETAG, record.getBattleTag());
+        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_IS_FAVORITE, record.isFavorite());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_PLATFORM, record.getPlatform());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_REGION, record.getRegion());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_RATING, record.getRating().getValue());
@@ -178,6 +180,7 @@ public class DataSource {
         return new String[] {
             OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID,
             OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_BATTLETAG,
+            OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_IS_FAVORITE,
             OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_PLATFORM,
             OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_REGION,
             OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_RATING,
@@ -191,13 +194,14 @@ public class DataSource {
         OwPlayerRecord record = new OwPlayerRecord();
         record.setId(cursor.getString(0));
         record.setBattleTag(cursor.getString(1));
-        record.setPlatform(cursor.getString(2));
-        record.setRegion(cursor.getString(3));
-        record.setRating(OwPlayerRecord.valueToRating(cursor.getInt(4)));
-        record.setNote(cursor.getString(5));
+        record.setFavorite(cursor.getInt(2) != 0);
+        record.setPlatform(cursor.getString(3));
+        record.setRegion(cursor.getString(4));
+        record.setRating(OwPlayerRecord.valueToRating(cursor.getInt(5)));
+        record.setNote(cursor.getString(6));
         try {
-            record.setRecordCreateDatetime(DateTimeHelper.toSqlDate(cursor.getString(6)));
-            record.setRecordLastUpdateDatetime(DateTimeHelper.toSqlDate(cursor.getString(7)));
+            record.setRecordCreateDatetime(DateTimeHelper.toSqlDate(cursor.getString(7)));
+            record.setRecordLastUpdateDatetime(DateTimeHelper.toSqlDate(cursor.getString(8)));
         } catch (ParseException e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();
