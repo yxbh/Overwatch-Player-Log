@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,6 +44,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
     // UI references.
     private EditText playerBattleTag;
     private CheckBox playerFavorite;
+    private ImageView playerRatingView;
     private Spinner playerPlatform;
     private Spinner playerRegion;
     private EditText playerNote;
@@ -49,6 +52,12 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
     private Menu menu;
     private View mProgressView;
     private View createFormView;
+
+    private Drawable playerRatingLikeDrawable;
+    private Drawable playerRatingDislikeDrawable;
+    private Drawable playerRatingNeutralDrawable;
+
+    private OwPlayerRecord.Rating playerRating = OwPlayerRecord.Rating.Neutral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +78,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
         });
         playerBattleTag.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -79,16 +86,29 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
         playerFavorite = (CheckBox) findViewById(R.id.player_favorite);
+        playerRatingView = (ImageView) findViewById(R.id.player_rating);
+        playerRatingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleRating();
+            }
+        });
         playerPlatform = (Spinner) findViewById(R.id.player_platform);
         playerRegion = (Spinner) findViewById(R.id.player_region);
         playerNote = (EditText) findViewById(R.id.player_note);
 
         createFormView = findViewById(R.id.create_form);
+
+        playerRatingNeutralDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumbs_up_down, null);
+        playerRatingLikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_up, null);
+        playerRatingDislikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_down, null);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            playerRatingLikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_green_dark, null));
+            playerRatingDislikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
+        }
     }
 
     @Override
@@ -119,6 +139,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
                 OwPlayerRecord newRecord = new OwPlayerRecord();
                 newRecord.setBattleTag(playerBattleTag.getText().toString());
                 newRecord.setFavorite(playerFavorite.isChecked());
+                newRecord.setRating(playerRating);
                 newRecord.setPlatform(playerPlatform.getSelectedItem().toString());
                 newRecord.setRegion(playerRegion.getSelectedItem().toString());
                 newRecord.setNote(playerNote.getText().toString());
@@ -161,6 +182,28 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
         }
 
         invalidateOptionsMenu();
+    }
+
+    private void toggleRating() {
+        switch (playerRating) {
+            case Neutral: {
+                playerRatingView.setImageDrawable(playerRatingLikeDrawable);
+                playerRating = OwPlayerRecord.Rating.Like;
+                break;
+            }
+
+            case Like: {
+                playerRatingView.setImageDrawable(playerRatingDislikeDrawable);
+                playerRating = OwPlayerRecord.Rating.Dislike;
+                break;
+            }
+
+            case Dislike: {
+                playerRatingView.setImageDrawable(playerRatingNeutralDrawable);
+                playerRating = OwPlayerRecord.Rating.Neutral;
+                break;
+            }
+        }
     }
 
     /**

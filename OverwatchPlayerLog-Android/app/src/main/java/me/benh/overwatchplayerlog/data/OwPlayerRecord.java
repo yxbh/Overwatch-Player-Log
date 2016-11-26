@@ -27,7 +27,7 @@ public class OwPlayerRecord {
 
     public enum Rating {
         Dislike(-1),
-        Undecided(0),
+        Neutral(0),
         Like(1);
 
         private final int value;
@@ -35,7 +35,7 @@ public class OwPlayerRecord {
         public int getValue() { return value; }
     }
 
-    private Rating rating = Rating.Undecided;
+    private Rating rating = Rating.Neutral;
 
     public OwPlayerRecord() {
     }
@@ -115,8 +115,8 @@ public class OwPlayerRecord {
     public static Rating valueToRating(int ratingValue) {
         if (ratingValue == OwPlayerRecord.Rating.Dislike.getValue()) {
             return OwPlayerRecord.Rating.Dislike;
-        } else if (ratingValue == OwPlayerRecord.Rating.Undecided.getValue()) {
-            return OwPlayerRecord.Rating.Undecided;
+        } else if (ratingValue == OwPlayerRecord.Rating.Neutral.getValue()) {
+            return OwPlayerRecord.Rating.Neutral;
         } else if (ratingValue == OwPlayerRecord.Rating.Like.getValue()) {
             return OwPlayerRecord.Rating.Like;
         }

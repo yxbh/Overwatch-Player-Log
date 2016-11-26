@@ -11,19 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:drawable/divider_horizontal_bright"
-        android:layout_gravity="bottom"
-        />
+        android:layout_gravity="bottom" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_height"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/player_battletag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginStart="@dimen/record_list_battletag_margin_start"
+            android:layout_marginEnd="@dimen/record_list_battletag_margin_end"
             android:textAppearance="?attr/textAppearanceListItem"
             android:text="@string/dummy_text"
             android:gravity="center_vertical|start" />

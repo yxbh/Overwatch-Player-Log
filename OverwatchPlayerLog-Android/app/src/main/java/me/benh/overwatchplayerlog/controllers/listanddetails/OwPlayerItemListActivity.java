@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     public static final int REQUEST_CREATE_NEW_RECORD = 1000;
     public static final int REQUEST_EDIT_RECORD = 1001;
+    public static final int REQUEST_VIEW_RECORD_DETAIL = 1002;
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -109,6 +111,28 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        final SearchView searchView = (SearchView) menu.findItem(R.id.search_player).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String queryText) {
+                Log.v(TAG, "onQueryTextSubmit: [" + queryText + "]");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String queryText) {
+                Log.v(TAG, "onQueryTextChange: [" + queryText + "]");
+                recordsViewAdapter.filter(queryText);
+                recordsViewAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.v(this.getLocalClassName(), "onOptionsItemSelected");
         View menuView = this.getWindow().getDecorView().findViewById(R.id.content);
@@ -125,9 +149,8 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 return true;
             }
 
-            case R.id.searchPlayer: {
-                Snackbar.make(menuView, "Player search action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            case R.id.search_player: {
+                // do nothing here since search is handled by the search view query listener.
                 return true;
             }
 
@@ -180,7 +203,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
     }
 
     private void refreshRecords() {
-        recordsViewAdapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecord());
+        recordsViewAdapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecords());
     }
 
     @Override
@@ -202,6 +225,12 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     refreshRecordsWithUi();
                 }
+                break;
+            }
+
+            case REQUEST_VIEW_RECORD_DETAIL: {
+                Log.v(TAG, "REQUEST_VIEW_RECORD_DETAIL");
+                refreshRecordsWithUi();
                 break;
             }
         }

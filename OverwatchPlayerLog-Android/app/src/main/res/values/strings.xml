@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Overwatch Player Log</string>
     <string name="title_owplayeritem_detail">OwPlayerItem Detail</string>
-    <string name="players">Players</string>
+    <string name="title_players">All Players</string>
+    <string name="title_favorite">Favorite Players</string>
+    <string name="title_search">Search</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -122,7 +122,7 @@ public class DataSource {
     }
 
 
-    public List<OwPlayerRecord> getAllOwPlayerRecord() {
+    public List<OwPlayerRecord> getAllOwPlayerRecords() {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = getOwPlayerRecordProjection();
@@ -151,13 +151,41 @@ public class DataSource {
             list.add(record);
         } while (cursor.moveToNext());
 
-        Collections.sort(list, new Comparator<OwPlayerRecord>() {
-            @Override
-            public int compare(OwPlayerRecord lhs, OwPlayerRecord rhs) {
-                int res = String.CASE_INSENSITIVE_ORDER.compare(lhs.getBattleTag(), rhs.getBattleTag());
-                return (res != 0) ? res : lhs.getBattleTag().compareTo(rhs.getBattleTag());
+        sortOwPlayerRecordCollection(list);
+
+        return list;
+    }
+
+    public List<OwPlayerRecord> getAllFavoriteOwPlayerRecords() {
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = getOwPlayerRecordProjection();
+        String selection = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_IS_FAVORITE + " = TRUE";
+
+        Cursor cursor = getReadableDb().query(
+                OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                null,                                     // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // The sort order
+        );
+
+        List<OwPlayerRecord> list = new ArrayList<>();
+        if (!cursor.moveToFirst()) {
+            return list;
+        }
+
+        do {
+            OwPlayerRecord record = getOwPlayerRecordFromCurrentCursorPos(cursor);
+            if (null == record) {
+                return null;
             }
-        });
+            list.add(record);
+        } while (cursor.moveToNext());
+
+        sortOwPlayerRecordCollection(list);
 
         return list;
     }
@@ -208,5 +236,15 @@ public class DataSource {
             return null;
         }
         return record;
+    }
+
+    private static void sortOwPlayerRecordCollection(List<OwPlayerRecord> collection) {
+        Collections.sort(collection, new Comparator<OwPlayerRecord>() {
+            @Override
+            public int compare(OwPlayerRecord lhs, OwPlayerRecord rhs) {
+                int res = String.CASE_INSENSITIVE_ORDER.compare(lhs.getBattleTag(), rhs.getBattleTag());
+                return (res != 0) ? res : lhs.getBattleTag().compareTo(rhs.getBattleTag());
+            }
+        });
     }
 }

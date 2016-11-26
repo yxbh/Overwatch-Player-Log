@@ -3,14 +3,19 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">170dp</dimen>
     <dimen name="item_width">250dp</dimen>
+    <dimen name="item_height">72dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="edit_field_icon_width">30dp</dimen>
-    <dimen name="edit_field_icon_height">30dp</dimen>
-    <dimen name="edit_field_margin_start">55dp</dimen>
+    <dimen name="edit_field_icon_width">32dp</dimen>
+    <dimen name="edit_field_icon_height">32dp</dimen>
+    <dimen name="edit_field_margin_start">56dp</dimen>
 
     <dimen name="edit_row_margin_bottom">10dp</dimen>
+
+    <dimen name="record_list_battletag_margin_start">16dp</dimen>
+    <dimen name="record_list_battletag_margin_end">6dp</dimen>
 </resources>

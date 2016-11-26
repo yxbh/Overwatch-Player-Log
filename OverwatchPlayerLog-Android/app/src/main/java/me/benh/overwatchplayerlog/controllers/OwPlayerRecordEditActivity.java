@@ -2,16 +2,20 @@ package me.benh.overwatchplayerlog.controllers;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import me.benh.overwatchplayerlog.R;
@@ -29,12 +33,19 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     private OwPlayerRecord record;
 
-    Menu menu;
-    EditText playerBattleTag;
-    CheckBox playerFavorite;
-    Spinner playerPlatform;
-    Spinner playerRegion;
-    EditText playerNote;
+    private Menu menu;
+    private EditText playerBattleTag;
+    private CheckBox playerFavorite;
+    private ImageView playerRatingView;
+    private Spinner playerPlatform;
+    private Spinner playerRegion;
+    private EditText playerNote;
+
+    private Drawable playerRatingLikeDrawable;
+    private Drawable playerRatingDislikeDrawable;
+    private Drawable playerRatingNeutralDrawable;
+
+    private OwPlayerRecord.Rating playerRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +55,18 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         // setup view connections.
         playerBattleTag = (EditText) findViewById(R.id.player_battletag);
         playerFavorite = (CheckBox) findViewById(R.id.player_favorite);
+        playerRatingView = (ImageView) findViewById(R.id.player_rating);
         playerPlatform = (Spinner) findViewById(R.id.player_platform);
         playerRegion = (Spinner) findViewById(R.id.player_region);
         playerNote = (EditText) findViewById(R.id.player_note);
+
+        playerRatingNeutralDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumbs_up_down, null);
+        playerRatingLikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_up, null);
+        playerRatingDislikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_down, null);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            playerRatingLikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_green_dark, null));
+            playerRatingDislikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
+        }
 
         // get starting intent.
         Intent receivedIntent = getIntent();
@@ -54,6 +74,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
             throw new RuntimeException("Missing start intent for " + getClass().getSimpleName());
         }
         record = ((OwPlayerRecordWrapper)receivedIntent.getParcelableExtra(ARG_OWPLAYERRECORD)).getRecord();
+        playerRating = record.getRating();
         Log.v(TAG, "Received " + record.toString());
 
         setupViewContent(record);
@@ -73,6 +94,12 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        playerRatingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleRating();
             }
         });
     }
@@ -149,11 +176,31 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         if (playerNote != null) {
             playerNote.setText(record.getNote());
         }
+
+        if (null != playerRatingView) {
+            switch (record.getRating()) {
+                case Neutral: {
+                    playerRatingView.setImageDrawable(playerRatingNeutralDrawable);
+                    break;
+                }
+
+                case Like: {
+                    playerRatingView.setImageDrawable(playerRatingLikeDrawable);
+                    break;
+                }
+
+                case Dislike: {
+                    playerRatingView.setImageDrawable(playerRatingDislikeDrawable);
+                    break;
+                }
+            }
+        }
     }
 
     private void saveViewContentToRecord() {
         record.setBattleTag(playerBattleTag.getText().toString());
         record.setFavorite(playerFavorite.isChecked());
+        record.setRating(playerRating);
         record.setPlatform(playerPlatform.getSelectedItem().toString());
         record.setRegion(playerRegion.getSelectedItem().toString());
         record.setNote(playerNote.getText().toString());
@@ -173,5 +220,27 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         }
 
         invalidateOptionsMenu();
+    }
+
+    private void toggleRating() {
+        switch (playerRating) {
+            case Neutral: {
+                playerRatingView.setImageDrawable(playerRatingLikeDrawable);
+                playerRating = OwPlayerRecord.Rating.Like;
+                break;
+            }
+
+            case Like: {
+                playerRatingView.setImageDrawable(playerRatingDislikeDrawable);
+                playerRating = OwPlayerRecord.Rating.Dislike;
+                break;
+            }
+
+            case Dislike: {
+                playerRatingView.setImageDrawable(playerRatingNeutralDrawable);
+                playerRating = OwPlayerRecord.Rating.Neutral;
+                break;
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ public class UnitTest_DataSource {
         DataSource ds = new DataSource(InstrumentationRegistry.getTargetContext());
 
         ds.hasOwPlayerRecordId("dummy");
-        ds.getAllOwPlayerRecord();
+        ds.getAllOwPlayerRecords();
         ds.getOwPlayerRecordWithId("jhb");
     }
 }

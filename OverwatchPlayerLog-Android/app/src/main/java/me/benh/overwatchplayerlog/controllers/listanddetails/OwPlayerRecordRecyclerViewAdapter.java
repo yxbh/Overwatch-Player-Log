@@ -1,6 +1,5 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,13 +25,19 @@ class OwPlayerRecordRecyclerViewAdapter
         extends RecyclerView.Adapter<OwPlayerRecordRecyclerViewAdapter.ViewHolder> {
 
     private final OwPlayerItemListActivity activity;
-    private final List<OwPlayerRecord> records = new ArrayList<>();
+
+    private final List<OwPlayerRecord> allRecords = new ArrayList<>();
+    private final List<OwPlayerRecord> filteredRecords = new ArrayList<>();
+
+    private String filterQuery = "";
+
     private OwPlayerItemDetailFragment detailFragment;
     private int currentDetailFragmentItemPosition;
 
     OwPlayerRecordRecyclerViewAdapter(@NonNull OwPlayerItemListActivity activity, @NonNull List<OwPlayerRecord> records) {
         this.activity = activity;
-        this.records.addAll(records);
+        this.allRecords.addAll(records);
+        this.filteredRecords.addAll(this.allRecords);
     }
 
     @Override
@@ -44,9 +49,11 @@ class OwPlayerRecordRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item = records.get(position);
+        holder.item = filteredRecords.get(position);
         holder.playerBattleTag.setText(holder.item.getBattleTag());
-        holder.playerFavorite.setVisibility(holder.item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+        holder.playerFavorite.setVisibility(holder.item.isFavorite() ? View.VISIBLE : View.GONE);
+        holder.playerRatingLike.setVisibility(holder.item.getRating() == OwPlayerRecord.Rating.Like ? View.VISIBLE : View.GONE);
+        holder.playerRatingDislike.setVisibility(holder.item.getRating() == OwPlayerRecord.Rating.Dislike ? View.VISIBLE : View.GONE);
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,15 +64,15 @@ class OwPlayerRecordRecyclerViewAdapter
                     arguments.putParcelable(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(holder.item));
                     detailFragment = new OwPlayerItemDetailFragment();
                     detailFragment.setArguments(arguments);
-                    activity.getSupportFragmentManager().beginTransaction()
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
                             .replace(R.id.owplayeritem_detail_container, detailFragment)
                             .commit();
                 } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, OwPlayerItemDetailActivity.class);
+                    Intent intent = new Intent(activity, OwPlayerItemDetailActivity.class);
                     intent.putExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(holder.item));
 
-                    context.startActivity(intent);
+                    activity.startActivityForResult(intent, OwPlayerItemListActivity.REQUEST_VIEW_RECORD_DETAIL);
                 }
             }
         });
@@ -73,37 +80,62 @@ class OwPlayerRecordRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return records.size();
+        return filteredRecords.size();
     }
 
     public OwPlayerRecord getItem(int position) {
-        return records.get(position);
+        return filteredRecords.get(position);
     }
 
     public void removeItem(int position) {
         // remove fragment
         if (activity.isTwoPane() && position == currentDetailFragmentItemPosition) {
-            activity.getSupportFragmentManager().beginTransaction()
-                    .remove(this.detailFragment).commit();
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(this.detailFragment)
+                    .commit();
         }
 
-        // remove from container and refresh view
-        this.records.remove(position);
+        // remove from container
+        OwPlayerRecord record = this.filteredRecords.remove(position);
+        this.allRecords.remove(record);
+
+        // refresh view
         this.notifyItemRemoved(position);
-        this.notifyItemRangeChanged(position, this.records.size());
+        this.notifyItemRangeChanged(position, this.filteredRecords.size());
     }
 
     public void swapData(List<OwPlayerRecord> items) {
-        this.records.clear();
-        this.records.addAll(items);
+        this.allRecords.clear();
+        this.allRecords.addAll(items);
+
+        this.filter(this.filterQuery);
+
         this.notifyDataSetChanged();
+    }
+
+    public void filter(@NonNull String queryText) {
+        filterQuery = queryText;
+        filteredRecords.clear();
+
+        if (queryText.isEmpty()) {
+            filteredRecords.addAll(allRecords);
+        } else {
+            for (OwPlayerRecord record : allRecords) {
+                if (record.getBattleTag().toLowerCase().contains(queryText)) {
+                    filteredRecords.add(record);
+                }
+            }
+        }
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
-        public final TextView playerBattleTag;
-        public final ImageView playerFavorite;
+        final TextView playerBattleTag;
+        final ImageView playerFavorite;
+        final ImageView playerRatingLike;
+        final ImageView playerRatingDislike;
         public OwPlayerRecord item;
 
         public ViewHolder(View view) {
@@ -111,6 +143,8 @@ class OwPlayerRecordRecyclerViewAdapter
             this.view = view;
             playerBattleTag = (TextView) view.findViewById(R.id.player_battletag);
             playerFavorite = (ImageView) view.findViewById(R.id.player_favorite);
+            playerRatingLike = (ImageView) view.findViewById(R.id.player_rating_like);
+            playerRatingDislike = (ImageView) view.findViewById(R.id.player_rating_dislike);
         }
 
         @Override
