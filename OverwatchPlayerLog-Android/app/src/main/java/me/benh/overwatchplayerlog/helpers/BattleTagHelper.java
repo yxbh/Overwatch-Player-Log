@@ -24,10 +24,15 @@ public final class BattleTagHelper {
         return isAllNumeric(playerTagId);
     }
 
-    public static boolean isBattleTag(@NonNull String battleTag) {
+    public static boolean isBattleTagWithoutId(@NonNull String battleTag) {
         return !battleTag.isEmpty() && isAllAlphabet(battleTag);
 
     }
+
+    public static boolean isInvalidBattleTag(@NonNull String battleTag) {
+        return !(isBattleTagWithId(battleTag) || isBattleTagWithoutId(battleTag));
+    }
+
 
     private static boolean isAllAlphabet(@NonNull String text) {
         if (text.isEmpty()) return false;

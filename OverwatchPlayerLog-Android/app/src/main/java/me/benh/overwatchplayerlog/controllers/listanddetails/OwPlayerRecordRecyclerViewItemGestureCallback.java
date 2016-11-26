@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -19,6 +20,7 @@ import junit.framework.Assert;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -31,20 +33,20 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
 
     private static String TAG = OwPlayerRecordRecyclerViewItemGestureCallback.class.getSimpleName();
 
-    private Context context;
+    private OwPlayerItemListActivity activity;
     private Paint paint = new Paint();
     private Drawable iconDelete;
     private Drawable iconEdit;
     private OwPlayerRecordRecyclerViewAdapter adapter;
 
-    public OwPlayerRecordRecyclerViewItemGestureCallback(Context context, OwPlayerRecordRecyclerViewAdapter adapter) {
+    public OwPlayerRecordRecyclerViewItemGestureCallback(OwPlayerItemListActivity activity, OwPlayerRecordRecyclerViewAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        this.context = context;
+        this.activity = activity;
         this.adapter = adapter;
         paint.setColor(Color.RED);
-        iconEdit = ContextCompat.getDrawable(context, R.drawable.ic_edit);
+        iconEdit = ContextCompat.getDrawable(activity, R.drawable.ic_edit);
         Assert.assertNotNull(iconEdit);
-        iconDelete = ContextCompat.getDrawable(context, R.drawable.ic_delete);
+        iconDelete = ContextCompat.getDrawable(activity, R.drawable.ic_delete);
         Assert.assertNotNull(iconDelete);
     }
 
@@ -67,8 +69,9 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
             }
             case ItemTouchHelper.RIGHT: {
                 Log.v(TAG, "onSwiped:RIGHT");
-                Intent intent = new Intent(context, OwPlayerRecordEditActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, OwPlayerRecordEditActivity.class);
+                intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(adapter.getItem(position)));
+                activity.startActivityForResult(intent, activity.REQUEST_EDIT_RECORD);
                 break;
             }
         }
@@ -115,8 +118,8 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
 
             boolean isSwipingRight = dX > 0;
             @ColorInt int backgroundColor = isSwipingRight ?
-                    ContextCompat.getColor(context, R.color.colorSwipeToEditBackground) :
-                    ContextCompat.getColor(context, R.color.colorSwipeToDeleteBackground);
+                    ContextCompat.getColor(activity, R.color.colorSwipeToEditBackground) :
+                    ContextCompat.getColor(activity, R.color.colorSwipeToDeleteBackground);
             paint.setColor(backgroundColor);
             float backgroundLeft   = isSwipingRight ? viewLeft : viewRight + dX;
             float backgroundRight  = isSwipingRight ? dX : viewRight;

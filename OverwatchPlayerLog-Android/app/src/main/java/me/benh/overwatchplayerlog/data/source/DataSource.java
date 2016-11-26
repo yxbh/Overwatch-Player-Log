@@ -10,6 +10,7 @@ import android.util.Log;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
@@ -42,6 +43,10 @@ public class DataSource {
     }
 
     public void saveNewOwPlayerRecord(@NonNull OwPlayerRecord record) {
+        if (!record.isValid()) {
+            throw new InvalidParameterException("Invalid record object " + record.toString());
+        }
+
         if (hasOwPlayerRecordId(record.getId())) {
             throw new InvalidParameterException("The given record's id already exists and is not new: [" + record.getId() + "].");
         }
@@ -53,13 +58,18 @@ public class DataSource {
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_REGION, record.getRegion());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_RATING, record.getRating().getValue());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_NOTE, record.getNote());
-        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_CREATION_DATETIME, "DATETIME('now')");
-        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_LASTUPDATE_DATETIME, "DATETIME('now')");
+        Date date = DateTimeHelper.getCurrentUtilDate();
+        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_CREATION_DATETIME, DateTimeHelper.toString(date));
+        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_LASTUPDATE_DATETIME, DateTimeHelper.toString(date));
 
         getWritableDb().insert(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, values);
     }
 
     public void updateOwPlayerRecord(@NonNull OwPlayerRecord record) {
+        if (!record.isValid()) {
+            throw new InvalidParameterException("Invalid record object " + record.toString());
+        }
+
         boolean isNewRecord = !hasOwPlayerRecordId(record.getId());
         if (isNewRecord) {
             saveNewOwPlayerRecord(record);
@@ -72,7 +82,8 @@ public class DataSource {
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_REGION, record.getRegion());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_RATING, record.getRating().getValue());
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_NOTE, record.getNote());
-        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_LASTUPDATE_DATETIME, "DATETIME('now')");
+        Date date = DateTimeHelper.getCurrentUtilDate();
+        values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_LASTUPDATE_DATETIME, DateTimeHelper.toString(date));
 
         String where = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID + " = ?";
         String[] selectionArgs = { record.getId() };
@@ -129,7 +140,11 @@ public class DataSource {
         }
 
         do {
-            list.add(getOwPlayerRecordFromCurrentCursorPos(cursor));
+            OwPlayerRecord record = getOwPlayerRecordFromCurrentCursorPos(cursor);
+            if (null == record) {
+                return null;
+            }
+            list.add(record);
         } while (cursor.moveToNext());
 
         return list;
@@ -162,14 +177,7 @@ public class DataSource {
         record.setBattleTag(cursor.getString(1));
         record.setPlatform(cursor.getString(2));
         record.setRegion(cursor.getString(3));
-        int ratingValue = cursor.getInt(4);
-        if (ratingValue == OwPlayerRecord.Rating.Dislike.getValue()) {
-            record.setRating(OwPlayerRecord.Rating.Dislike);
-        } else if (ratingValue == OwPlayerRecord.Rating.Undecided.getValue()) {
-            record.setRating(OwPlayerRecord.Rating.Undecided);
-        } else if (ratingValue == OwPlayerRecord.Rating.Like.getValue()) {
-            record.setRating(OwPlayerRecord.Rating.Like);
-        }
+        record.setRating(OwPlayerRecord.valueToRating(cursor.getInt(4)));
         record.setNote(cursor.getString(5));
         try {
             record.setRecordCreateDatetime(DateTimeHelper.toSqlDate(cursor.getString(6)));

@@ -17,6 +17,7 @@
     <string name="action_sign_in_short">Sign in</string>
 
     <string name="error_field_required">This field is required</string>
+    <string name="error_field_invalid_battletag">Invalid battle tag</string>
 
     <string name="dummy_text">DUMMY</string>
 

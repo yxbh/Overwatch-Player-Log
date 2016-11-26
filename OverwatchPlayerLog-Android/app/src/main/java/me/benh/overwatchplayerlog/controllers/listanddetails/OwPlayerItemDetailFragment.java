@@ -2,20 +2,25 @@ package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import junit.framework.Assert;
+
 import me.benh.overwatchplayerlog.R;
-import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
-import me.benh.overwatchplayerlog.dummy.DummyContent;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.helpers.LogHelper;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A fragment representing a single OwPlayerItem detail screen.
@@ -24,11 +29,13 @@ import me.benh.overwatchplayerlog.dummy.DummyContent;
  * on handsets.
  */
 public class OwPlayerItemDetailFragment extends Fragment {
+    public static final String TAG = OwPlayerItemDetailFragment.class.getSimpleName();
+
     /**
-     * The fragment argument representing the item ID that this fragment
+     * The fragment argument representing the {@link OwPlayerRecord} that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_OWPLAYERRECORD = "owplayerrecord";
 
     /**
      * The dummy content this fragment is presenting.
@@ -37,6 +44,9 @@ public class OwPlayerItemDetailFragment extends Fragment {
 
     private static final int REQUEST_EDIT_RECORD = 999;
 
+    CollapsingToolbarLayout appBarLayout;
+    TextView playerNote;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -44,54 +54,69 @@ public class OwPlayerItemDetailFragment extends Fragment {
     public OwPlayerItemDetailFragment() {
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setupViewContent(@NonNull OwPlayerRecord record) {
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(record.getBattleTag());
+        }
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            item = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(item.getBattleTag());
-            }
+        if (playerNote != null) {
+            playerNote.setText(record.getNote());
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments().containsKey(ARG_OWPLAYERRECORD)) {
+            // Load the dummy content specified by the fragment
+            // arguments. In a real-world scenario, use a Loader
+            // to load content from a content provider.
+            item = ((OwPlayerRecordWrapper) getArguments().getParcelable(ARG_OWPLAYERRECORD)).getRecord();
+
+            Activity activity = this.getActivity();
+            appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.owplayeritem_detail, container, false);
+        playerNote = (TextView) rootView.findViewById(R.id.player_note);
+        Assert.assertNotNull(playerNote);
 
-        // setup floating action buttons
-        FloatingActionButton fabEdit = (FloatingActionButton) rootView.findViewById(R.id.fab_edit);
-        if (null != fabEdit) {
-            fabEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), OwPlayerRecordEditActivity.class);
-                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
-                }
-            });
-        }
+        setupViewContent(item);
 
-        // Show the dummy content as text in a TextView.
-        if (item != null) {
-            ((TextView) rootView.findViewById(R.id.owplayeritem_detail)).setText(item.getBattleTag());
-        }
+//        // setup floating action buttons
+//        FloatingActionButton fabEdit = (FloatingActionButton) rootView.findViewById(R.id.fab_edit);
+//        if (null != fabEdit) {
+//            fabEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Log.v(TAG, "onClick");
+//                    Intent intent = new Intent(getActivity(), OwPlayerRecordEditActivity.class);
+//                    intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(item));
+//                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
+//                }
+//            });
+//        }
 
         return rootView;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v(TAG, "onActivityResult");
+        LogHelper.d_resultCode(TAG, resultCode);
+
         switch (requestCode) {
             case REQUEST_EDIT_RECORD: {
-                // TODO: update this fragment.
+                Log.v(TAG, "REQUEST_EDIT_RECORD");
+                if (resultCode == RESULT_OK) {
+                    item = ((OwPlayerRecordWrapper) data.getParcelableExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD)).getRecord();
+                    setupViewContent(item);
+                }
                 break;
             }
         }

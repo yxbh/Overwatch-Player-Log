@@ -12,6 +12,16 @@
     tools:context="me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity">
 
 
+    <!-- Save progress -->
+    <ProgressBar
+        android:id="@+id/save_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:background="@color/colorAccent"/>
+
     <ScrollView
         android:id="@+id/create_form"
         android:layout_width="match_parent"
@@ -31,7 +41,7 @@
                 android:gravity="center_vertical">
 
                 <EditText
-                    android:id="@+id/playerBattleTag"
+                    android:id="@+id/player_battletag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_battletag"
@@ -75,7 +85,7 @@
                 <Spinner
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/region"
+                    android:id="@+id/player_region"
                     android:entries="@array/regions"
                     android:gravity="start"
                     android:layout_marginStart="@dimen/edit_field_margin_start"
@@ -99,7 +109,7 @@
                 <Spinner
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/platform"
+                    android:id="@+id/player_platform"
                     android:entries="@array/platforms"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/edit_field_margin_start" />
@@ -125,22 +135,12 @@
                     android:inputType="textMultiLine"
                     android:ems="10"
                     android:layout_centerVertical="true"
-                    android:id="@+id/editText"
-                    android:layout_marginLeft="@dimen/edit_field_margin_start" />
+                    android:id="@+id/player_note"
+                    android:layout_marginStart="@dimen/edit_field_margin_start" />
 
             </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Save progress -->
-    <ProgressBar
-        android:id="@+id/save_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        android:background="@color/colorAccent"/>
 
 </LinearLayout>

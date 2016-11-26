@@ -3,28 +3,48 @@ package me.benh.overwatchplayerlog.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.data.OwPlayerRecord;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.data.source.DataSource;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
+import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
+    public static final String TAG = OwPlayerRecordCreateActivity.class.getSimpleName();
+
+    public static final String ARG_OWPLAYERRECORD = "owplayerrecord";
+
     // UI references.
     private EditText playerBattleTag;
+    private Spinner playerPlatform;
+    private Spinner playerRegion;
+    private EditText playerNote;
+
+    private Menu menu;
     private View mProgressView;
     private View createFormView;
 
@@ -34,7 +54,7 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ow_player_record_create);
 
         // Set up the create form.
-        playerBattleTag = (EditText) findViewById(R.id.playerBattleTag);
+        playerBattleTag = (EditText) findViewById(R.id.player_battletag);
         playerBattleTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -45,6 +65,25 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
                 return false;
             }
         });
+        playerBattleTag.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateMenuStates();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        playerPlatform = (Spinner) findViewById(R.id.player_platform);
+        playerRegion = (Spinner) findViewById(R.id.player_region);
+        playerNote = (EditText) findViewById(R.id.player_note);
 
         createFormView = findViewById(R.id.create_form);
     }
@@ -53,7 +92,14 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_owplayerrecord_save, menu);
+        this.menu = menu;
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        updateMenuStates();
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -64,13 +110,53 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
                 return true;
 
             case R.id.save: {
-                // TODO: add new item into datasource. potentially pass it back to calling activity.
+                Log.v(TAG, "case R.id.save");
+
+                // create new record object.
+                OwPlayerRecord newRecord = new OwPlayerRecord();
+                newRecord.setBattleTag(playerBattleTag.getText().toString());
+                newRecord.setPlatform(playerPlatform.getSelectedItem().toString());
+                newRecord.setRegion(playerRegion.getSelectedItem().toString());
+                newRecord.setNote(playerNote.getText().toString());
+
+                // validate
+                if (!newRecord.isValid()) {
+                    if (BattleTagHelper.isInvalidBattleTag(newRecord.getBattleTag())) {
+                        playerBattleTag.setError(getString(R.string.error_field_invalid_battletag));
+                    }
+                    return true;
+                }
+
+                // save to data source.
+                Log.v(TAG, "Saving new record " + newRecord.toString());
+                new DataSource(this).saveNewOwPlayerRecord(newRecord);
+
+                // return to calling activity.
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra(ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(newRecord));
+                ActivityHelper.finishWithSuccess(this, returnIntent);
                 return true;
             }
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void updateMenuStates() {
+        MenuItem saveItem = menu.findItem(R.id.save);
+        Drawable saveItemIcon = saveItem.getIcon();
+        boolean isReadyToSave = !playerBattleTag.getText().toString().isEmpty();
+
+        if (isReadyToSave) {
+            saveItem.setEnabled(true);
+            saveItemIcon.mutate().setAlpha(getResources().getInteger(R.integer.menuIconEnabledAlpha));
+        } else {
+            saveItem.setEnabled(false);
+            saveItemIcon.mutate().setAlpha(getResources().getInteger(R.integer.menuIconDisabledAlpha));
+        }
+
+        invalidateOptionsMenu();
     }
 
     /**
@@ -132,5 +218,6 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
             createFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+
 }
 

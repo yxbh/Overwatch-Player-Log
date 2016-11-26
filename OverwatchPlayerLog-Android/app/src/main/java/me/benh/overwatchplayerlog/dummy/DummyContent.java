@@ -1,6 +1,8 @@
 package me.benh.overwatchplayerlog.dummy;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,8 @@ public class DummyContent {
         newRecord.setBattleTag("BattleTag#" + String.valueOf(position));
         newRecord.setPlatform("PC");
         newRecord.setRegion("US");
+        newRecord.setRecordCreateDatetime(new Date(Calendar.getInstance().getTime().getTime()));
+        newRecord.setRecordLastUpdateDatetime(new Date(Calendar.getInstance().getTime().getTime()));
 
         return newRecord;
     }

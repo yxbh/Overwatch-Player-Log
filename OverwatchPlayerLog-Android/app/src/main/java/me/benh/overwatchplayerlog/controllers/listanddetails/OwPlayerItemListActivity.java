@@ -19,7 +19,8 @@ import android.view.View;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
-import me.benh.overwatchplayerlog.dummy.DummyContent;
+import me.benh.overwatchplayerlog.data.source.DataSource;
+import me.benh.overwatchplayerlog.helpers.LogHelper;
 
 /**
  * An activity representing a list of OwPlayerItems. This activity
@@ -30,6 +31,11 @@ import me.benh.overwatchplayerlog.dummy.DummyContent;
  * item details side-by-side using two vertical panes.
  */
 public class OwPlayerItemListActivity extends AppCompatActivity {
+
+    public static final String TAG = OwPlayerItemListActivity.class.getSimpleName();
+
+    public static final int REQUEST_CREATE_NEW_RECORD = 1000;
+    public static final int REQUEST_EDIT_RECORD = 1001;
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -69,14 +75,14 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OwPlayerItemListActivity.this, OwPlayerRecordCreateActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CREATE_NEW_RECORD);
             }
         });
 
         // setup list view
         recordsView = (RecyclerView) findViewById(R.id.owplayeritem_list);
         assert recordsView != null;
-        recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, DummyContent.ITEMS);
+        recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, new DataSource(this).getAllOwPlayerRecord());
         assert recordsViewAdapter != null;
         setupRecyclerView(recordsView, recordsViewAdapter);
         setupSwipeRefreshLayout(recordsViewAdapter);
@@ -150,10 +156,28 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.swapData(DummyContent.ITEMS);
+                adapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecord());
                 layout.setRefreshing(false);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v(TAG, "onActivityResult");
+        LogHelper.d_resultCode(TAG, resultCode);
+
+        switch (requestCode) {
+            case REQUEST_CREATE_NEW_RECORD: {
+                Log.v(TAG, "REQUEST_CREATE_NEW_RECORD");
+                if (resultCode == RESULT_OK) {
+                    DataSource ds = new DataSource(this);
+                    recordsViewAdapter.swapData(ds.getAllOwPlayerRecord());
+                }
+                break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

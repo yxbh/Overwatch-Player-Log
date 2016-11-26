@@ -3,6 +3,7 @@ package me.benh.overwatchplayerlog.controllers.listanddetails;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -27,7 +29,7 @@ class OwPlayerRecordRecyclerViewAdapter
     private OwPlayerItemDetailFragment detailFragment;
     private int currentDetailFragmentItemPosition;
 
-    OwPlayerRecordRecyclerViewAdapter(OwPlayerItemListActivity activity, List<OwPlayerRecord> records) {
+    OwPlayerRecordRecyclerViewAdapter(@NonNull OwPlayerItemListActivity activity, @NonNull List<OwPlayerRecord> records) {
         this.activity = activity;
         this.records.addAll(records);
     }
@@ -50,7 +52,7 @@ class OwPlayerRecordRecyclerViewAdapter
                 if (activity.isTwoPane()) {
                     currentDetailFragmentItemPosition = holder.getAdapterPosition();
                     Bundle arguments = new Bundle();
-                    arguments.putString(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
+                    arguments.putParcelable(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(holder.item));
                     detailFragment = new OwPlayerItemDetailFragment();
                     detailFragment.setArguments(arguments);
                     activity.getSupportFragmentManager().beginTransaction()
@@ -59,7 +61,7 @@ class OwPlayerRecordRecyclerViewAdapter
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, OwPlayerItemDetailActivity.class);
-                    intent.putExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID, holder.item.getId());
+                    intent.putExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(holder.item));
 
                     context.startActivity(intent);
                 }
@@ -70,6 +72,10 @@ class OwPlayerRecordRecyclerViewAdapter
     @Override
     public int getItemCount() {
         return records.size();
+    }
+
+    public OwPlayerRecord getItem(int position) {
+        return records.get(position);
     }
 
     public void removeItem(int position) {

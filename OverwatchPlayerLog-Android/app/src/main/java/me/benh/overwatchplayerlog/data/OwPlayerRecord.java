@@ -1,8 +1,10 @@
 package me.benh.overwatchplayerlog.data;
 
+import java.security.InvalidParameterException;
 import java.sql.Date;
-import java.util.List;
 
+import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
+import me.benh.overwatchplayerlog.helpers.DateTimeHelper;
 import me.benh.overwatchplayerlog.helpers.UuidHelper;
 
 /**
@@ -10,16 +12,16 @@ import me.benh.overwatchplayerlog.helpers.UuidHelper;
  */
 
 public class OwPlayerRecord {
-    private String id;
+    private String id = UuidHelper.newUuidString();
 
     private String battleTag;
     private String region;
     private String platform;
 
-    private Date recordCreateDatetime;
-    private Date recordLastUpdateDatetime;
+    private Date recordCreateDatetime = DateTimeHelper.getCurrentSqlDate();
+    private Date recordLastUpdateDatetime = DateTimeHelper.getCurrentSqlDate();
 
-    private String note;
+    private String note = "";
 
     public enum Rating {
         Dislike(-1),
@@ -31,10 +33,9 @@ public class OwPlayerRecord {
         public int getValue() { return value; }
     }
 
-    private Rating rating;
+    private Rating rating = Rating.Undecided;
 
     public OwPlayerRecord() {
-        this.id = UuidHelper.newUuidString();
     }
 
     public String getId() {
@@ -101,19 +102,32 @@ public class OwPlayerRecord {
         this.note = note;
     }
 
-    public static List<OwPlayerRecord> GetAll() {
-        // TODO: implement
-        return null;
+    public static Rating valueToRating(int ratingValue) {
+        if (ratingValue == OwPlayerRecord.Rating.Dislike.getValue()) {
+            return OwPlayerRecord.Rating.Dislike;
+        } else if (ratingValue == OwPlayerRecord.Rating.Undecided.getValue()) {
+            return OwPlayerRecord.Rating.Undecided;
+        } else if (ratingValue == OwPlayerRecord.Rating.Like.getValue()) {
+            return OwPlayerRecord.Rating.Like;
+        }
+
+        throw new InvalidParameterException("Invalid rating value [" + String.valueOf(ratingValue) + "]");
     }
 
-    public static OwPlayerRecord GetById(String id) {
-        // TODO: implement
-        return null;
+    public boolean isValid() {
+        return null != battleTag && !battleTag.isEmpty() &&
+                (BattleTagHelper.isBattleTagWithoutId(battleTag) || BattleTagHelper.isBattleTagWithId(battleTag)) &&
+                null != platform && !platform.isEmpty() &&
+                null != region && !region.isEmpty() &&
+                null != recordCreateDatetime && null != recordLastUpdateDatetime;
     }
 
-    public static boolean HasId(String id) {
-        // TODO: implement
-        return false;
+    @Override
+    public String toString() {
+        return "{id[" +getId() +
+                "], battleTag[" + getBattleTag() +
+                "], platform[" + getPlatform() +
+                "], region[" + getRegion() +
+                "], note[" + getNote() + "]}";
     }
-
 }

@@ -2,6 +2,7 @@ package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
-import me.benh.overwatchplayerlog.dummy.DummyContent;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.helpers.LogHelper;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This
@@ -26,9 +26,16 @@ import me.benh.overwatchplayerlog.dummy.DummyContent;
  */
 public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
+    public static final String TAG = OwPlayerItemDetailActivity.class.getSimpleName();
+
     private static final int REQUEST_EDIT_RECORD = 999;
 
     private OwPlayerRecord playerRecord;
+
+    OwPlayerItemDetailFragment detailFragment;
+
+    TextView playerPlatform;
+    TextView playerRegion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +43,19 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_owplayeritem_detail);
 
         // get the player record item
-        playerRecord = DummyContent.ITEM_MAP.get(getIntent().getStringExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID));
+        playerRecord = ((OwPlayerRecordWrapper) getIntent().getParcelableExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)).getRecord();
+        Log.v(TAG, "Received " + playerRecord.toString());
+
+        // setup view connections.
+        playerRegion = (TextView) findViewById(R.id.player_region);
+        playerPlatform = (TextView) findViewById(R.id.player_platform);
 
         // setup tool bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        // set activity title
-        setTitle(playerRecord.getBattleTag());
-        TextView actionBarPlayerRegion = (TextView) findViewById(R.id.player_region);
-        if (null != actionBarPlayerRegion) {
-            actionBarPlayerRegion.setText(playerRecord.getRegion());
-        }
-        TextView actionBarPlayerPlatform = (TextView) findViewById(R.id.player_platform);
-        if (null != actionBarPlayerPlatform) {
-            actionBarPlayerPlatform.setText(playerRecord.getPlatform());
-        }
+        // setup view content
+        setupViewContent(playerRecord);
 
         // Setup menu listener.
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -73,7 +77,9 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
             fabEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.v(TAG, "onClick");
                     Intent intent = new Intent(OwPlayerItemDetailActivity.this, OwPlayerRecordEditActivity.class);
+                    intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(playerRecord));
                     startActivityForResult(intent, REQUEST_EDIT_RECORD);
                 }
             });
@@ -92,12 +98,13 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(OwPlayerItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(OwPlayerItemDetailFragment.ARG_ITEM_ID));
-            OwPlayerItemDetailFragment fragment = new OwPlayerItemDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.owplayeritem_detail_container, fragment)
+            arguments.putParcelable(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD,
+                    getIntent().getParcelableExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD));
+            detailFragment = new OwPlayerItemDetailFragment();
+            detailFragment.setArguments(arguments);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.owplayeritem_detail_container, detailFragment)
                     .commit();
         }
     }
@@ -120,5 +127,39 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v(TAG, "onActivityResult");
+        LogHelper.d_resultCode(TAG, resultCode);
+
+        switch (requestCode) {
+            case REQUEST_EDIT_RECORD: {
+                Log.v(TAG, "REQUEST_EDIT_RECORD");
+                if (resultCode == RESULT_OK) {
+                    playerRecord = ((OwPlayerRecordWrapper) data.getParcelableExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD)).getRecord();
+                    Log.v(TAG, "Received " + playerRecord.toString());
+
+                    setupViewContent(playerRecord);
+                    detailFragment.setupViewContent(playerRecord);
+                }
+                break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void setupViewContent(@NonNull OwPlayerRecord record) {
+        setTitle(playerRecord.getBattleTag());
+
+        if (null != playerRegion) {
+            playerRegion.setText(playerRecord.getRegion());
+        }
+
+        if (null != playerPlatform) {
+            playerPlatform.setText(playerRecord.getPlatform());
+        }
     }
 }

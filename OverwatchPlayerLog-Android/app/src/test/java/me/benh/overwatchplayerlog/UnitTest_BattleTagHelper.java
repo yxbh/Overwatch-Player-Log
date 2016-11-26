@@ -14,17 +14,19 @@ import static org.junit.Assert.*;
 public class UnitTest_BattleTagHelper {
 
     @Test
-    public void test_isBattleTag() throws Exception {
-        assertTrue(BattleTagHelper.isBattleTag("AbCd"));
+    public void test_isBattleTagWithoutId() throws Exception {
+        assertTrue(BattleTagHelper.isBattleTagWithoutId("AbCd"));
 
-        assertFalse(BattleTagHelper.isBattleTag("A1b2"));
-        assertFalse(BattleTagHelper.isBattleTag("1234"));
-        assertFalse(BattleTagHelper.isBattleTag("AbCasdf#"));
+        assertFalse(BattleTagHelper.isBattleTagWithoutId("WarXyZ#1183"));
+        assertFalse(BattleTagHelper.isBattleTagWithoutId("A1b2"));
+        assertFalse(BattleTagHelper.isBattleTagWithoutId("1234"));
+        assertFalse(BattleTagHelper.isBattleTagWithoutId("AbCasdf#"));
     }
 
     @Test
     public void test_isBattleTagWithId() throws Exception {
         assertTrue(BattleTagHelper.isBattleTagWithId("AbCd#1231"));
+        assertTrue(BattleTagHelper.isBattleTagWithId("WarXyZ#1183"));
 
         assertFalse(BattleTagHelper.isBattleTagWithId("AbCd"));
         assertFalse(BattleTagHelper.isBattleTagWithId("A1b2"));
