@@ -10,6 +10,8 @@ import android.util.Log;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -147,7 +149,21 @@ public class DataSource {
             list.add(record);
         } while (cursor.moveToNext());
 
+        Collections.sort(list, new Comparator<OwPlayerRecord>() {
+            @Override
+            public int compare(OwPlayerRecord lhs, OwPlayerRecord rhs) {
+                int res = String.CASE_INSENSITIVE_ORDER.compare(lhs.getBattleTag(), rhs.getBattleTag());
+                return (res != 0) ? res : lhs.getBattleTag().compareTo(rhs.getBattleTag());
+            }
+        });
+
         return list;
+    }
+
+    public void removeOwPlayerRecord(@NonNull OwPlayerRecord record) {
+        String selection = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID + " = ?";
+        String[] selectionArgs = { record.getId() };
+        getWritableDb().delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, selection, selectionArgs);
     }
 
     private SQLiteDatabase getReadableDb() {

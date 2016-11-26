@@ -18,6 +18,8 @@ public class OwPlayerRecord {
     private String region;
     private String platform;
 
+    private boolean isFavorite = false;
+
     private Date recordCreateDatetime = DateTimeHelper.getCurrentSqlDate();
     private Date recordLastUpdateDatetime = DateTimeHelper.getCurrentSqlDate();
 
@@ -68,6 +70,14 @@ public class OwPlayerRecord {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public Date getRecordCreateDatetime() {

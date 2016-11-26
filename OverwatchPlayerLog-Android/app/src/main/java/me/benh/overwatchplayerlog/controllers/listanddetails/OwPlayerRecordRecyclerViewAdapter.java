@@ -82,7 +82,7 @@ class OwPlayerRecordRecyclerViewAdapter
         // TODO: remove record from data source.
 
         // remove fragment
-        if (position == currentDetailFragmentItemPosition) {
+        if (activity.isTwoPane() && position == currentDetailFragmentItemPosition) {
             activity.getSupportFragmentManager().beginTransaction()
                     .remove(this.detailFragment).commit();
         }

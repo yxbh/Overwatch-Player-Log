@@ -2,4 +2,6 @@
 <resources>
     <integer name="menuIconEnabledAlpha">255</integer>
     <integer name="menuIconDisabledAlpha">130</integer>
+
+    <integer name="timeOutBeforeDelete">3000</integer>
 </resources>

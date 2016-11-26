@@ -17,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
+import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
 
@@ -82,7 +85,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         // setup list view
         recordsView = (RecyclerView) findViewById(R.id.owplayeritem_list);
         assert recordsView != null;
-        recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, new DataSource(this).getAllOwPlayerRecord());
+        recordsViewAdapter = new OwPlayerRecordRecyclerViewAdapter(this, new ArrayList<OwPlayerRecord>());
         assert recordsViewAdapter != null;
         setupRecyclerView(recordsView, recordsViewAdapter);
         setupSwipeRefreshLayout(recordsViewAdapter);
@@ -94,6 +97,8 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             isTwoPane = true;
         }
+
+        refreshRecordsWithUi();
     }
 
     @Override
@@ -156,10 +161,26 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecord());
+                refreshRecords();
                 layout.setRefreshing(false);
             }
         });
+    }
+
+    public void refreshRecordsWithUi() {
+        final SwipeRefreshLayout layout = (SwipeRefreshLayout) findViewById(R.id.owplayeritem_list_swipeRefreshLayout);
+        layout.post(new Runnable() {
+            @Override
+            public void run() {
+                layout.setRefreshing(true);
+                refreshRecords();
+                layout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void refreshRecords() {
+        recordsViewAdapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecord());
     }
 
     @Override
@@ -171,8 +192,15 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             case REQUEST_CREATE_NEW_RECORD: {
                 Log.v(TAG, "REQUEST_CREATE_NEW_RECORD");
                 if (resultCode == RESULT_OK) {
-                    DataSource ds = new DataSource(this);
-                    recordsViewAdapter.swapData(ds.getAllOwPlayerRecord());
+                    refreshRecordsWithUi();
+                }
+                break;
+            }
+
+            case REQUEST_EDIT_RECORD: {
+                Log.v(TAG, "REQUEST_EDIT_RECORD");
+                if (resultCode == RESULT_OK) {
+                    refreshRecordsWithUi();
                 }
                 break;
             }

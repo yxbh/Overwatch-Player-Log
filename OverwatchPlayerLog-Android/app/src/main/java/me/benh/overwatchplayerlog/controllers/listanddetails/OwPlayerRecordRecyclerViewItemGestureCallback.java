@@ -1,6 +1,5 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,9 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -20,7 +20,9 @@ import junit.framework.Assert;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
+import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.data.source.DataSource;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -38,6 +40,8 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
     private Drawable iconDelete;
     private Drawable iconEdit;
     private OwPlayerRecordRecyclerViewAdapter adapter;
+
+    private Handler recordRemovalHandler = new Handler();
 
     public OwPlayerRecordRecyclerViewItemGestureCallback(OwPlayerItemListActivity activity, OwPlayerRecordRecyclerViewAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
@@ -64,7 +68,33 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
         switch (direction) {
             case ItemTouchHelper.LEFT: {
                 Log.v(TAG, "onSwiped:LEFT");
+                final OwPlayerRecord record = adapter.getItem(position);
                 adapter.removeItem(position);
+
+                // setup for removal
+                final Runnable recordDeleteRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        new DataSource(activity).removeOwPlayerRecord(record);
+                    }
+                };
+
+                Snackbar
+                    .make(viewHolder.itemView, R.string.snackbar_record_deleted, activity.getResources().getInteger(R.integer.timeOutBeforeDelete))
+                    .setAction(R.string.snackbar_undo, new View.OnClickListener() {
+                        final Runnable runnable = recordDeleteRunnable;
+                        @Override
+                        public void onClick(View v) {
+                            recordRemovalHandler.removeCallbacks(runnable);
+                            activity.refreshRecordsWithUi();
+                        }
+                    })
+                    .show();
+
+                recordRemovalHandler.postDelayed(
+                    recordDeleteRunnable,
+                    activity.getResources().getInteger(R.integer.timeOutBeforeDelete));
+
                 break;
             }
             case ItemTouchHelper.RIGHT: {

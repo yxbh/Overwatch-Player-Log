@@ -25,6 +25,9 @@ public class OwPlayerRecordWrapper implements Parcelable {
         record.setBattleTag(source.readString());
         record.setPlatform(source.readString());
         record.setRegion(source.readString());
+        boolean[] tempBools = new boolean[1];
+        source.readBooleanArray(tempBools);
+        record.setFavorite(tempBools[0]);
         record.setRating(OwPlayerRecord.valueToRating(source.readInt()));
         record.setNote(source.readString());
         record.setRecordCreateDatetime(new Date(source.readLong()));
@@ -46,6 +49,7 @@ public class OwPlayerRecordWrapper implements Parcelable {
         parcel.writeString(record.getBattleTag());
         parcel.writeString(record.getPlatform());
         parcel.writeString(record.getRegion());
+        parcel.writeBooleanArray(new boolean[] { record.isFavorite() });
         parcel.writeInt(record.getRating().getValue());
         parcel.writeString(record.getNote());
         parcel.writeLong(record.getRecordCreateDatetime().getTime());
