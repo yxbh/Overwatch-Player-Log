@@ -55,6 +55,7 @@
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_width"
                     app:srcCompat="@drawable/ic_person"
+                    android:tint="@color/colorAccent"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true" />
 
@@ -80,6 +81,7 @@
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_width"
                     app:srcCompat="@drawable/ic_pin_drop"
+                    android:tint="@color/colorAccent"
                     android:layout_marginEnd="12dp" />
 
                 <Spinner
@@ -104,6 +106,7 @@
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_width"
                     app:srcCompat="@drawable/ic_computer"
+                    android:tint="@color/colorAccent"
                     android:layout_marginEnd="12dp" />
 
                 <Spinner
@@ -127,6 +130,7 @@
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_width"
                     app:srcCompat="@drawable/ic_content"
+                    android:tint="@color/colorAccent"
                     android:layout_alignParentStart="true" />
 
                 <EditText
