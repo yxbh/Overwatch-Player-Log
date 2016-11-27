@@ -121,7 +121,8 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                 //
                 // http://developer.android.com/design/patterns/navigation.html#up-vs-back
                 //
-                navigateUpTo(new Intent(this, OwPlayerItemListActivity.class));
+                //navigateUpTo(new Intent(this, OwPlayerItemListActivity.class));
+                finish();
                 return true;
             }
         }

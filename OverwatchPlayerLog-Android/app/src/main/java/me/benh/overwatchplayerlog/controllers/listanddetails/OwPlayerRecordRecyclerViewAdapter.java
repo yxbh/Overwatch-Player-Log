@@ -112,6 +112,9 @@ class OwPlayerRecordRecyclerViewAdapter
         this.allRecords.addAll(items);
 
         this.filter(this.filterQuery);
+        if (isFavoriteOnly()) {
+            this.filterFavorite();
+        }
 
         this.notifyDataSetChanged();
     }
