@@ -170,6 +170,11 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     private void updateMenuStates() {
         MenuItem saveItem = menu.findItem(R.id.save);
+        if (null != saveItem) {
+            Log.e(TAG, "updateMenuStates: unable to find save menu item.");
+            return;
+        }
+
         Drawable saveItemIcon = saveItem.getIcon();
         boolean isReadyToSave = !playerBattleTag.getText().toString().isEmpty();
 
