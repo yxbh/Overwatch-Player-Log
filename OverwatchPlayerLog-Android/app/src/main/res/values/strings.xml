@@ -25,6 +25,8 @@
     <string name="snackbar_undo">UNDO</string>
 
     <string name="dummy_text">DUMMY</string>
+    <string name="dummy_platform">XBL</string>
+    <string name="dummy_region">US</string>
 
     <string-array name="regions">
         <item>US</item>

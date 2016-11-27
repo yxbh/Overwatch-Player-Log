@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -53,13 +54,12 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     private OwPlayerRecordRecyclerViewAdapter recordsViewAdapter;
     private RecyclerView recordsView;
-    private ActionBarDrawerToggle drawerToggle;
-    private Spinner toolBarTitleFilterSpinner;
-    private ArrayAdapter toolBarTitleFilterSpinnerAdapter;
 
-    public boolean isTwoPane() {
-        return isTwoPane;
-    }
+    private ActionBarDrawerToggle   drawerToggle;
+    private DrawerLayout            drawerLayout;
+
+    private Spinner         toolBarTitleFilterSpinner;
+    private ArrayAdapter    toolBarTitleFilterSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         });
 
         // setup drawer toggle
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
@@ -197,6 +197,19 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public boolean isTwoPane() {
+        return isTwoPane;
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView, @NonNull OwPlayerRecordRecyclerViewAdapter adapter) {

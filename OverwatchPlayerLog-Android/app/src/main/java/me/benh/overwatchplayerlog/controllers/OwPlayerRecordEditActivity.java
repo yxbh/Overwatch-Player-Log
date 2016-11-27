@@ -125,7 +125,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
             case android.R.id.home:
                 Log.v(TAG, "case android.R.id.home");
                 //NavUtils.navigateUpFromSameTask(this);
-                finish();
+                ActivityHelper.finishWithCanceled(this);
                 return true;
 
             case R.id.save: {

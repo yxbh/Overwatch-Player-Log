@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
 
 /**
@@ -36,6 +38,9 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
     TextView playerPlatform;
     TextView playerRegion;
+    ImageView playerFavorite;
+    ImageView playerRatingLike;
+    ImageView playerRatingDislike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,9 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         // setup view connections.
         playerRegion = (TextView) findViewById(R.id.player_region);
         playerPlatform = (TextView) findViewById(R.id.player_platform);
+        playerFavorite = (ImageView) findViewById(R.id.player_favorite);
+        playerRatingLike = (ImageView) findViewById(R.id.player_rating_like);
+        playerRatingDislike = (ImageView) findViewById(R.id.player_rating_dislike);
 
         // setup tool bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
@@ -122,7 +130,7 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                 // http://developer.android.com/design/patterns/navigation.html#up-vs-back
                 //
                 //navigateUpTo(new Intent(this, OwPlayerItemListActivity.class));
-                finish();
+                ActivityHelper.finishWithCanceled(this);
                 return true;
             }
         }
@@ -164,6 +172,18 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
         if (null != detailFragment) {
             detailFragment.setupViewContent(playerRecord);
+        }
+
+        if (null != playerFavorite) {
+            playerFavorite.setVisibility(playerRecord.isFavorite() ? View.VISIBLE : View.GONE);
+        }
+
+        if (null != playerRatingLike) {
+            playerRatingLike.setVisibility(playerRecord.getRating() == OwPlayerRecord.Rating.Like ? View.VISIBLE : View.GONE);
+        }
+
+        if (null != playerRatingDislike) {
+            playerRatingDislike.setVisibility(playerRecord.getRating() == OwPlayerRecord.Rating.Dislike ? View.VISIBLE : View.GONE);
         }
     }
 }
