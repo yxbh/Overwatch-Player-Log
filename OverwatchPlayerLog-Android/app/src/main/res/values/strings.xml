@@ -7,8 +7,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="title_activity_ow_player_record_create">Create New</string>
     <string name="title_activity_ow_player_record_edit">Edit</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string name="prompt_battletag">BattleTag (e.g. EdgeBro#123)</string>
 
@@ -23,6 +25,11 @@
 
     <string name="snackbar_record_deleted">Entry deleted</string>
     <string name="snackbar_undo">UNDO</string>
+
+    <string name="alertdialog_remove_all_records_title">Confirm</string>
+    <string name="alertdialog_remove_all_records_message">Are you sure you want to remove all entries?\nThis action is irreversible.</string>
+    <string name="alertdialog_remove_all_records_positive_button">Yes</string>
+    <string name="alertdialog_remove_all_records_negative_button">No</string>
 
     <string name="dummy_text">DUMMY</string>
     <string name="dummy_platform">XBL</string>

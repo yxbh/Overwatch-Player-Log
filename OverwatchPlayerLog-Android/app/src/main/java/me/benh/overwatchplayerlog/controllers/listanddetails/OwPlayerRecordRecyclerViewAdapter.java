@@ -107,6 +107,13 @@ class OwPlayerRecordRecyclerViewAdapter
         this.notifyItemRangeChanged(position, this.filteredRecords.size());
     }
 
+    public void removeAllItems() {
+        this.allRecords.clear();
+        this.filteredRecords.clear();
+
+        this.notifyDataSetChanged();
+    }
+
     public void swapData(List<OwPlayerRecord> items) {
         this.allRecords.clear();
         this.allRecords.addAll(items);
