@@ -2,7 +2,7 @@
     <string name="app_name">Overwatch Player Log</string>
     <string name="title_owplayeritem_detail">OwPlayerItem Detail</string>
     <string name="title_players">All Players</string>
-    <string name="title_favorite">Favorite Players</string>
+    <string name="title_favorite">Favorites</string>
     <string name="title_search">Search</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,5 +35,10 @@
         <item>PC</item>
         <item>PSN</item>
         <item>XBL</item>
+    </string-array>
+
+    <string-array name="activity_owplayeritem_list_titles">
+        <item>@string/title_players</item>
+        <item>@string/title_favorite</item>
     </string-array>
 </resources>

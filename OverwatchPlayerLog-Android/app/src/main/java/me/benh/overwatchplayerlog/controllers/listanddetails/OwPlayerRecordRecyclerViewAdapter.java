@@ -34,6 +34,8 @@ class OwPlayerRecordRecyclerViewAdapter
     private OwPlayerItemDetailFragment detailFragment;
     private int currentDetailFragmentItemPosition;
 
+    private boolean isFavoriteOnly = false;
+
     OwPlayerRecordRecyclerViewAdapter(@NonNull OwPlayerItemListActivity activity, @NonNull List<OwPlayerRecord> records) {
         this.activity = activity;
         this.allRecords.addAll(records);
@@ -127,8 +129,38 @@ class OwPlayerRecordRecyclerViewAdapter
                 }
             }
         }
+
+        if (isFavoriteOnly) {
+            filterFavorite();
+        }
     }
 
+    // remove non-favorites from filtered.
+    private void filterFavorite() {
+        List<OwPlayerRecord> removalList = new ArrayList<>();
+        for (OwPlayerRecord record : filteredRecords) {
+            if (!record.isFavorite()) {
+                removalList.add(record);
+            }
+        }
+
+        for (OwPlayerRecord record : removalList) {
+            filteredRecords.remove(record);
+        }
+    }
+
+    public boolean isFavoriteOnly() {
+        return isFavoriteOnly;
+    }
+
+    public void setFavoriteOnly(boolean favoriteOnly) {
+        isFavoriteOnly = favoriteOnly;
+        if (isFavoriteOnly()) {
+            filterFavorite();
+        } else {
+            filter(this.filterQuery);
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;

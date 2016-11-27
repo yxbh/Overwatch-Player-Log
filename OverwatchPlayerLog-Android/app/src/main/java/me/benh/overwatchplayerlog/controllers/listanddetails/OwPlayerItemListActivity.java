@@ -17,6 +17,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -51,6 +54,8 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
     private OwPlayerRecordRecyclerViewAdapter recordsViewAdapter;
     private RecyclerView recordsView;
     private ActionBarDrawerToggle drawerToggle;
+    private Spinner toolBarTitleFilterSpinner;
+    private ArrayAdapter toolBarTitleFilterSpinnerAdapter;
 
     public boolean isTwoPane() {
         return isTwoPane;
@@ -61,9 +66,35 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owplayeritem_list);
 
+        // setup toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // setup toolbar title spinner
+        //   this is needed to set custom dropdown item style
+        toolBarTitleFilterSpinner = (Spinner) findViewById(R.id.toolbar_title_spinner);
+        toolBarTitleFilterSpinnerAdapter =
+                ArrayAdapter.createFromResource(
+                        getSupportActionBar().getThemedContext(),
+                        R.array.activity_owplayeritem_list_titles,
+                        R.layout.toolbar_title_spinner_item);
+        toolBarTitleFilterSpinnerAdapter.setDropDownViewResource(R.layout.toolbar_title_spinner_dropdown_item);
+        toolBarTitleFilterSpinner.setAdapter(toolBarTitleFilterSpinnerAdapter);
+        toolBarTitleFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing.
+            }
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v(TAG, "selected [" + toolBarTitleFilterSpinner.getSelectedItem().toString() + "]");
+                boolean showFavoriteOnly = toolBarTitleFilterSpinner.getSelectedItem().toString().toLowerCase().contains("favorite");
+                recordsViewAdapter.setFavoriteOnly(showFavoriteOnly);
+                recordsViewAdapter.notifyDataSetChanged();
+            }
+        });
 
         // setup drawer toggle
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
