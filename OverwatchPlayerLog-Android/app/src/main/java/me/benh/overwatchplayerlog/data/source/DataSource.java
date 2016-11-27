@@ -196,6 +196,10 @@ public class DataSource {
         getWritableDb().delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, selection, selectionArgs);
     }
 
+    public void removeAllOwPlayerRecords() {
+        getWritableDb().delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, null);
+    }
+
     private SQLiteDatabase getReadableDb() {
         return new OwPlayerRecordDbHelper(context).getReadableDatabase();
     }

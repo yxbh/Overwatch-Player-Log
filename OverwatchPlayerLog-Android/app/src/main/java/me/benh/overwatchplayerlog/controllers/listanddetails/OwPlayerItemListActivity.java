@@ -1,14 +1,17 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
+import me.benh.overwatchplayerlog.controllers.SettingsActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
@@ -183,15 +187,31 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 return true;
             }
 
-            case R.id.removeAllPlayerRecords: {
-                Snackbar.make(menuView, "Remove all player records action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            case R.id.remove_all_player_records: {
+                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.alertdialog_remove_all_records_title)
+                        .setMessage(getString(R.string.alertdialog_remove_all_records_message))
+                        .setPositiveButton(R.string.alertdialog_remove_all_records_positive_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                removeAllRecordsWithUi();
+                            }
+                        })
+                        .setNegativeButton(R.string.alertdialog_remove_all_records_negative_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setCancelable(true)
+                        .create();
+                alertDialog.show();
                 return true;
             }
 
             case R.id.settings: {
-                Snackbar.make(menuView, "Settings action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(OwPlayerItemListActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             }
         }
@@ -239,6 +259,19 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             public void run() {
                 layout.setRefreshing(true);
                 refreshRecords();
+                layout.setRefreshing(false);
+            }
+        });
+    }
+
+    public void removeAllRecordsWithUi() {
+        final SwipeRefreshLayout layout = (SwipeRefreshLayout) findViewById(R.id.owplayeritem_list_swipeRefreshLayout);
+        layout.post(new Runnable() {
+            @Override
+            public void run() {
+                layout.setRefreshing(true);
+                new DataSource(OwPlayerItemListActivity.this).removeAllOwPlayerRecords();
+                recordsViewAdapter.removeAllItems();
                 layout.setRefreshing(false);
             }
         });

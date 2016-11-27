@@ -14,7 +14,7 @@
         android:showAsAction="always"
         app:showAsAction="always" />
     <item android:title="Remove All"
-        android:id="@+id/removeAllPlayerRecords" />
+        android:id="@+id/remove_all_player_records" />
     <item android:title="Settings"
         android:id="@+id/settings" />
 </menu>
