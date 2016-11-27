@@ -83,9 +83,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         toolBarTitleFilterSpinner.setAdapter(toolBarTitleFilterSpinnerAdapter);
         toolBarTitleFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing.
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
