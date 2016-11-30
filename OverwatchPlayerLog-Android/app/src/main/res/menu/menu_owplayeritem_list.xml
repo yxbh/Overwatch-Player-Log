@@ -13,8 +13,8 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:showAsAction="always"
         app:showAsAction="always" />
-    <item android:title="Remove All"
+    <item android:title="@string/menu_remove_all"
         android:id="@+id/remove_all_player_records" />
-    <item android:title="Settings"
+    <item android:title="@string/menu_settings"
         android:id="@+id/settings" />
 </menu>

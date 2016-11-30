@@ -12,6 +12,9 @@
     <string name="title_activity_ow_player_record_edit">Edit</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="menu_remove_all">Remove All</string>
+    <string name="menu_settings">Settings</string>
+
     <string name="prompt_battletag">BattleTag (e.g. EdgeBro#123)</string>
 
     <string name="form_favorite">Favorite</string>
