@@ -29,7 +29,6 @@ import java.util.ArrayList;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
-import me.benh.overwatchplayerlog.controllers.SettingsActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
@@ -102,10 +101,10 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        drawerToggle.syncState();
+//        drawerLayout.addDrawerListener(drawerToggle);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        drawerToggle.syncState();
 
         // setup floating action buttons
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
@@ -209,11 +208,11 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 return true;
             }
 
-            case R.id.settings: {
-                Intent intent = new Intent(OwPlayerItemListActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            }
+//            case R.id.settings: { // TODO: implement settings.
+//                Intent intent = new Intent(OwPlayerItemListActivity.this, SettingsActivity.class);
+//                startActivity(intent);
+//                return true;
+//            }
         }
 
         return super.onOptionsItemSelected(item);
