@@ -15,7 +15,7 @@ import android.widget.TextView;
 import junit.framework.Assert;
 
 import me.benh.overwatchplayerlog.R;
-import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
+import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
@@ -114,7 +114,7 @@ public class OwPlayerItemDetailFragment extends Fragment {
             case REQUEST_EDIT_RECORD: {
                 Log.v(TAG, "REQUEST_EDIT_RECORD");
                 if (resultCode == RESULT_OK) {
-                    item = ((OwPlayerRecordWrapper) data.getParcelableExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD)).getRecord();
+                    item = ((OwPlayerRecordWrapper) data.getParcelableExtra(Arguements.OWPLAYERRECORD)).getRecord();
                     setupViewContent(item);
                 }
                 break;

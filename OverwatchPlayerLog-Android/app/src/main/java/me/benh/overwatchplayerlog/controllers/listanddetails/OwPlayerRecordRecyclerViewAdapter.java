@@ -1,6 +1,5 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import java.util.List;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -71,10 +71,7 @@ class OwPlayerRecordRecyclerViewAdapter
                             .replace(R.id.owplayeritem_detail_container, detailFragment)
                             .commit();
                 } else {
-                    Intent intent = new Intent(activity, OwPlayerItemDetailActivity.class);
-                    intent.putExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(holder.item));
-
-                    activity.startActivityForResult(intent, OwPlayerItemListActivity.REQUEST_VIEW_RECORD_DETAIL);
+                    ActivityHelper.startDetailActivity(activity, holder.item);
                 }
             }
         });

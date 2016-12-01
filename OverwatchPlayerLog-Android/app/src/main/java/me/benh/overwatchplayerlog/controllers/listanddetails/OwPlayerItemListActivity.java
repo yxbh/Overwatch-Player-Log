@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,11 +24,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.common.Arguements;
+import me.benh.overwatchplayerlog.common.Requests;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordCreateActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
+import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
 
 /**
@@ -45,10 +48,6 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     public static final String TAG = OwPlayerItemListActivity.class.getSimpleName();
 
-    public static final int REQUEST_CREATE_NEW_RECORD = 1000;
-    public static final int REQUEST_EDIT_RECORD = 1001;
-    public static final int REQUEST_VIEW_RECORD_DETAIL = 1002;
-
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -60,6 +59,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle   drawerToggle;
     private DrawerLayout            drawerLayout;
+    private SearchView              toolBarSearchView;
 
     private Spinner         toolBarTitleFilterSpinner;
     private ArrayAdapter    toolBarTitleFilterSpinnerAdapter;
@@ -112,7 +112,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OwPlayerItemListActivity.this, OwPlayerRecordCreateActivity.class);
-                startActivityForResult(intent, REQUEST_CREATE_NEW_RECORD);
+                startActivityForResult(intent, Requests.CREATE_NEW_RECORD);
             }
         });
 
@@ -144,8 +144,9 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        final SearchView searchView = (SearchView) menu.findItem(R.id.search_player).getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        MenuItem menuItemSearch = menu.findItem(R.id.search_player);
+        toolBarSearchView = (SearchView) menuItemSearch.getActionView();
+        toolBarSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryText) {
                 Log.v(TAG, "onQueryTextSubmit: [" + queryText + "]");
@@ -160,6 +161,26 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 return true;
             }
         });
+        toolBarSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    toolBarSearchView.setQuery("", true);
+                    toolBarSearchView.setIconified(true);
+                }
+            }
+        });
+//        MenuItemCompat.setOnActionExpandListener(menuItemSearch, new MenuItemCompat.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem item) {
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem item) {
+//                return true;
+//            }
+//        });
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -269,7 +290,9 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 layout.setRefreshing(true);
-                new DataSource(OwPlayerItemListActivity.this).removeAllOwPlayerRecords();
+                DataSource ds = new DataSource(OwPlayerItemListActivity.this);
+                ds.removeAllOwPlayerRecords();
+                ds.close();
                 recordsViewAdapter.removeAllItems();
                 layout.setRefreshing(false);
             }
@@ -277,7 +300,10 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
     }
 
     private void refreshRecords() {
-        recordsViewAdapter.swapData(new DataSource(OwPlayerItemListActivity.this).getAllOwPlayerRecords());
+        DataSource ds = new DataSource(OwPlayerItemListActivity.this);
+        List<OwPlayerRecord> allRecords = ds.getAllOwPlayerRecords();
+        ds.close();
+        recordsViewAdapter.swapData(allRecords);
     }
 
     @Override
@@ -286,15 +312,15 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
         LogHelper.d_resultCode(TAG, resultCode);
 
         switch (requestCode) {
-            case REQUEST_CREATE_NEW_RECORD: {
+            case Requests.CREATE_NEW_RECORD: {
                 Log.v(TAG, "REQUEST_CREATE_NEW_RECORD");
                 if (resultCode == RESULT_OK) {
-                    refreshRecordsWithUi();
+                    ActivityHelper.startDetailActivity(this, (OwPlayerRecordWrapper) data.getExtras().getParcelable(Arguements.OWPLAYERRECORD));
                 }
                 break;
             }
 
-            case REQUEST_EDIT_RECORD: {
+            case Requests.EDIT_RECORD: {
                 Log.v(TAG, "REQUEST_EDIT_RECORD");
                 if (resultCode == RESULT_OK) {
                     refreshRecordsWithUi();
@@ -302,7 +328,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 break;
             }
 
-            case REQUEST_VIEW_RECORD_DETAIL: {
+            case Requests.VIEW_RECORD_DETAIL: {
                 Log.v(TAG, "REQUEST_VIEW_RECORD_DETAIL");
                 refreshRecordsWithUi();
                 break;

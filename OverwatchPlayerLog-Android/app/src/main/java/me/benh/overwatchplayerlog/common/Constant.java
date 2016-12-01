@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog;
+package me.benh.overwatchplayerlog.common;
 
 /**
  * Created by benhuang on 26/11/16.

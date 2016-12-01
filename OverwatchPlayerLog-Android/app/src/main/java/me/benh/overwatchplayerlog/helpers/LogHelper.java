@@ -3,7 +3,7 @@ package me.benh.overwatchplayerlog.helpers;
 import android.app.Activity;
 import android.util.Log;
 
-import me.benh.overwatchplayerlog.Constant;
+import me.benh.overwatchplayerlog.common.Constant;
 
 /**
  * Created by benhuang on 26/11/16.

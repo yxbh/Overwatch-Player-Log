@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
@@ -28,8 +29,6 @@ import me.benh.overwatchplayerlog.helpers.SpinnerHelper;
 
 public class OwPlayerRecordEditActivity extends AppCompatActivity {
     public static final String TAG = OwPlayerRecordEditActivity.class.getSimpleName();
-
-    public static final String ARG_OWPLAYERRECORD = "owplayerrecord";
 
     private OwPlayerRecord record;
 
@@ -73,7 +72,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         if (null == receivedIntent) {
             throw new RuntimeException("Missing start intent for " + getClass().getSimpleName());
         }
-        record = ((OwPlayerRecordWrapper)receivedIntent.getParcelableExtra(ARG_OWPLAYERRECORD)).getRecord();
+        record = ((OwPlayerRecordWrapper)receivedIntent.getParcelableExtra(Arguements.OWPLAYERRECORD)).getRecord();
         playerRating = record.getRating();
         Log.v(TAG, "Received " + record.toString());
 
@@ -114,8 +113,9 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
         updateMenuStates();
-        return super.onPrepareOptionsMenu(menu);
+        return result;
     }
 
     @Override
@@ -142,11 +142,13 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
                 }
 
                 // save to data source.
-                new DataSource(this).updateOwPlayerRecord(record);
+                DataSource ds =  new DataSource(this);
+                ds.updateOwPlayerRecord(record);
+                ds.close();
 
                 // return to calling activity.
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(record));
+                returnIntent.putExtra(Arguements.OWPLAYERRECORD, new OwPlayerRecordWrapper(record));
                 ActivityHelper.finishWithSuccess(this, returnIntent);
                 return true;
             }

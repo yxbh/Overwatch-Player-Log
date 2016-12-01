@@ -1,24 +1,31 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.benh.overwatchplayerlog.R;
-import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
+import me.benh.overwatchplayerlog.common.Arguements;
+import me.benh.overwatchplayerlog.common.Requests;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
+import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
+import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
+import me.benh.overwatchplayerlog.helpers.OwPlayerStatsSiteUrlHelper;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This
@@ -29,8 +36,6 @@ import me.benh.overwatchplayerlog.helpers.LogHelper;
 public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
     public static final String TAG = OwPlayerItemDetailActivity.class.getSimpleName();
-
-    private static final int REQUEST_EDIT_RECORD = 999;
 
     private OwPlayerRecord playerRecord;
 
@@ -47,7 +52,20 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owplayeritem_detail);
 
+        // check for launch intent. finish activity with error if there isn't one.
+        Intent launchIntent = getIntent();
+        if (null == launchIntent) {
+            Log.e(TAG, "null == launchIntent");
+            ActivityHelper.finishWithError(this);
+            return;
+        }
+
         // get the player record item
+        if (!launchIntent.hasExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)) {
+            Log.e(TAG, "!launchIntent.hasExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)");
+            ActivityHelper.finishWithError(this);
+            return;
+        }
         playerRecord = ((OwPlayerRecordWrapper) getIntent().getParcelableExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)).getRecord();
         Log.v(TAG, "Received " + playerRecord.toString());
 
@@ -65,13 +83,13 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         // setup view content
         setupViewContent(playerRecord);
 
-        // Setup menu listener.
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return onMenuItemClick(item);
-            }
-        });
+//        // Setup menu listener.
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return onOptionsItemSelected(item);
+//            }
+//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -86,9 +104,7 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Log.v(TAG, "onClick");
-                    Intent intent = new Intent(OwPlayerItemDetailActivity.this, OwPlayerRecordEditActivity.class);
-                    intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(playerRecord));
-                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
+                    ActivityHelper.startEditActivity(OwPlayerItemDetailActivity.this, playerRecord);
                 }
             });
         }
@@ -118,8 +134,26 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_owplayer_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
+
+        // hide stats links if the battle tag is not well formed.
+        menu.setGroupVisible(R.id.menu_group_stats, BattleTagHelper.isBattleTagWithId(playerRecord.getBattleTag()));
+        menu.setGroupEnabled(R.id.menu_group_stats, BattleTagHelper.isBattleTagWithId(playerRecord.getBattleTag()));
+
+        return result;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(this.getLocalClassName(), "onOptionsItemSelected");
+        Log.v(this.getLocalClassName(), "onOptionsItemSelected");
         int id = item.getItemId();
         switch (id) {
             case android.R.id.home: {
@@ -133,6 +167,46 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                 ActivityHelper.finishWithCanceled(this);
                 return true;
             }
+
+            case R.id.menu_remove_owplayer_record: {
+                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.alertdialog_remove_record_title)
+                        .setMessage(getString(R.string.alertdialog_remove_record_message))
+                        .setPositiveButton(R.string.alertdialog_remove_record_positive_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DataSource ds = new DataSource(OwPlayerItemDetailActivity.this);
+                                ds.removeOwPlayerRecord(playerRecord);
+                                ds.close();
+                                ActivityHelper.finishWithSuccess(OwPlayerItemDetailActivity.this);
+                            }
+                        })
+                        .setNegativeButton(R.string.alertdialog_remove_record_negative_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setCancelable(true)
+                        .create();
+                alertDialog.show();
+                break;
+            }
+
+            case R.id.menu_stats_playeroverwatch: {
+                ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(playerRecord));
+                break;
+            }
+
+            case R.id.menu_stats_masteroverwatch: {
+                ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(playerRecord));
+                break;
+            }
+
+            case R.id.menu_stats_overbuff: {
+                ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlOverbuff(playerRecord));
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -144,10 +218,10 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         LogHelper.d_resultCode(TAG, resultCode);
 
         switch (requestCode) {
-            case REQUEST_EDIT_RECORD: {
+            case Requests.EDIT_RECORD: {
                 Log.v(TAG, "REQUEST_EDIT_RECORD");
                 if (resultCode == RESULT_OK) {
-                    playerRecord = ((OwPlayerRecordWrapper) data.getParcelableExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD)).getRecord();
+                    playerRecord = ((OwPlayerRecordWrapper) data.getParcelableExtra(Arguements.OWPLAYERRECORD)).getRecord();
                     Log.v(TAG, "Received " + playerRecord.toString());
 
                     setupViewContent(playerRecord);

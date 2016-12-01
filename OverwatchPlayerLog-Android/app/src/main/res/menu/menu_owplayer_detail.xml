@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_group_stats">
+        <item android:title="@string/menu_stats_playeroverwatch"
+            android:id="@+id/menu_stats_playeroverwatch" />
+        <item android:title="@string/menu_stats_masteroverwatch"
+            android:id="@+id/menu_stats_masteroverwatch" />
+        <item android:title="@string/menu_stats_overbuff"
+            android:id="@+id/menu_stats_overbuff" />
+    </group>
+    <item android:title="@string/menu_remove"
+        android:id="@+id/menu_remove_owplayer_record" />
+</menu>

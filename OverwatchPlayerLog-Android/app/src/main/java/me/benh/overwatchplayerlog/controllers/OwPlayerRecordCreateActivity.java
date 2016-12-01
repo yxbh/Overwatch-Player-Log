@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
@@ -37,8 +38,6 @@ import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     public static final String TAG = OwPlayerRecordCreateActivity.class.getSimpleName();
-
-    public static final String ARG_OWPLAYERRECORD = "owplayerrecord";
 
     // UI references.
     private EditText playerBattleTag;
@@ -120,8 +119,9 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
         updateMenuStates();
-        return super.onPrepareOptionsMenu(menu);
+        return result;
     }
 
     @Override
@@ -154,11 +154,13 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
                 // save to data source.
                 Log.v(TAG, "Saving new record " + newRecord.toString());
-                new DataSource(this).saveNewOwPlayerRecord(newRecord);
+                DataSource ds = new DataSource(this);
+                ds.saveNewOwPlayerRecord(newRecord);
+                ds.close();
 
                 // return to calling activity.
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(newRecord));
+                returnIntent.putExtra(Arguements.OWPLAYERRECORD, new OwPlayerRecordWrapper(newRecord));
                 ActivityHelper.finishWithSuccess(this, returnIntent);
                 return true;
             }

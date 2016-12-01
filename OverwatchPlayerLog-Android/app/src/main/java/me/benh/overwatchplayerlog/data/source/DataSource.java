@@ -29,15 +29,23 @@ public class DataSource {
     private static final String SQL_SELECT_WITH_ID = OplSqlContract.Tables.V1.OwPlayerRecord.SQL_SELECT_WITH_ID;
 
     private Context context;
+    private SQLiteDatabase writeDatabase;
+    private SQLiteDatabase readDatabase;
 
     public DataSource(@NonNull Context context) {
         this.context = context;
     }
 
     public boolean hasOwPlayerRecordId(@NonNull String id) {
-        Cursor cursor = getReadableDb().rawQuery(SQL_SELECT_WITH_ID, new String[] { id });
+        SQLiteDatabase db = getWritableDb();
+        Cursor cursor = db.rawQuery(SQL_SELECT_WITH_ID, new String[] { id });
         cursor.moveToNext();
-        return cursor.getInt(0) == 1;
+
+        boolean hasRecord = cursor.getInt(0) == 1;
+
+        cursor.close();
+
+        return hasRecord;
     }
 
     public boolean hasOwPlayerRecord(@NonNull OwPlayerRecord record) {
@@ -65,7 +73,11 @@ public class DataSource {
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_CREATION_DATETIME, DateTimeHelper.toString(date));
         values.put(OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_LASTUPDATE_DATETIME, DateTimeHelper.toString(date));
 
-        getWritableDb().insert(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, values);
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
+        db.insert(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     public void updateOwPlayerRecord(@NonNull OwPlayerRecord record) {
@@ -92,7 +104,11 @@ public class DataSource {
         String where = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID + " = ?";
         String[] selectionArgs = { record.getId() };
 
-        getWritableDb().update(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, values, where, selectionArgs);
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
+        db.update(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, values, where, selectionArgs);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     public OwPlayerRecord getOwPlayerRecordWithId(String id) {
@@ -104,7 +120,8 @@ public class DataSource {
         String selection = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID + " = ?";
         String[] selectionArgs = { id };
 
-        Cursor cursor = getReadableDb().query(
+        SQLiteDatabase db = getReadableDb();
+        Cursor cursor = db.query(
                 OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME,                     // The table to query
                 projection,                               // The columns to return
                 selection,                                // The columns for the WHERE clause
@@ -118,7 +135,10 @@ public class DataSource {
             return null;
         }
 
-        return getOwPlayerRecordFromCurrentCursorPos(cursor);
+        OwPlayerRecord record = getOwPlayerRecordFromCurrentCursorPos(cursor);
+        cursor.close();
+
+        return record;
     }
 
 
@@ -127,8 +147,8 @@ public class DataSource {
         // you will actually use after this query.
         String[] projection = getOwPlayerRecordProjection();
 
-
-        Cursor cursor = getReadableDb().query(
+        SQLiteDatabase db = getReadableDb();
+        Cursor cursor = db.query(
                 OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME,                     // The table to query
                 projection,                               // The columns to return
                 null,                                     // The columns for the WHERE clause
@@ -150,6 +170,7 @@ public class DataSource {
             }
             list.add(record);
         } while (cursor.moveToNext());
+        cursor.close();
 
         sortOwPlayerRecordCollection(list);
 
@@ -162,7 +183,8 @@ public class DataSource {
         String[] projection = getOwPlayerRecordProjection();
         String selection = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_IS_FAVORITE + " = TRUE";
 
-        Cursor cursor = getReadableDb().query(
+        SQLiteDatabase db = getReadableDb();
+        Cursor cursor = db.query(
                 OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME,                     // The table to query
                 projection,                               // The columns to return
                 selection,                                // The columns for the WHERE clause
@@ -184,6 +206,7 @@ public class DataSource {
             }
             list.add(record);
         } while (cursor.moveToNext());
+        cursor.close();
 
         sortOwPlayerRecordCollection(list);
 
@@ -193,19 +216,36 @@ public class DataSource {
     public void removeOwPlayerRecord(@NonNull OwPlayerRecord record) {
         String selection = OplSqlContract.Tables.Latest.OwPlayerRecord.COLUMN_NAME_ID + " = ?";
         String[] selectionArgs = { record.getId() };
-        getWritableDb().delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, selection, selectionArgs);
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
+        db.delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, selection, selectionArgs);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     public void removeAllOwPlayerRecords() {
-        getWritableDb().delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, null);
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
+        db.delete(OplSqlContract.Tables.Latest.OwPlayerRecord.TABLE_NAME, null, null);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     private SQLiteDatabase getReadableDb() {
-        return new OwPlayerRecordDbHelper(context).getReadableDatabase();
+        return (null != readDatabase) ? readDatabase : (readDatabase = new OwPlayerRecordDbHelper(context).getReadableDatabase());
     }
 
     private SQLiteDatabase getWritableDb() {
-        return new OwPlayerRecordDbHelper(context).getWritableDatabase();
+        return (null != writeDatabase) ? writeDatabase : (writeDatabase = new OwPlayerRecordDbHelper(context).getReadableDatabase());
+    }
+
+    public void close() {
+        if (null != readDatabase) {
+            readDatabase.close();
+        }
+        if (null != writeDatabase) {
+            writeDatabase.close();
+        }
     }
 
     private String[] getOwPlayerRecordProjection() {

@@ -19,10 +19,13 @@ import android.view.View;
 import junit.framework.Assert;
 
 import me.benh.overwatchplayerlog.R;
+import me.benh.overwatchplayerlog.common.Arguements;
+import me.benh.overwatchplayerlog.common.Requests;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 
 /**
  * Created by Benjamin Huang on 22/11/2016.
@@ -99,9 +102,7 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
             }
             case ItemTouchHelper.RIGHT: {
                 Log.v(TAG, "onSwiped:RIGHT");
-                Intent intent = new Intent(activity, OwPlayerRecordEditActivity.class);
-                intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(adapter.getItem(position)));
-                activity.startActivityForResult(intent, activity.REQUEST_EDIT_RECORD);
+                ActivityHelper.startEditActivity(activity, adapter.getItem(position));
                 break;
             }
         }
