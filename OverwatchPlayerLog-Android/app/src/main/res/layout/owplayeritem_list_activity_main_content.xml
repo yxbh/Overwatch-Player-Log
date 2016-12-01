@@ -1,4 +1,5 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
@@ -45,6 +46,6 @@
         app:srcCompat="@drawable/ic_add"
         app:layout_anchor="@+id/owplayeritem_list"
         app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@android:color/holo_green_dark" />
+        app:backgroundTint="@color/colorAccent" />
 
 </android.support.design.widget.CoordinatorLayout>
