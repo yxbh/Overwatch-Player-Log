@@ -161,26 +161,6 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 return true;
             }
         });
-        toolBarSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    toolBarSearchView.setQuery("", true);
-                    toolBarSearchView.setIconified(true);
-                }
-            }
-        });
-//        MenuItemCompat.setOnActionExpandListener(menuItemSearch, new MenuItemCompat.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem item) {
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem item) {
-//                return true;
-//            }
-//        });
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -241,8 +221,17 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // close left side drawer is opened.
         if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        // empty or iconify search view if searching.
+        else if (!toolBarSearchView.isIconified()) {
+            if (toolBarSearchView.getQuery().toString().isEmpty()) { // empty search query
+                toolBarSearchView.setIconified(true); // close the search view.
+            } else { // non-empty search query.
+                toolBarSearchView.setQuery("", true); // empty the query.
+            }
         } else {
             super.onBackPressed();
         }
