@@ -37,13 +37,13 @@
     <string name="snackbar_undo">UNDO</string>
 
 
-    <string name="alertdialog_remove_record_title">Confirm</string>
-    <string name="alertdialog_remove_record_message">Are you sure you want to remove this entry?\nThis action is irreversible.</string>
+    <string name="alertdialog_remove_record_title">Remove entry?</string>
+    <string name="alertdialog_remove_record_message">This player entry will disappear from this device.</string>
     <string name="alertdialog_remove_record_positive_button">Yes</string>
     <string name="alertdialog_remove_record_negative_button">No</string>
 
-    <string name="alertdialog_remove_all_records_title">Confirm</string>
-    <string name="alertdialog_remove_all_records_message">Are you sure you want to remove all entries?\nThis action is irreversible.</string>
+    <string name="alertdialog_remove_all_records_title">Remove all entries?</string>
+    <string name="alertdialog_remove_all_records_message">All player entries will disappear from this device.</string>
     <string name="alertdialog_remove_all_records_positive_button">Yes</string>
     <string name="alertdialog_remove_all_records_negative_button">No</string>
 
