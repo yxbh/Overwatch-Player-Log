@@ -5,7 +5,7 @@ import java.sql.Date;
 
 import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 import me.benh.overwatchplayerlog.helpers.DateTimeHelper;
-import me.benh.overwatchplayerlog.helpers.UuidHelper;
+import me.benh.lib.helpers.UuidHelper;
 
 /**
  * Created by benhuang on 22/11/16.

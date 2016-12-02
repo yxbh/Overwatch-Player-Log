@@ -28,7 +28,7 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
-import me.benh.overwatchplayerlog.helpers.SpinnerHelper;
+import me.benh.lib.helpers.SpinnerHelper;
 
 public class OwPlayerRecordEditActivity extends AppCompatActivity {
     public static final String TAG = OwPlayerRecordEditActivity.class.getSimpleName();

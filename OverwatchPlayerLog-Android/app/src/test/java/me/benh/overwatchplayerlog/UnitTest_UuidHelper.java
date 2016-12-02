@@ -2,7 +2,7 @@ package me.benh.overwatchplayerlog;
 
 import org.junit.Test;
 
-import me.benh.overwatchplayerlog.helpers.UuidHelper;
+import me.benh.lib.helpers.UuidHelper;
 
 import static org.junit.Assert.assertFalse;
 

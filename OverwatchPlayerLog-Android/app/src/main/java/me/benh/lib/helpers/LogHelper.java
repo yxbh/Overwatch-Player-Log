@@ -1,6 +1,7 @@
 package me.benh.lib.helpers;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import me.benh.lib.common.Constants;
@@ -12,7 +13,7 @@ import me.benh.lib.common.Constants;
 public class LogHelper {
     protected LogHelper() {}
 
-    public static void d_resultCode(String tag, int resultCode) {
+    public static void d_resultCode(@NonNull String tag, int resultCode) {
         switch (resultCode) {
             case Activity.RESULT_OK: {
                 Log.v(tag, "RESULT_OK");

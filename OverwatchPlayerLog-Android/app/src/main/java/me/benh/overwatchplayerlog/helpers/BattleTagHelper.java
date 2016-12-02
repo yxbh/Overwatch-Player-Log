@@ -2,6 +2,8 @@ package me.benh.overwatchplayerlog.helpers;
 
 import android.support.annotation.NonNull;
 
+import me.benh.lib.helpers.StringHelper;
+
 /**
  * Created by benhuang on 25/11/16.
  */
