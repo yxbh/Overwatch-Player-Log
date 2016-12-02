@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import android.widget.Spinner;
 
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
+import me.benh.overwatchplayerlog.common.OwRegions;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
@@ -32,13 +35,14 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     private OwPlayerRecord record;
 
-    private Menu menu;
-    private EditText playerBattleTag;
-    private CheckBox playerFavorite;
-    private ImageView playerRatingView;
-    private Spinner playerPlatform;
-    private Spinner playerRegion;
-    private EditText playerNote;
+    private Menu        menu;
+
+    private EditText    playerBattleTag;
+    private CheckBox    playerFavorite;
+    private ImageView   playerRatingView;
+    private Spinner     playerPlatform;
+    private Spinner     playerRegion;
+    private EditText    playerNote;
 
     private Drawable playerRatingLikeDrawable;
     private Drawable playerRatingDislikeDrawable;
@@ -52,12 +56,12 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ow_player_record_edit);
 
         // setup view connections.
-        playerBattleTag = (EditText) findViewById(R.id.player_battletag);
-        playerFavorite = (CheckBox) findViewById(R.id.player_favorite);
+        playerBattleTag  = (EditText)  findViewById(R.id.player_battletag);
+        playerFavorite   = (CheckBox)  findViewById(R.id.player_favorite);
         playerRatingView = (ImageView) findViewById(R.id.player_rating);
-        playerPlatform = (Spinner) findViewById(R.id.player_platform);
-        playerRegion = (Spinner) findViewById(R.id.player_region);
-        playerNote = (EditText) findViewById(R.id.player_note);
+        playerPlatform   = (Spinner)   findViewById(R.id.player_platform);
+        playerRegion     = (Spinner)   findViewById(R.id.player_region);
+        playerNote       = (EditText)  findViewById(R.id.player_note);
 
         playerRatingNeutralDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumbs_up_down, null);
         playerRatingLikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_up, null);
@@ -81,9 +85,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
         // setup listeners
         playerBattleTag.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* do nothing */ }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -91,15 +93,28 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { /* do nothing */ }
         });
         playerRatingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleRating();
             }
+        });
+        playerPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedPlatform = playerPlatform.getSelectedItem().toString();
+                Log.v(TAG, "selected platform [" + selectedPlatform + "]");
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+                                                                    R.layout.default_spinner_item,
+                                                                    OwRegions.getRegionsList(selectedPlatform));
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                playerRegion.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { /* do nothing. */ }
         });
     }
 
@@ -135,7 +150,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
                 // validate
                 if (!record.isValid()) {
-                    if (BattleTagHelper.isInvalidBattleTag(record.getBattleTag())) {
+                    if (BattleTagHelper.isInvalidTag(record.getBattleTag())) {
                         playerBattleTag.setError(getString(R.string.error_field_invalid_battletag));
                     }
                     return true;
@@ -210,6 +225,11 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     private void updateMenuStates() {
         MenuItem saveItem = menu.findItem(R.id.save);
+        if (null == saveItem) {
+            Log.e(TAG, "updateMenuStates: unable to find save menu item.");
+            return;
+        }
+
         Drawable saveItemIcon = saveItem.getIcon();
         boolean isReadyToSave = !playerBattleTag.getText().toString().isEmpty();
 

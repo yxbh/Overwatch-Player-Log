@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import me.benh.overwatchplayerlog.common.Arguements;
-import me.benh.overwatchplayerlog.common.Constant;
+import me.benh.overwatchplayerlog.common.Constants;
 import me.benh.overwatchplayerlog.common.Requests;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemDetailActivity;
@@ -21,7 +21,7 @@ public final class ActivityHelper {
     private ActivityHelper() {}
 
     public static void finishWithError(Activity activity) {
-        activity.setResult(Constant.RESULT_ERROR);
+        activity.setResult(Constants.RESULT_ERROR);
         activity.finish();
     }
 

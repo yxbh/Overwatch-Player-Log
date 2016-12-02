@@ -15,24 +15,24 @@ public class UnitTest_BattleTagHelper {
 
     @Test
     public void test_isBattleTagWithoutId() throws Exception {
-        assertTrue(BattleTagHelper.isBattleTagWithoutId("AbCd"));
+        assertTrue(BattleTagHelper.isTagWithoutId("AbCd"));
 
-        assertFalse(BattleTagHelper.isBattleTagWithoutId("WarXyZ#1183"));
-        assertFalse(BattleTagHelper.isBattleTagWithoutId("A1b2"));
-        assertFalse(BattleTagHelper.isBattleTagWithoutId("1234"));
-        assertFalse(BattleTagHelper.isBattleTagWithoutId("AbCasdf#"));
+        assertFalse(BattleTagHelper.isTagWithoutId("WarXyZ#1183"));
+        assertFalse(BattleTagHelper.isTagWithoutId("A1b2"));
+        assertFalse(BattleTagHelper.isTagWithoutId("1234"));
+        assertFalse(BattleTagHelper.isTagWithoutId("AbCasdf#"));
     }
 
     @Test
     public void test_isBattleTagWithId() throws Exception {
-        assertTrue(BattleTagHelper.isBattleTagWithId("AbCd#1231"));
-        assertTrue(BattleTagHelper.isBattleTagWithId("WarXyZ#1183"));
+        assertTrue(BattleTagHelper.isTagWithId("AbCd#1231"));
+        assertTrue(BattleTagHelper.isTagWithId("WarXyZ#1183"));
 
-        assertFalse(BattleTagHelper.isBattleTagWithId("AbCd"));
-        assertFalse(BattleTagHelper.isBattleTagWithId("A1b2"));
-        assertFalse(BattleTagHelper.isBattleTagWithId("1234"));
-        assertFalse(BattleTagHelper.isBattleTagWithId("AbCasdf#"));
-        assertFalse(BattleTagHelper.isBattleTagWithId("AbCasdf#12dwe"));
-        assertFalse(BattleTagHelper.isBattleTagWithId("#12"));
+        assertFalse(BattleTagHelper.isTagWithId("AbCd"));
+        assertFalse(BattleTagHelper.isTagWithId("A1b2"));
+        assertFalse(BattleTagHelper.isTagWithId("1234"));
+        assertFalse(BattleTagHelper.isTagWithId("AbCasdf#"));
+        assertFalse(BattleTagHelper.isTagWithId("AbCasdf#12dwe"));
+        assertFalse(BattleTagHelper.isTagWithId("#12"));
     }
 }

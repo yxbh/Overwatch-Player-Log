@@ -49,15 +49,25 @@
     <string name="dummy_platform">XBL</string>
     <string name="dummy_region">US</string>
 
-    <string-array name="regions">
-        <item>US</item>
-        <item>EU</item>
-    </string-array>
-
     <string-array name="platforms">
         <item>PC</item>
         <item>PSN</item>
         <item>XBL</item>
+    </string-array>
+
+    <string-array name="regions_pc">
+        <item>US</item>
+        <item>EU</item>
+        <item>CN</item>
+        <item>KR</item>
+    </string-array>
+
+    <string-array name="regions_xbl">
+        <item>Global</item>
+    </string-array>
+
+    <string-array name="regions_psn">
+        <item>Global</item>
     </string-array>
 
     <string-array name="activity_owplayeritem_list_titles">

@@ -1,5 +1,6 @@
 package me.benh.overwatchplayerlog.helpers;
 
+import me.benh.overwatchplayerlog.common.OwPlatforms;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 
 /**
@@ -8,7 +9,10 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 
 public class OwPlayerStatsSiteUrlHelper {
     public static String getUrlPlayOverwatch(OwPlayerRecord record) {
-        return "https://playoverwatch.com/en-us/career/" + record.getPlatform().toLowerCase() + "/" + record.getRegion().toLowerCase() + "/" + record.getBattleTag().replace("#", "-");
+        if (record.getPlatform().equals(OwPlatforms.PC)) {
+            return "https://playoverwatch.com/en-us/career/" + record.getPlatform().toLowerCase() + "/" + record.getRegion().toLowerCase() + "/" + record.getBattleTag().replace("#", "-");
+        }
+        return "https://playoverwatch.com/en-us/career/" + record.getPlatform().toLowerCase() + "/" + record.getBattleTag().replace("#", "-");
     }
 
     public static String getUrlMasterOverwatch(OwPlayerRecord record) {

@@ -3,7 +3,7 @@ package me.benh.overwatchplayerlog.helpers;
 import android.app.Activity;
 import android.util.Log;
 
-import me.benh.overwatchplayerlog.common.Constant;
+import me.benh.overwatchplayerlog.common.Constants;
 
 /**
  * Created by benhuang on 26/11/16.
@@ -24,7 +24,7 @@ public final class LogHelper {
                 break;
             }
 
-            case Constant.RESULT_ERROR: {
+            case Constants.RESULT_ERROR: {
                 Log.v(tag, "RESULT_ERROR");
                 break;
             }

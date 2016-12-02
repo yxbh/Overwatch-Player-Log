@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#293652</color>
     <color name="colorAccent">#faa02e</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorAppBarIcon">#FFFFFF</color>
 
     <color name="colorSwipeToEditBackground">@color/colorAccent</color>

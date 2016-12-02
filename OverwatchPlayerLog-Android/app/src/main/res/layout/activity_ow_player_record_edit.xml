@@ -69,7 +69,7 @@
                     android:id="@+id/player_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/regions"
+                    android:entries="@array/regions_pc"
                     android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/edit_field_margin_start"
                     android:text="@string/form_favorite" />
@@ -108,29 +108,6 @@
                 <ImageView
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_height"
-                    app:srcCompat="@drawable/ic_pin_drop"
-                    android:tint="@color/colorAccent"
-                    android:gravity="center_vertical" />
-
-                <Spinner
-                    android:id="@+id/player_region"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/regions"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="@dimen/edit_field_margin_start" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/edit_field_icon_width"
-                    android:layout_height="@dimen/edit_field_icon_height"
                     app:srcCompat="@drawable/ic_computer"
                     android:tint="@color/colorAccent"
                     android:gravity="center_vertical" />
@@ -142,8 +119,30 @@
                     android:entries="@array/platforms"
                     android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/edit_field_margin_start" />
+
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/edit_field_icon_width"
+                    android:layout_height="@dimen/edit_field_icon_height"
+                    app:srcCompat="@drawable/ic_pin_drop"
+                    android:tint="@color/colorAccent"
+                    android:gravity="center_vertical" />
+
+                <Spinner
+                    android:id="@+id/player_region"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/regions_pc"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/edit_field_margin_start" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -156,7 +155,7 @@
                     android:layout_height="@dimen/edit_field_icon_height"
                     app:srcCompat="@drawable/ic_content"
                     android:tint="@color/colorAccent"
-                    android:gravity="center_vertical|top" />
+                    android:gravity="center_vertical" />
 
                 <EditText
                     android:id="@+id/player_note"

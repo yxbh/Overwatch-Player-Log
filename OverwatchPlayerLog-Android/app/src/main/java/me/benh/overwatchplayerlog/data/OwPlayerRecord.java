@@ -126,7 +126,7 @@ public class OwPlayerRecord {
 
     public boolean isValid() {
         return null != battleTag && !battleTag.isEmpty() &&
-                (BattleTagHelper.isBattleTagWithoutId(battleTag) || BattleTagHelper.isBattleTagWithId(battleTag)) &&
+                (BattleTagHelper.isTagWithoutId(battleTag) || BattleTagHelper.isTagWithId(battleTag)) &&
                 null != platform && !platform.isEmpty() &&
                 null != region && !region.isEmpty() &&
                 null != recordCreateDatetime && null != recordLastUpdateDatetime;

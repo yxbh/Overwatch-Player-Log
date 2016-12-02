@@ -26,6 +26,7 @@ import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 import me.benh.overwatchplayerlog.helpers.LogHelper;
 import me.benh.overwatchplayerlog.helpers.OwPlayerStatsSiteUrlHelper;
+import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This
@@ -145,8 +146,8 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         boolean result = super.onPrepareOptionsMenu(menu);
 
         // hide stats links if the battle tag is not well formed.
-        menu.setGroupVisible(R.id.menu_group_stats, BattleTagHelper.isBattleTagWithId(playerRecord.getBattleTag()));
-        menu.setGroupEnabled(R.id.menu_group_stats, BattleTagHelper.isBattleTagWithId(playerRecord.getBattleTag()));
+        menu.setGroupVisible(R.id.menu_group_stats, PlayerTagHelper.isValidTag(playerRecord));
+        menu.setGroupEnabled(R.id.menu_group_stats, PlayerTagHelper.isValidTag(playerRecord));
 
         return result;
     }

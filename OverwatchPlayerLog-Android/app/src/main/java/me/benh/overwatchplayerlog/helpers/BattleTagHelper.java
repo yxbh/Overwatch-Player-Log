@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 public final class BattleTagHelper {
     private BattleTagHelper() {}
 
-    public static boolean isBattleTagWithId(@NonNull String battleTag) {
+    public static boolean isTagWithId(@NonNull String battleTag) {
         if (battleTag.isEmpty()) {
             return false;
         }
@@ -18,38 +18,22 @@ public final class BattleTagHelper {
         if (battleTagComponents.length != 2) return false;
 
         String playerTag = battleTagComponents[0];
-        if (!isAllAlphabet(playerTag)) return false;
+        if (!StringHelper.isAllAlphabet(playerTag)) return false;
 
         String playerTagId = battleTagComponents[1];
-        return isAllNumeric(playerTagId);
+        return StringHelper.isAllNumeric(playerTagId);
     }
 
-    public static boolean isBattleTagWithoutId(@NonNull String battleTag) {
-        return !battleTag.isEmpty() && isAllAlphabet(battleTag);
+    public static boolean isTagWithoutId(@NonNull String battleTag) {
+        return !battleTag.isEmpty() && StringHelper.isAllAlphabet(battleTag);
 
     }
 
-    public static boolean isInvalidBattleTag(@NonNull String battleTag) {
-        return !(isBattleTagWithId(battleTag) || isBattleTagWithoutId(battleTag));
+    public static boolean isValidTag(@NonNull String battleTag) {
+        return !isInvalidTag(battleTag);
     }
 
-
-    private static boolean isAllAlphabet(@NonNull String text) {
-        if (text.isEmpty()) return false;
-
-        for (char c : text.toCharArray()) {
-            if (Character.isDigit(c) || Character.isWhitespace(c) || !Character.isLetter(c))
-                return false;
-        }
-
-        return true;
-    }
-
-    private static boolean isAllNumeric(@NonNull String text) {
-        if (text.isEmpty()) return false;
-
-        for (char c : text.toCharArray()) if (!Character.isDigit(c)) return false;
-
-        return true;
+    public static boolean isInvalidTag(@NonNull String battleTag) {
+        return !(isTagWithId(battleTag) || isTagWithoutId(battleTag));
     }
 }
