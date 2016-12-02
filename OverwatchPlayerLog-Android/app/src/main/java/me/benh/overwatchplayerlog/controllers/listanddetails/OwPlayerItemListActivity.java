@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +25,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.benh.lib.activities.BaseActivity;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.common.Requests;
@@ -34,7 +34,6 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
-import me.benh.lib.helpers.LogHelper;
 
 /**
  * An activity representing a list of OwPlayerItems. This activity
@@ -44,7 +43,7 @@ import me.benh.lib.helpers.LogHelper;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class OwPlayerItemListActivity extends AppCompatActivity {
+public class OwPlayerItemListActivity extends BaseActivity {
 
     public static final String TAG = OwPlayerItemListActivity.class.getSimpleName();
 
@@ -137,13 +136,13 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (!super.onCreateOptionsMenu(menu)) {
+            return false;
+        }
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_owplayeritem_list, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem menuItemSearch = menu.findItem(R.id.search_player);
         toolBarSearchView = (SearchView) menuItemSearch.getActionView();
         toolBarSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -162,12 +161,15 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
             }
         });
 
-        return super.onPrepareOptionsMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.v(this.getLocalClassName(), "onOptionsItemSelected");
+        if (super.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         View menuView = this.getWindow().getDecorView().findViewById(R.id.content);
         int id = item.getItemId();
         switch (id) {
@@ -216,7 +218,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 //            }
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     @Override
@@ -297,8 +299,7 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v(TAG, "onActivityResult");
-        LogHelper.d_resultCode(TAG, resultCode);
+        super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
             case Requests.CREATE_NEW_RECORD: {
@@ -323,7 +324,5 @@ public class OwPlayerItemListActivity extends AppCompatActivity {
                 break;
             }
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

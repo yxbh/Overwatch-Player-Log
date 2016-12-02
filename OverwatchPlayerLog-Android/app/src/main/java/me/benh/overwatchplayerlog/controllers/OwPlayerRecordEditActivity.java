@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import me.benh.lib.activities.BaseActivity;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.common.OwRegions;
@@ -30,7 +30,7 @@ import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 import me.benh.lib.helpers.SpinnerHelper;
 
-public class OwPlayerRecordEditActivity extends AppCompatActivity {
+public class OwPlayerRecordEditActivity extends BaseActivity {
     public static final String TAG = OwPlayerRecordEditActivity.class.getSimpleName();
 
     private OwPlayerRecord record;
@@ -121,6 +121,10 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (!super.onCreateOptionsMenu(menu)) {
+            return false;
+        }
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_owplayerrecord_save, menu);
         this.menu = menu;
@@ -136,7 +140,10 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.v(TAG, "onOptionsItemSelected");
+        if (super.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 Log.v(TAG, "case android.R.id.home");
@@ -168,10 +175,9 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
                 ActivityHelper.finishWithSuccess(this, returnIntent);
                 return true;
             }
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
+
+        return false;
     }
 
     private void setupViewContent(@NonNull OwPlayerRecord record) {

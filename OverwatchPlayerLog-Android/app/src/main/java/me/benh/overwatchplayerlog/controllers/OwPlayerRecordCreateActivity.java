@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import me.benh.lib.activities.BaseActivity;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.common.OwRegions;
@@ -38,7 +38,7 @@ import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 /**
  * A login screen that offers login via email/password.
  */
-public class OwPlayerRecordCreateActivity extends AppCompatActivity {
+public class OwPlayerRecordCreateActivity extends BaseActivity {
 
     public static final String TAG = OwPlayerRecordCreateActivity.class.getSimpleName();
 
@@ -141,6 +141,10 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (!super.onCreateOptionsMenu(menu)) {
+            return false;
+        }
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_owplayerrecord_save, menu);
         this.menu = menu;
@@ -156,6 +160,10 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (super.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case android.R.id.home:
 //                NavUtils.navigateUpFromSameTask(this);
@@ -194,10 +202,9 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
                 ActivityHelper.finishWithSuccess(this, returnIntent);
                 return true;
             }
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
+
+        return false;
     }
 
     private void updateMenuStates() {
