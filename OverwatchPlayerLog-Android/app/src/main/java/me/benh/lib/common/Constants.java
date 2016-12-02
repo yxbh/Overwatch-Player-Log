@@ -1,8 +1,4 @@
-package me.benh.overwatchplayerlog.common;
-
-/**
- * Created by benhuang on 26/11/16.
- */
+package me.benh.lib.common;
 
 public final class Constants {
     private Constants() {}

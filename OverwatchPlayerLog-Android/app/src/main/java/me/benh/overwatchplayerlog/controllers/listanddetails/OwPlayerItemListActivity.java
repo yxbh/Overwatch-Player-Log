@@ -34,7 +34,7 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
-import me.benh.overwatchplayerlog.helpers.LogHelper;
+import me.benh.lib.helpers.LogHelper;
 
 /**
  * An activity representing a list of OwPlayerItems. This activity

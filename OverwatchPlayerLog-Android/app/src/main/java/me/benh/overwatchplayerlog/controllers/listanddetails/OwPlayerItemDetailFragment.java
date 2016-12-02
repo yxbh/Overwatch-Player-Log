@@ -18,7 +18,7 @@ import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
-import me.benh.overwatchplayerlog.helpers.LogHelper;
+import me.benh.lib.helpers.LogHelper;
 
 import static android.app.Activity.RESULT_OK;
 

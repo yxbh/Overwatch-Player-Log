@@ -2,10 +2,9 @@ package me.benh.overwatchplayerlog.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 
+import me.benh.lib.common.Constants;
 import me.benh.overwatchplayerlog.common.Arguements;
-import me.benh.overwatchplayerlog.common.Constants;
 import me.benh.overwatchplayerlog.common.Requests;
 import me.benh.overwatchplayerlog.controllers.OwPlayerRecordEditActivity;
 import me.benh.overwatchplayerlog.controllers.listanddetails.OwPlayerItemDetailActivity;
@@ -17,8 +16,7 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
  * Created by benhuang on 26/11/16.
  */
 
-public final class ActivityHelper {
-    private ActivityHelper() {}
+public final class ActivityHelper extends me.benh.lib.helpers.ActivityHelper {
 
     public static void finishWithError(Activity activity) {
         activity.setResult(Constants.RESULT_ERROR);
@@ -55,11 +53,5 @@ public final class ActivityHelper {
         Intent intent = new Intent(activity, OwPlayerRecordEditActivity.class);
         intent.putExtra(Arguements.OWPLAYERRECORD, new OwPlayerRecordWrapper(record));
         activity.startActivityForResult(intent, Requests.EDIT_RECORD);
-    }
-
-    public static void startUrlActivity(Activity activity, String url) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        activity.startActivity(intent);
     }
 }

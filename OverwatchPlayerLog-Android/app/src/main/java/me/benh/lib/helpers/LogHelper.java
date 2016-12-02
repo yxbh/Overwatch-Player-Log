@@ -1,16 +1,16 @@
-package me.benh.overwatchplayerlog.helpers;
+package me.benh.lib.helpers;
 
 import android.app.Activity;
 import android.util.Log;
 
-import me.benh.overwatchplayerlog.common.Constants;
+import me.benh.lib.common.Constants;
 
 /**
  * Created by benhuang on 26/11/16.
  */
 
-public final class LogHelper {
-    private LogHelper() {}
+public class LogHelper {
+    protected LogHelper() {}
 
     public static void d_resultCode(String tag, int resultCode) {
         switch (resultCode) {

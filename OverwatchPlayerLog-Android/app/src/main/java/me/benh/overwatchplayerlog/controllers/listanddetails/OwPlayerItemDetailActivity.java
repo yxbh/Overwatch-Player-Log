@@ -23,8 +23,7 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
-import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
-import me.benh.overwatchplayerlog.helpers.LogHelper;
+import me.benh.lib.helpers.LogHelper;
 import me.benh.overwatchplayerlog.helpers.OwPlayerStatsSiteUrlHelper;
 import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
