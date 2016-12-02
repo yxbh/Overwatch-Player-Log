@@ -20,7 +20,9 @@
     <string name="menu_stats_overbuff">Overbuff</string>
 
 
-    <string name="prompt_battletag">BattleTag (e.g. EdgeBro#123)</string>
+    <string name="prompt_playertag">Player ID</string>
+
+    <string name="hint_note">Note</string>
 
     <string name="form_favorite">Favorite</string>
 

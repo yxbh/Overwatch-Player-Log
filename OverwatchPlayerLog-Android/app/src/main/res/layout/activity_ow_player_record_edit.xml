@@ -27,19 +27,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <EditText
-                    android:id="@+id/player_battletag"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_battletag"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="@dimen/edit_field_margin_start" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/edit_field_margin_start" >
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/player_battletag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_playertag"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:gravity="center_vertical"/>
+                </android.support.design.widget.TextInputLayout>
 
                 <ImageView
                     android:layout_width="@dimen/edit_field_icon_width"
@@ -47,15 +52,14 @@
                     app:srcCompat="@drawable/ic_person"
                     android:tint="@color/colorAccent"
                     android:gravity="center_vertical"
-                    android:layout_alignTop="@+id/player_battletag"
-                    android:layout_alignParentStart="false" />
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -73,12 +77,12 @@
                     android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/edit_field_margin_start"
                     android:text="@string/form_favorite" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -102,7 +106,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -125,7 +128,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -144,28 +146,35 @@
                     android:layout_marginStart="@dimen/edit_field_margin_start" />
             </RelativeLayout>
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/player_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="@dimen/edit_field_margin_start"
+                        android:hint="@string/hint_note" />
+                </android.support.design.widget.TextInputLayout>
 
                 <ImageView
                     android:layout_width="@dimen/edit_field_icon_width"
                     android:layout_height="@dimen/edit_field_icon_height"
                     app:srcCompat="@drawable/ic_content"
                     android:tint="@color/colorAccent"
-                    android:gravity="center_vertical" />
-
-                <EditText
-                    android:id="@+id/player_note"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:layout_marginStart="@dimen/edit_field_margin_start" />
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
 

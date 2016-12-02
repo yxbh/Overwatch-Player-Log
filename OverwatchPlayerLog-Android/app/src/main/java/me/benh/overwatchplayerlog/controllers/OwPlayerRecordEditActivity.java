@@ -111,6 +111,7 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
                                                                     OwRegions.getRegionsList(selectedPlatform));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 playerRegion.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -224,6 +225,12 @@ public class OwPlayerRecordEditActivity extends AppCompatActivity {
     }
 
     private void updateMenuStates() {
+        Log.v(TAG, "updateMenuStates");
+        if (null == menu) {
+            Log.w(TAG, "null == menu");
+            return;
+        }
+
         MenuItem saveItem = menu.findItem(R.id.save);
         if (null == saveItem) {
             Log.e(TAG, "updateMenuStates: unable to find save menu item.");

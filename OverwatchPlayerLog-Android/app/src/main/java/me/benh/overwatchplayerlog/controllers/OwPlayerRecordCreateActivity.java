@@ -201,6 +201,12 @@ public class OwPlayerRecordCreateActivity extends AppCompatActivity {
     }
 
     private void updateMenuStates() {
+        Log.v(TAG, "updateMenuStates");
+        if (null == menu) {
+            Log.w(TAG, "null == menu");
+            return;
+        }
+
         MenuItem saveItem = menu.findItem(R.id.save);
         if (null == saveItem) {
             Log.e(TAG, "updateMenuStates: unable to find save menu item.");
