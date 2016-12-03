@@ -263,18 +263,21 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
         switch (playerRating) {
             case Neutral: {
                 playerRatingView.setImageDrawable(playerRatingLikeDrawable);
+                playerRatingView.setColorFilter(ResourcesCompat.getColor(getResources(), android.R.color.holo_green_dark, null));
                 playerRating = OwPlayerRecord.Rating.Like;
                 break;
             }
 
             case Like: {
                 playerRatingView.setImageDrawable(playerRatingDislikeDrawable);
+                playerRatingView.setColorFilter(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
                 playerRating = OwPlayerRecord.Rating.Dislike;
                 break;
             }
 
             case Dislike: {
                 playerRatingView.setImageDrawable(playerRatingNeutralDrawable);
+                playerRatingView.setColorFilter(null);
                 playerRating = OwPlayerRecord.Rating.Neutral;
                 break;
             }
