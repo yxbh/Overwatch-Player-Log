@@ -16,12 +16,12 @@
         layout="@layout/owplayeritem_list_activity_main_content">
     </include>
 
-    <include
-        android:id="@+id/drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        layout="@layout/navdrawer_main">
-    </include>
+    <!--<include-->
+        <!--android:id="@+id/drawer"-->
+        <!--android:layout_width="240dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--layout="@layout/navdrawer_main">-->
+    <!--</include>-->
 
 </android.support.v4.widget.DrawerLayout>
