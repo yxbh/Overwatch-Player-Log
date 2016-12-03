@@ -1,14 +1,11 @@
 package me.benh.overwatchplayerlog.controllers;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -35,6 +32,7 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.overwatchplayerlog.helpers.AdapterHelper;
+import me.benh.overwatchplayerlog.helpers.DrawableHelper;
 import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 /**
@@ -135,14 +133,10 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
             public void onNothingSelected(AdapterView<?> parent) { /* do nothing. */ }
         });
 
+        // get rating drawables.
         playerRatingNeutralDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumbs_up_down, null);
-        playerRatingLikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_up, null);
-        playerRatingDislikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_down, null);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.v(TAG, "Setting rating drawable tints.");
-            playerRatingLikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_green_dark, null));
-            playerRatingDislikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
-        }
+        playerRatingLikeDrawable = DrawableHelper.getDrawableWithTint(this, R.drawable.ic_thumb_up, android.R.color.holo_green_dark);
+        playerRatingDislikeDrawable = DrawableHelper.getDrawableWithTint(this, R.drawable.ic_thumb_down, android.R.color.holo_red_dark);
     }
 
     @Override

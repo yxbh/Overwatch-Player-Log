@@ -43,6 +43,7 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.6"
                 android:layout_gravity="bottom">
+
                 <ImageView
                     android:id="@+id/player_favorite"
                     android:layout_width="wrap_content"
@@ -62,18 +63,7 @@
                     app:srcCompat="@drawable/ic_thumb_down"
                     android:drawableTint="@color/colorAccent" />
                 <View android:layout_width="20dp" android:layout_height="2dp" />
-                <TextView
-                    android:id="@+id/player_region"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/abc_text_size_subhead_material"
-                    android:textColor="@color/colorWhite"
-                    android:text="@string/dummy_region"
-                    android:drawableStart="@drawable/ic_pin_drop"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp" />
-                <View android:layout_width="20dp" android:layout_height="2dp" />
+
                 <TextView
                     android:id="@+id/player_platform"
                     android:layout_width="wrap_content"
@@ -85,6 +75,19 @@
                     android:drawableStart="@drawable/ic_computer"
                     android:drawableTint="@color/colorAccent"
                     android:drawablePadding="5dp" />
+                <View android:layout_width="20dp" android:layout_height="2dp" />
+                <TextView
+                    android:id="@+id/player_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/abc_text_size_subhead_material"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/dummy_region"
+                    android:drawableStart="@drawable/ic_pin_drop"
+                    android:drawableTint="@color/colorAccent"
+                    android:drawablePadding="5dp" />
+
             </LinearLayout>
             
 
