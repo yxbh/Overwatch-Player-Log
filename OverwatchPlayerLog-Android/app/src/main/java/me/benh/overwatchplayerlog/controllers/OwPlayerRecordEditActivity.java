@@ -2,11 +2,9 @@ package me.benh.overwatchplayerlog.controllers;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,7 +28,7 @@ import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.lib.helpers.SpinnerHelper;
 import me.benh.overwatchplayerlog.helpers.AdapterHelper;
-import me.benh.overwatchplayerlog.helpers.DrawableHelper;
+import me.benh.lib.helpers.DrawableHelper;
 import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 public class OwPlayerRecordEditActivity extends BaseActivity {
