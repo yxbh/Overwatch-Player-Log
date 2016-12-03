@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.common.Requests;
@@ -75,6 +77,17 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         playerFavorite = (ImageView) findViewById(R.id.player_favorite);
         playerRatingLike = (ImageView) findViewById(R.id.player_rating_like);
         playerRatingDislike = (ImageView) findViewById(R.id.player_rating_dislike);
+
+        // setup fab for stats sites
+        FabSpeedDial fabPlayerStatsSites = (FabSpeedDial) findViewById(R.id.fab_open_stats_sites);
+        if (null != fabPlayerStatsSites) {
+            fabPlayerStatsSites.setMenuListener(new SimpleMenuListenerAdapter() {
+                @Override
+                public boolean onMenuItemSelected(MenuItem menuItem) {
+                    return OwPlayerItemDetailActivity.this.onOptionsItemSelected(menuItem);
+                }
+            });
+        }
 
         // setup tool bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);

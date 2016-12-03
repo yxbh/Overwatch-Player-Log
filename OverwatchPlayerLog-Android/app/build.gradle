@@ -7,8 +7,8 @@ android {
         applicationId "me.benh.overwatchplayerlog"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 11
-        versionName "2.6"
+        versionCode 12
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -29,5 +29,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
+    compile 'io.github.yavski:fab-speed-dial:1.0.6'
     testCompile 'junit:junit:4.12'
 }

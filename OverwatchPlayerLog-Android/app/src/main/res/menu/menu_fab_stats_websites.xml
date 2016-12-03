@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/menu_stats_playeroverwatch"
+        android:id="@+id/menu_stats_playeroverwatch"
+        android:icon="@drawable/ic_website_playoverwatch" />
+    <item
+        android:title="@string/menu_stats_masteroverwatch"
+        android:id="@+id/menu_stats_masteroverwatch"
+        android:icon="@drawable/ic_website_masteroverwatch" />
+    <item
+        android:title="@string/menu_stats_overbuff"
+        android:id="@+id/menu_stats_overbuff"
+        android:icon="@drawable/ic_website_overbuff" />
+</menu>
