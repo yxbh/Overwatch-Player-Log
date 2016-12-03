@@ -16,6 +16,9 @@
 
     <dimen name="edit_row_margin_bottom">10dp</dimen>
 
+    <dimen name="edit_field_spinner_owplatforms_width">110dp</dimen>
+    <dimen name="edit_field_spinner_owregions_width">110dp</dimen>
+
     <dimen name="record_list_battletag_margin_start">16dp</dimen>
     <dimen name="record_list_battletag_margin_end">6dp</dimen>
 </resources>

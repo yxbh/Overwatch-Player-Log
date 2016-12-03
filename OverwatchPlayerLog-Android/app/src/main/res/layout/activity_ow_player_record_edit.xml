@@ -117,7 +117,7 @@
 
                 <Spinner
                     android:id="@+id/player_platform"
-                    android:layout_width="100dp"
+                    android:layout_width="@dimen/edit_field_spinner_owplatforms_width"
                     android:layout_height="wrap_content"
                     android:entries="@array/platforms"
                     android:gravity="center_vertical"
@@ -139,7 +139,7 @@
 
                 <Spinner
                     android:id="@+id/player_region"
-                    android:layout_width="100dp"
+                    android:layout_width="@dimen/edit_field_spinner_owregions_width"
                     android:layout_height="wrap_content"
                     android:entries="@array/regions_pc"
                     android:gravity="center_vertical"
