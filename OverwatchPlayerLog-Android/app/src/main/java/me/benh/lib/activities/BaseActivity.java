@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 
 import me.benh.lib.helpers.LogHelper;
 
@@ -26,18 +24,6 @@ public class BaseActivity extends AppCompatActivity {
         Log.v(getActivityName(), "onCreate(@Nullable Bundle savedInstanceState)");
 
         super.onCreate(savedInstanceState);
-
-        // setup top level view listener for snackbar dismissal
-        View rootView = findViewById(android.R.id.content);
-        if (null != rootView) {
-            rootView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    BaseActivity.this.dismissSnackbarMaybe();
-                    return false;
-                }
-            });
-        }
     }
 
     @Override

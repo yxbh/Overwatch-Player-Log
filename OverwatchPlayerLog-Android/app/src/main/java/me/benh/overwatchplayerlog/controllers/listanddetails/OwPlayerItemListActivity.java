@@ -257,6 +257,7 @@ public class OwPlayerItemListActivity extends BaseActivity {
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getSnackbar().dismiss();
                 refreshRecords();
                 layout.setRefreshing(false);
             }
