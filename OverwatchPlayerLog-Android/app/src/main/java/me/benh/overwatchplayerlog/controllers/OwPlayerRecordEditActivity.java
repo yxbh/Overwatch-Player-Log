@@ -27,8 +27,9 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
-import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
 import me.benh.lib.helpers.SpinnerHelper;
+import me.benh.overwatchplayerlog.helpers.AdapterHelper;
+import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 public class OwPlayerRecordEditActivity extends BaseActivity {
     public static final String TAG = OwPlayerRecordEditActivity.class.getSimpleName();
@@ -80,8 +81,6 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
         playerRating = record.getRating();
         Log.v(TAG, "Received " + record.toString());
 
-        setupViewContent(record);
-
         // setup listeners
         playerBattleTag.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,19 +103,39 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
         playerPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v(TAG, "playerPlatform.onItemSelected(AdapterView<?> parent, View view, int position, long id)");
                 String selectedPlatform = playerPlatform.getSelectedItem().toString();
                 Log.v(TAG, "selected platform [" + selectedPlatform + "]");
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
-                                                                    R.layout.default_spinner_item,
-                                                                    OwRegions.getRegionsList(selectedPlatform));
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<String> adapter = AdapterHelper.createArrayAdapter(getApplicationContext(),OwRegions.getRegionsList(selectedPlatform));
                 playerRegion.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                saveViewContentToRecord();
+                if (!record.getBattleTag().isEmpty()) {
+                    validatePlayerTag(record);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) { /* do nothing. */ }
         });
+        playerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedRegion = playerRegion.getSelectedItem().toString();
+                Log.v(TAG, "selected region [" + selectedRegion + "]");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { /* do nothing. */ }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        setupViewContent(record);
     }
 
     @Override
@@ -153,14 +172,11 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
 
             case R.id.save: {
                 Log.v(TAG, "case R.id.save");
-
                 saveViewContentToRecord();
 
                 // validate
-                if (!record.isValid()) {
-                    if (BattleTagHelper.isInvalidTag(record.getBattleTag())) {
-                        playerBattleTag.setError(getString(R.string.error_field_invalid_battletag));
-                    }
+                if (!validateRecord(record)) {
+                    Log.v(TAG, "!validateRecord(newRecord)");
                     return true;
                 }
 
@@ -194,6 +210,10 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
         }
 
         if (playerRegion != null) {
+            ArrayAdapter<String> adapter = AdapterHelper.createArrayAdapter(getApplicationContext(),OwRegions.getRegionsList(record.getPlatform()));
+            playerRegion.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
             SpinnerHelper.selectSpinnerValue(playerRegion, record.getRegion());
         }
 
@@ -228,6 +248,29 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
         record.setPlatform(playerPlatform.getSelectedItem().toString());
         record.setRegion(playerRegion.getSelectedItem().toString());
         record.setNote(playerNote.getText().toString());
+    }
+
+    private boolean validateRecord(@NonNull OwPlayerRecord record) {
+        if (!validatePlayerTag(record)) {
+            Log.v(TAG, "!validatePlayerTag(record)");
+            return false;
+        }
+
+        if (!record.isValid()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validatePlayerTag(@NonNull OwPlayerRecord record) {
+        if (PlayerTagHelper.isInvalidTag(record)) {
+            playerBattleTag.setError(getString(R.string.error_field_invalid_playertag));
+            return false;
+        } else {
+            playerBattleTag.setError(null);
+            return true;
+        }
     }
 
     private void updateMenuStates() {

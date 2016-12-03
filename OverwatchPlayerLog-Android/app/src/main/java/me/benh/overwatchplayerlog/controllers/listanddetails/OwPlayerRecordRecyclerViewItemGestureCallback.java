@@ -82,17 +82,19 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
                     }
                 };
 
-                Snackbar
-                    .make(viewHolder.itemView, R.string.snackbar_record_deleted, activity.getResources().getInteger(R.integer.timeOutBeforeDelete))
+                final Snackbar snackbar = Snackbar.make(viewHolder.itemView, R.string.snackbar_record_deleted, activity.getResources().getInteger(R.integer.timeOutBeforeDelete));
+                snackbar
                     .setAction(R.string.snackbar_undo, new View.OnClickListener() {
                         final Runnable runnable = recordDeleteRunnable;
                         @Override
-                        public void onClick(View v) {
+                        public void onClick(View view) {
                             recordRemovalHandler.removeCallbacks(runnable);
                             activity.refreshRecordsWithUi();
+                            snackbar.dismiss();
                         }
                     })
                     .show();
+                activity.setSnackbar(snackbar);
 
                 recordRemovalHandler.postDelayed(
                     recordDeleteRunnable,
@@ -129,7 +131,8 @@ public class OwPlayerRecordRecyclerViewItemGestureCallback extends ItemTouchHelp
      * @param dX                The amount of horizontal displacement caused by user's action
      * @param dY                The amount of vertical displacement caused by user's action
      * @param actionState       The type of interaction on the View. Is either {@link
-     *                          #ACTION_STATE_DRAG} or {@link #ACTION_STATE_SWIPE}.
+     *                          ItemTouchHelper#ACTION_STATE_DRAG} or
+     *                          {@link ItemTouchHelper#ACTION_STATE_SWIPE}.
      * @param isCurrentlyActive True if this view is currently being controlled by the user or
      *                          false it is simply animating back to its original state.
      * @see #onChildDrawOver(Canvas, RecyclerView, RecyclerView.ViewHolder, float, float, int,

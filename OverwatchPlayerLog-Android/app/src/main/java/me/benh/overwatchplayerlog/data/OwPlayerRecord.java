@@ -3,9 +3,9 @@ package me.benh.overwatchplayerlog.data;
 import java.security.InvalidParameterException;
 import java.sql.Date;
 
-import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
-import me.benh.overwatchplayerlog.helpers.DateTimeHelper;
+import me.benh.lib.helpers.DateTimeHelper;
 import me.benh.lib.helpers.UuidHelper;
+import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 /**
  * Created by benhuang on 22/11/16.
@@ -126,7 +126,7 @@ public class OwPlayerRecord {
 
     public boolean isValid() {
         return null != battleTag && !battleTag.isEmpty() &&
-                (BattleTagHelper.isTagWithoutId(battleTag) || BattleTagHelper.isTagWithId(battleTag)) &&
+                PlayerTagHelper.isValidTag(this) &&
                 null != platform && !platform.isEmpty() &&
                 null != region && !region.isEmpty() &&
                 null != recordCreateDatetime && null != recordLastUpdateDatetime;

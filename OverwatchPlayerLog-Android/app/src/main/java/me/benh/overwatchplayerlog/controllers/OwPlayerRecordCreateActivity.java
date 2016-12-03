@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -33,7 +34,8 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
-import me.benh.overwatchplayerlog.helpers.BattleTagHelper;
+import me.benh.overwatchplayerlog.helpers.AdapterHelper;
+import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
 
 /**
  * A login screen that offers login via email/password.
@@ -106,14 +108,17 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
         playerPlatform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v(TAG, "playerPlatform.onItemSelected(AdapterView<?> parent, View view, int position, long id)");
                 String selectedPlatform = playerPlatform.getSelectedItem().toString();
                 Log.v(TAG, "selected platform [" + selectedPlatform + "]");
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
-                                                                    R.layout.default_spinner_item,
-                                                                    OwRegions.getRegionsList(selectedPlatform));
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<String> adapter = AdapterHelper.createArrayAdapter(getApplicationContext(),OwRegions.getRegionsList(selectedPlatform));
                 playerRegion.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                OwPlayerRecord record = createRecordFromForm();
+                if (!record.getBattleTag().isEmpty()) {
+                    validatePlayerTag(record);
+                }
             }
 
             @Override
@@ -123,7 +128,7 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedRegion = playerRegion.getSelectedItem().toString();
-                Log.v(TAG, "selected platform [" + selectedRegion + "]");
+                Log.v(TAG, "selected region [" + selectedRegion + "]");
             }
 
             @Override
@@ -134,6 +139,7 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
         playerRatingLikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_up, null);
         playerRatingDislikeDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_thumb_down, null);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.v(TAG, "Setting rating drawable tints.");
             playerRatingLikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_green_dark, null));
             playerRatingDislikeDrawable.setTint(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
         }
@@ -172,21 +178,11 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
 
             case R.id.save: {
                 Log.v(TAG, "case R.id.save");
-
-                // create new record object.
-                OwPlayerRecord newRecord = new OwPlayerRecord();
-                newRecord.setBattleTag(playerBattleTag.getText().toString());
-                newRecord.setFavorite(playerFavorite.isChecked());
-                newRecord.setRating(playerRating);
-                newRecord.setPlatform(playerPlatform.getSelectedItem().toString());
-                newRecord.setRegion(playerRegion.getSelectedItem().toString());
-                newRecord.setNote(playerNote.getText().toString());
+                OwPlayerRecord newRecord = createRecordFromForm();
 
                 // validate
-                if (!newRecord.isValid()) {
-                    if (BattleTagHelper.isInvalidTag(newRecord.getBattleTag())) {
-                        playerBattleTag.setError(getString(R.string.error_field_invalid_battletag));
-                    }
+                if (!validateRecord(newRecord)) {
+                    Log.v(TAG, "!validateRecord(newRecord)");
                     return true;
                 }
 
@@ -205,6 +201,41 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
         }
 
         return false;
+    }
+
+    private boolean validateRecord(@NonNull OwPlayerRecord record) {
+        if (!validatePlayerTag(record)) {
+            Log.v(TAG, "!validatePlayerTag(record)");
+            return false;
+        }
+
+        if (!record.isValid()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validatePlayerTag(@NonNull OwPlayerRecord record) {
+        if (PlayerTagHelper.isInvalidTag(record)) {
+            playerBattleTag.setError(getString(R.string.error_field_invalid_playertag));
+            return false;
+        } else {
+            playerBattleTag.setError(null);
+            return true;
+        }
+    }
+
+    private OwPlayerRecord createRecordFromForm() {
+        OwPlayerRecord newRecord = new OwPlayerRecord();
+        newRecord.setBattleTag(playerBattleTag.getText().toString());
+        newRecord.setFavorite(playerFavorite.isChecked());
+        newRecord.setRating(playerRating);
+        newRecord.setPlatform(playerPlatform.getSelectedItem().toString());
+        newRecord.setRegion(playerRegion.getSelectedItem().toString());
+        newRecord.setNote(playerNote.getText().toString());
+
+        return newRecord;
     }
 
     private void updateMenuStates() {
@@ -280,41 +311,6 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            createFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            createFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    createFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            createFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
 
 }
 

@@ -16,7 +16,7 @@ public final class PlayerTagHelper {
 
     public static boolean isValidTag(@NonNull OwPlayerRecord record) {
         if (record.getPlatform().equals(OwPlatforms.PC)) {
-            return BattleTagHelper.isTagWithId(record.getBattleTag());
+            return BattleTagHelper.isValidTag(record.getBattleTag());
         } else if (record.getPlatform().equals(OwPlatforms.XBL)) {
             return XblGamerTagHelper.isValidTag(record.getBattleTag());
         } else if (record.getPlatform().equals(OwPlatforms.PSN)) {

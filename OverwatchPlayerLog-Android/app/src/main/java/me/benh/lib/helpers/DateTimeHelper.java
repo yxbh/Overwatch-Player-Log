@@ -1,4 +1,4 @@
-package me.benh.overwatchplayerlog.helpers;
+package me.benh.lib.helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

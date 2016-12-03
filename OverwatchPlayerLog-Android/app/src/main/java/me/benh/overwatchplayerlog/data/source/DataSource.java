@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
-import me.benh.overwatchplayerlog.helpers.DateTimeHelper;
+import me.benh.lib.helpers.DateTimeHelper;
 
 /**
  * Created by benhuang on 23/11/16.

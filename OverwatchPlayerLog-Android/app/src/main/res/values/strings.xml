@@ -31,7 +31,7 @@
     <string name="action_sign_in_short">Sign in</string>
 
     <string name="error_field_required">This field is required</string>
-    <string name="error_field_invalid_battletag">Invalid battle tag</string>
+    <string name="error_field_invalid_playertag">Invalid player ID</string>
 
     <string name="snackbar_record_deleted">Entry deleted</string>
     <string name="snackbar_undo">UNDO</string>
