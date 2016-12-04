@@ -8,17 +8,20 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebView;
 
-import junit.framework.Assert;
-
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 import me.benh.overwatchplayerlog.R;
 import me.benh.overwatchplayerlog.common.Arguements;
 import me.benh.overwatchplayerlog.data.OwPlayerRecord;
 import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.lib.helpers.LogHelper;
+import me.benh.overwatchplayerlog.helpers.ActivityHelper;
+import me.benh.overwatchplayerlog.helpers.OwPlayerStatsSiteUrlHelper;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,7 +48,7 @@ public class OwPlayerItemDetailFragment extends Fragment {
     private static final int REQUEST_EDIT_RECORD = 999;
 
     CollapsingToolbarLayout appBarLayout;
-    TextView playerNote;
+    WebView webViewPlayerStats;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -57,10 +60,6 @@ public class OwPlayerItemDetailFragment extends Fragment {
     public void setupViewContent(@NonNull OwPlayerRecord record) {
         if (appBarLayout != null) {
             appBarLayout.setTitle(record.getBattleTag());
-        }
-
-        if (playerNote != null) {
-            playerNote.setText(record.getNote());
         }
     }
 
@@ -83,26 +82,56 @@ public class OwPlayerItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.owplayeritem_detail, container, false);
-        playerNote = (TextView) rootView.findViewById(R.id.player_note);
-        Assert.assertNotNull(playerNote);
+
+        webViewPlayerStats = (WebView) rootView.findViewById(R.id.webview_player_stats);
+        if (null != webViewPlayerStats) {
+            webViewPlayerStats.getSettings().setJavaScriptEnabled(true);
+        }
 
         setupViewContent(item);
 
-//        // setup floating action buttons
-//        FloatingActionButton fabEdit = (FloatingActionButton) rootView.findViewById(R.id.fab_edit);
-//        if (null != fabEdit) {
-//            fabEdit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Log.v(TAG, "onClick");
-//                    Intent intent = new Intent(getActivity(), OwPlayerRecordEditActivity.class);
-//                    intent.putExtra(OwPlayerRecordEditActivity.ARG_OWPLAYERRECORD, new OwPlayerRecordWrapper(item));
-//                    startActivityForResult(intent, REQUEST_EDIT_RECORD);
-//                }
-//            });
-//        }
+        // setup floating action buttons
+        // setup fab for stats sites
+        FabSpeedDial fabPlayerStatsSites = (FabSpeedDial) rootView.findViewById(R.id.fab_open_stats_sites);
+        if (null != fabPlayerStatsSites) {
+            fabPlayerStatsSites.setMenuListener(new SimpleMenuListenerAdapter() {
+                @Override
+                public boolean onMenuItemSelected(MenuItem menuItem) {
+                    return OwPlayerItemDetailFragment.this.onOptionsItemSelected(menuItem);
+                }
+            });
+        }
 
         return rootView;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.v(TAG, "onOptionsItemSelected");
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_edit_owplayer_record: {
+                ActivityHelper.startEditActivity(getActivity(), this.item);
+                return true;
+            }
+
+            case R.id.menu_stats_playeroverwatch: {
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(this.item));
+                return true;
+            }
+
+            case R.id.menu_stats_masteroverwatch: {
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(this.item));
+                return true;
+            }
+
+            case R.id.menu_stats_overbuff: {
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlOverbuff(this.item));
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

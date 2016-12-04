@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="@dimen/app_bar_collapsible_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -23,7 +23,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar"
-            app:expandedTitleMarginBottom="60dp">
+            app:expandedTitleGravity="top"
+            app:expandedTitleMarginTop="10dp" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -32,64 +33,107 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <!-- reference: http://stackoverflow.com/questions/31194280/collapsingtoolbarlayout-subtitle-->
-            <LinearLayout
-                android:orientation="horizontal"
+            <RelativeLayout
+                android:id="@+id/collapsing_layoutput_content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp"
-                android:layout_marginEnd="64dp"
-                android:layout_marginStart="48dp"
+                android:layout_gravity="top"
+                android:layout_marginTop="105dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginEnd="28dp"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.6"
-                android:layout_gravity="bottom">
+                app:layout_collapseParallaxMultiplier="0.87">
 
-                <ImageView
-                    android:id="@+id/player_favorite"
-                    android:layout_width="wrap_content"
+                <!-- reference: http://stackoverflow.com/questions/31194280/collapsingtoolbarlayout-subtitle-->
+                <RelativeLayout
+                    android:id="@+id/collapsing_layoutput_content_row1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_favorite"
-                    android:drawableTint="@color/colorAccent" />
-                <ImageView
-                    android:id="@+id/player_rating_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_thumb_up"
-                    android:drawableTint="@color/colorAccent" />
-                <ImageView
-                    android:id="@+id/player_rating_dislike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_thumb_down"
-                    android:drawableTint="@color/colorAccent" />
-                <View android:layout_width="20dp" android:layout_height="2dp" />
+                    android:layout_marginBottom="5dp" >
 
-                <TextView
-                    android:id="@+id/player_platform"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/abc_text_size_subhead_material"
-                    android:textColor="@color/colorWhite"
-                    android:text="@string/dummy_platform"
-                    android:drawableStart="@drawable/ic_computer"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp" />
-                <View android:layout_width="20dp" android:layout_height="2dp" />
-                <TextView
-                    android:id="@+id/player_region"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/abc_text_size_subhead_material"
-                    android:textColor="@color/colorWhite"
-                    android:text="@string/dummy_region"
-                    android:drawableStart="@drawable/ic_pin_drop"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp" />
+                    <ImageView
+                        android:id="@+id/player_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_favorite"
+                        android:drawableTint="@color/colorAccent" />
+                    <ImageView
+                        android:id="@+id/player_rating_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_thumb_up"
+                        android:drawableTint="@color/colorAccent"
+                        android:layout_toEndOf="@id/player_favorite" />
+                    <ImageView
+                        android:id="@+id/player_rating_dislike"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_thumb_down"
+                        android:drawableTint="@color/colorAccent"
+                        android:layout_toEndOf="@id/player_rating_like" />
 
-            </LinearLayout>
-            
+                    <View
+                        android:id="@+id/horizontal_spacer_1"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:layout_toEndOf="@+id/player_rating_dislike"/>
+
+                    <TextView
+                        android:id="@+id/player_platform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/abc_text_size_subhead_material"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/dummy_platform"
+                        android:drawableStart="@drawable/ic_computer"
+                        android:drawableTint="@color/colorAccent"
+                        android:drawablePadding="5dp"
+                        android:layout_toEndOf="@+id/horizontal_spacer_1" />
+                    <View
+                        android:id="@+id/horizontal_spacer_2"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:layout_toEndOf="@+id/player_platform" />
+                    <TextView
+                        android:id="@+id/player_region"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/abc_text_size_subhead_material"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/dummy_region"
+                        android:drawableStart="@drawable/ic_pin_drop"
+                        android:drawableTint="@color/colorAccent"
+                        android:drawablePadding="5dp"
+                        android:layout_toEndOf="@+id/horizontal_spacer_2" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/collapsing_layoutput_content_row2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/collapsing_layoutput_content_row1" >
+
+                    <TextView
+                        android:id="@+id/player_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/abc_text_size_subhead_material"
+                        android:textColor="@color/colorWhite"
+                        android:drawableStart="@drawable/ic_content"
+                        android:drawableTint="@color/colorAccent"
+                        android:drawablePadding="5dp" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -99,34 +143,31 @@
         android:id="@+id/owplayeritem_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/owplayeritem_detail_container"
-        app:layout_anchorGravity="top|end"
-        app:srcCompat="@drawable/ic_edit" />
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/floatingActionButton"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@drawable/ic_trending_up"-->
-        <!--android:tint="@color/colorWhite"-->
-        <!--app:backgroundTint="@android:color/holo_red_dark"-->
-        <!--app:layout_anchorGravity="bottom|end"-->
-        <!--app:layout_anchor="@id/owplayeritem_detail_container" />-->
+        android:layout_gravity="fill_vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <WebView
+                android:id="@+id/webview_player_stats"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/webview_progress_player_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-7dp"
+                android:layout_marginBottom="-7dp"
+                style="?android:attr/progressBarStyleHorizontal" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <io.github.yavski.fabspeeddial.FabSpeedDial
         android:id="@+id/fab_open_stats_sites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        app:layout_anchor="@id/owplayeritem_detail_container"
+        app:layout_anchorGravity="bottom|end"
         app:fabGravity="bottom_end"
         app:fabMenu="@menu/menu_fab_stats_websites"
         app:fabDrawable="@drawable/ic_trending_up"
@@ -134,6 +175,6 @@
         app:miniFabBackgroundTint="@color/colorWhite"
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
         app:miniFabTitleTextColor="@color/colorWhite"
-        app:miniFabTitleBackgroundTint="@color/colorPrimary"/>
+        app:miniFabTitleBackgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>

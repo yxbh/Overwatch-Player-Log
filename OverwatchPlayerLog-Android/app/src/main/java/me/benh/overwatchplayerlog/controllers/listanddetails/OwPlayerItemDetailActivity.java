@@ -2,9 +2,10 @@ package me.benh.overwatchplayerlog.controllers.listanddetails;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
@@ -26,8 +29,11 @@ import me.benh.overwatchplayerlog.data.OwPlayerRecordWrapper;
 import me.benh.overwatchplayerlog.data.source.DataSource;
 import me.benh.overwatchplayerlog.helpers.ActivityHelper;
 import me.benh.lib.helpers.LogHelper;
+import me.benh.overwatchplayerlog.helpers.AdHelper;
 import me.benh.overwatchplayerlog.helpers.OwPlayerStatsSiteUrlHelper;
 import me.benh.overwatchplayerlog.helpers.PlayerTagHelper;
+import me.benh.overwatchplayerlog.web.WebChromeClient;
+import me.benh.overwatchplayerlog.web.WebViewClient;
 
 /**
  * An activity representing a single OwPlayerItem detail screen. This
@@ -45,9 +51,15 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
     TextView playerPlatform;
     TextView playerRegion;
+    TextView playerNote;
     ImageView playerFavorite;
     ImageView playerRatingLike;
     ImageView playerRatingDislike;
+
+    WebView webViewPlayerStats;
+    ProgressBar webViewProgressPlayerStats;
+    WebChromeClient webChromeClient;
+    WebViewClient webViewClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +89,40 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         playerFavorite = (ImageView) findViewById(R.id.player_favorite);
         playerRatingLike = (ImageView) findViewById(R.id.player_rating_like);
         playerRatingDislike = (ImageView) findViewById(R.id.player_rating_dislike);
+        playerNote = (TextView) findViewById(R.id.player_note);
+
+        // setup webview for player stats
+        webViewPlayerStats = (WebView) findViewById(R.id.webview_player_stats);
+        webViewProgressPlayerStats = (ProgressBar) findViewById(R.id.webview_progress_player_stats);
+        AdHelper.initMaybe(this);
+        if (null != webViewPlayerStats && null != webViewProgressPlayerStats) {
+            webViewPlayerStats.getSettings().setJavaScriptEnabled(true);
+
+            webViewClient = new WebViewClient() {
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    webViewProgressPlayerStats.setVisibility(View.VISIBLE);
+//                    webViewProgressPlayerStats.show();
+                    super.onPageStarted(view, url, favicon);
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    webViewProgressPlayerStats.setVisibility(View.GONE);
+//                    webViewProgressPlayerStats.hide();
+                    super.onPageFinished(view, url);
+                }
+            };
+            webViewPlayerStats.setWebViewClient(webViewClient);
+
+            webChromeClient = new WebChromeClient(new WebChromeClient.ProgressListener() {
+                @Override
+                public void onUpdateProgress(int progressValue) {
+                    webViewProgressPlayerStats.setProgress(progressValue);
+                }
+            });
+            webViewPlayerStats.setWebChromeClient(webChromeClient);
+        }
 
         // setup fab for stats sites
         FabSpeedDial fabPlayerStatsSites = (FabSpeedDial) findViewById(R.id.fab_open_stats_sites);
@@ -84,7 +130,7 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
             fabPlayerStatsSites.setMenuListener(new SimpleMenuListenerAdapter() {
                 @Override
                 public boolean onMenuItemSelected(MenuItem menuItem) {
-                    return OwPlayerItemDetailActivity.this.onOptionsItemSelected(menuItem);
+                    return OwPlayerItemDetailActivity.this.onFabOptionsItemSelected(menuItem);
                 }
             });
         }
@@ -96,53 +142,10 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         // setup view content
         setupViewContent(playerRecord);
 
-//        // Setup menu listener.
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return onOptionsItemSelected(item);
-//            }
-//        });
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // setup floating action buttons
-        FloatingActionButton fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
-        if (null != fabEdit) {
-            fabEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.v(TAG, "onClick");
-                    ActivityHelper.startEditActivity(OwPlayerItemDetailActivity.this, playerRecord);
-                }
-            });
-        }
-
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD,
-                    getIntent().getParcelableExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD));
-            detailFragment = new OwPlayerItemDetailFragment();
-            detailFragment.setArguments(arguments);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.owplayeritem_detail_container, detailFragment)
-                    .commit();
         }
     }
 
@@ -203,22 +206,27 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                         .setCancelable(true)
                         .create();
                 alertDialog.show();
-                break;
+                return true;
+            }
+
+            case R.id.menu_edit_owplayer_record: {
+                ActivityHelper.startEditActivity(OwPlayerItemDetailActivity.this, playerRecord);
+                return true;
             }
 
             case R.id.menu_stats_playeroverwatch: {
                 ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(playerRecord));
-                break;
+                return true;
             }
 
             case R.id.menu_stats_masteroverwatch: {
                 ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(playerRecord));
-                break;
+                return true;
             }
 
             case R.id.menu_stats_overbuff: {
                 ActivityHelper.startUrlActivity(this, OwPlayerStatsSiteUrlHelper.getUrlOverbuff(playerRecord));
-                break;
+                return true;
             }
         }
 
@@ -244,6 +252,40 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public boolean onFabOptionsItemSelected(MenuItem item) {
+        Log.v(this.getLocalClassName(), "onFabOptionsItemSelected");
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_edit_owplayer_record: {
+                ActivityHelper.startEditActivity(this, playerRecord);
+                return true;
+            }
+
+            case R.id.menu_stats_playeroverwatch: {
+                webViewPlayerStats.scrollTo(0, 0);
+                webViewPlayerStats.loadUrl("about:blank");
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(this.playerRecord));
+                return true;
+            }
+
+            case R.id.menu_stats_masteroverwatch: {
+                webViewPlayerStats.scrollTo(0, 0);
+                webViewPlayerStats.loadUrl("about:blank");
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(this.playerRecord));
+                return true;
+            }
+
+            case R.id.menu_stats_overbuff: {
+                webViewPlayerStats.scrollTo(0, 0);
+                webViewPlayerStats.loadUrl("about:blank");
+                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlOverbuff(this.playerRecord));
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupViewContent(@NonNull OwPlayerRecord record) {
@@ -272,5 +314,31 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         if (null != playerRatingDislike) {
             playerRatingDislike.setVisibility(playerRecord.getRating() == OwPlayerRecord.Rating.Dislike ? View.VISIBLE : View.GONE);
         }
+
+        if (record.getRating() == OwPlayerRecord.Rating.Neutral) {
+            findViewById(R.id.horizontal_spacer_1).setVisibility(View.GONE);
+        }
+
+        if (null != playerNote) {
+            playerNote.setText(playerRecord.getNote().replace("\n", "; "));
+            if (playerRecord.getNote().isEmpty()) {
+                findViewById(R.id.collapsing_layoutput_content_row2).setVisibility(View.GONE);
+            }
+        }
+
+//        View collapsingLayoutContentContainer = findViewById(R.id.collapsing_layoutput_content_container);
+//        View appBar = findViewById(R.id.app_bar);
+//        ViewGroup.LayoutParams appBarLayoutParams = (ViewGroup.LayoutParams) appBar.getLayoutParams();
+//        appBarLayoutParams.height = collapsingLayoutContentContainer.getHeight() + appBar.getMinimumHeight();
+//        appBar.setLayoutParams(appBarLayoutParams);
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (null != webViewPlayerStats) {
+                    webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(playerRecord));
+                }
+            }
+        });
     }
 }
