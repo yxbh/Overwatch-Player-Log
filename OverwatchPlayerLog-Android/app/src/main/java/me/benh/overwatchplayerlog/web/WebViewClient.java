@@ -28,6 +28,7 @@ public class WebViewClient extends android.webkit.WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        Log.v(TAG, "shouldOverrideUrlLoading");
         if (AdHelper.isAd(url)) {
             Log.v(TAG, "ad url detected [" + url + "]");
             return true;
@@ -38,6 +39,7 @@ public class WebViewClient extends android.webkit.WebViewClient {
 
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        Log.v(TAG, "shouldInterceptRequest");
         if (AdHelper.isAd(url)) {
             Log.v(TAG, "ad url detected [" + url + "]");
             return new WebResourceResponse("text/plain", "utf-8", new ByteArrayInputStream("".getBytes()));

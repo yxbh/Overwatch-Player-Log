@@ -171,6 +171,7 @@ public class OwPlayerRecordCreateActivity extends BaseActivity {
 
             case R.id.save: {
                 Log.v(TAG, "case R.id.save");
+                playerBattleTag.setText(playerBattleTag.getText().toString().trim());
                 OwPlayerRecord newRecord = createRecordFromForm();
 
                 // validate

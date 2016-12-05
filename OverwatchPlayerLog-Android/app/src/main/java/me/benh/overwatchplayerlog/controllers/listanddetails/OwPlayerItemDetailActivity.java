@@ -1,11 +1,15 @@
 package me.benh.overwatchplayerlog.controllers.listanddetails;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,20 +51,23 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
     private OwPlayerRecord playerRecord;
 
-    OwPlayerItemDetailFragment detailFragment;
+    private Toolbar appBar;
+    private CollapsingToolbarLayout appBarLayout;
+    private NestedScrollView nestedScrollView;
 
-    TextView playerPlatform;
-    TextView playerRegion;
-    TextView playerNote;
-    ImageView playerFavorite;
-    ImageView playerRatingLike;
-    ImageView playerRatingDislike;
+    private TextView playerPlatform;
+    private TextView playerRegion;
+    private TextView playerNote;
+    private ImageView playerFavorite;
+    private ImageView playerRatingLike;
+    private ImageView playerRatingDislike;
 
-    WebView webViewPlayerStats;
-    ProgressBar webViewProgressPlayerStats;
-    WebChromeClient webChromeClient;
-    WebViewClient webViewClient;
+    private WebView webViewPlayerStats;
+    private ProgressBar webViewProgressPlayerStats;
+    private WebChromeClient webChromeClient;
+    private WebViewClient webViewClient;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +82,17 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         }
 
         // get the player record item
-        if (!launchIntent.hasExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)) {
-            Log.e(TAG, "!launchIntent.hasExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)");
+        if (!launchIntent.hasExtra(Arguements.OWPLAYERRECORD)) {
+            Log.e(TAG, "!launchIntent.hasExtra(Arguements.OWPLAYERRECORD)");
             ActivityHelper.finishWithError(this);
             return;
         }
-        playerRecord = ((OwPlayerRecordWrapper) getIntent().getParcelableExtra(OwPlayerItemDetailFragment.ARG_OWPLAYERRECORD)).getRecord();
+        playerRecord = ((OwPlayerRecordWrapper) getIntent().getParcelableExtra(Arguements.OWPLAYERRECORD)).getRecord();
         Log.v(TAG, "Received " + playerRecord.toString());
 
         // setup view connections.
+        nestedScrollView = (NestedScrollView) findViewById(R.id.owplayeritem_detail_container);
+        appBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         playerRegion = (TextView) findViewById(R.id.player_region);
         playerPlatform = (TextView) findViewById(R.id.player_platform);
         playerFavorite = (ImageView) findViewById(R.id.player_favorite);
@@ -96,6 +105,7 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         webViewProgressPlayerStats = (ProgressBar) findViewById(R.id.webview_progress_player_stats);
         AdHelper.initMaybe(this);
         if (null != webViewPlayerStats && null != webViewProgressPlayerStats) {
+            webViewPlayerStats.setBackgroundColor(Color.argb(1, 0, 0, 0));
             webViewPlayerStats.getSettings().setJavaScriptEnabled(true);
 
             webViewClient = new WebViewClient() {
@@ -136,8 +146,8 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         }
 
         // setup tool bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
+        appBar = (Toolbar) findViewById(R.id.detail_toolbar);
+        setSupportActionBar(appBar);
 
         // setup view content
         setupViewContent(playerRecord);
@@ -146,6 +156,7 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
         }
     }
 
@@ -264,23 +275,17 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
             }
 
             case R.id.menu_stats_playeroverwatch: {
-                webViewPlayerStats.scrollTo(0, 0);
-                webViewPlayerStats.loadUrl("about:blank");
-                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(this.playerRecord));
+                loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(this.playerRecord));
                 return true;
             }
 
             case R.id.menu_stats_masteroverwatch: {
-                webViewPlayerStats.scrollTo(0, 0);
-                webViewPlayerStats.loadUrl("about:blank");
-                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(this.playerRecord));
+                loadUrl(OwPlayerStatsSiteUrlHelper.getUrlMasterOverwatch(this.playerRecord));
                 return true;
             }
 
             case R.id.menu_stats_overbuff: {
-                webViewPlayerStats.scrollTo(0, 0);
-                webViewPlayerStats.loadUrl("about:blank");
-                webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlOverbuff(this.playerRecord));
+                loadUrl(OwPlayerStatsSiteUrlHelper.getUrlOverbuff(this.playerRecord));
                 return true;
             }
         }
@@ -288,8 +293,18 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void loadUrl(String url) {
+        nestedScrollView.fullScroll(View.FOCUS_UP);
+        webViewPlayerStats.loadUrl("about:blank");
+        webViewPlayerStats.loadUrl(url);
+    }
+
     private void setupViewContent(@NonNull OwPlayerRecord record) {
-        setTitle(playerRecord.getBattleTag());
+        Log.v(TAG, "setupViewContent(@NonNull OwPlayerRecord record)");
+
+        if (null != appBarLayout) {
+            appBarLayout.setTitle(playerRecord.getBattleTag());
+        }
 
         if (null != playerRegion) {
             playerRegion.setText(playerRecord.getRegion());
@@ -297,10 +312,6 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
 
         if (null != playerPlatform) {
             playerPlatform.setText(playerRecord.getPlatform());
-        }
-
-        if (null != detailFragment) {
-            detailFragment.setupViewContent(playerRecord);
         }
 
         if (null != playerFavorite) {
@@ -326,18 +337,10 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
             }
         }
 
-//        View collapsingLayoutContentContainer = findViewById(R.id.collapsing_layoutput_content_container);
-//        View appBar = findViewById(R.id.app_bar);
-//        ViewGroup.LayoutParams appBarLayoutParams = (ViewGroup.LayoutParams) appBar.getLayoutParams();
-//        appBarLayoutParams.height = collapsingLayoutContentContainer.getHeight() + appBar.getMinimumHeight();
-//        appBar.setLayoutParams(appBarLayoutParams);
-
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                if (null != webViewPlayerStats) {
-                    webViewPlayerStats.loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(playerRecord));
-                }
+                loadUrl(OwPlayerStatsSiteUrlHelper.getUrlPlayOverwatch(playerRecord));
             }
         });
     }

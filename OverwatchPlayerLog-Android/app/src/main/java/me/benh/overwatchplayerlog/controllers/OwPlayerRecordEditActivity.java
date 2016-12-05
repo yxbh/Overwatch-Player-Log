@@ -169,6 +169,7 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
 
             case R.id.save: {
                 Log.v(TAG, "case R.id.save");
+                playerBattleTag.setText(playerBattleTag.getText().toString().trim());
                 saveViewContentToRecord();
 
                 // validate
@@ -183,6 +184,7 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
                 ds.close();
 
                 // return to calling activity.
+                Log.v(TAG, "returning " + record.toString());
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(Arguements.OWPLAYERRECORD, new OwPlayerRecordWrapper(record));
                 ActivityHelper.finishWithSuccess(this, returnIntent);
@@ -239,12 +241,14 @@ public class OwPlayerRecordEditActivity extends BaseActivity {
     }
 
     private void saveViewContentToRecord() {
+        Log.v(TAG, "saveViewContentToRecord() [start], " + record.toString());
         record.setBattleTag(playerBattleTag.getText().toString());
         record.setFavorite(playerFavorite.isChecked());
         record.setRating(playerRating);
         record.setPlatform(playerPlatform.getSelectedItem().toString());
         record.setRegion(playerRegion.getSelectedItem().toString());
         record.setNote(playerNote.getText().toString());
+        Log.v(TAG, "saveViewContentToRecord() [end], " + record.toString());
     }
 
     private boolean validateRecord(@NonNull OwPlayerRecord record) {

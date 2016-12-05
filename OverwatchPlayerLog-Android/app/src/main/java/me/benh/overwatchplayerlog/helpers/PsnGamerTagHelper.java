@@ -14,6 +14,10 @@ public final class PsnGamerTagHelper {
             return false;
         }
 
+        if (tag.length() > 16) {
+            return false;
+        }
+
         char[] chars = tag.toCharArray();
 
         // first character must not be a digit, symbol or whitespace.
@@ -22,7 +26,10 @@ public final class PsnGamerTagHelper {
         }
 
         for (int i = 1; i < chars.length; ++i) {
-            if (!Character.isLetterOrDigit(chars[i])) {
+            if (!(Character.isLetterOrDigit(chars[i]) ||
+                  Character.isSpaceChar(chars[i]) ||
+                  chars[i] == '_' ||
+                  chars[i] == '-')) {
                 return false;
             }
         }

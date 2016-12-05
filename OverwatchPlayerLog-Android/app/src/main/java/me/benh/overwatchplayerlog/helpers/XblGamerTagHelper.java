@@ -14,6 +14,10 @@ public final class XblGamerTagHelper {
             return false;
         }
 
+        if (tag.length() < 6 || tag.length() > 15) {
+            return false;
+        }
+
         char[] chars = tag.toCharArray();
 
         // first character must not be a digit, symbol or whitespace.
@@ -22,7 +26,7 @@ public final class XblGamerTagHelper {
         }
 
         for (int i = 1; i < chars.length; ++i) {
-            if (!Character.isLetterOrDigit(chars[i])) {
+            if (!(Character.isLetterOrDigit(chars[i]) || Character.isSpaceChar(chars[i]))) {
                 return false;
             }
         }

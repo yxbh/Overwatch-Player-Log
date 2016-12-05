@@ -134,7 +134,7 @@ public class OwPlayerRecord {
 
     @Override
     public String toString() {
-        return "{id[" +getId() +
+        return "Player{id[" +getId() +
                 "], battleTag[" + getBattleTag() +
                 "], platform[" + getPlatform() +
                 "], region[" + getRegion() +
