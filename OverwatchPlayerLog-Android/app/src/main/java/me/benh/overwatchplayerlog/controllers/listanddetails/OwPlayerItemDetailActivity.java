@@ -112,14 +112,31 @@ public class OwPlayerItemDetailActivity extends AppCompatActivity {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     webViewProgressPlayerStats.setVisibility(View.VISIBLE);
-//                    webViewProgressPlayerStats.show();
                     super.onPageStarted(view, url, favicon);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     webViewProgressPlayerStats.setVisibility(View.GONE);
-//                    webViewProgressPlayerStats.hide();
+
+                    if (!url.contains("javascript:")) {
+                        Log.v(TAG, "Removing ads.");
+                        String jsRemoveAds = "javascript:" +
+                                "var adContainers = document.getElementsByClassName('ad-unit');" +
+                                "for (var i =  0; i < adContainers.length; ++i) {" +
+                                "   var adContainerParent = adContainers[i].parentNode;" +
+                                "   adContainerParent.removeChild(adContainers[i]);" +
+                                "   var elementParent = adContainerParent.parent;" +
+                                "   var element = adContainerParent;" +
+                                "   while (element !== undefined && !element.hasChildNodes()) { " +
+                                "      elementParent.removeChild(element);" +
+                                "      element = elementParent;" +
+                                "      elementParent = elementParent.parent;" +
+                                "   }" +
+                                "}";
+                        webViewPlayerStats.loadUrl(jsRemoveAds);
+                    }
+
                     super.onPageFinished(view, url);
                 }
             };

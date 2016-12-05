@@ -7,7 +7,7 @@ android {
         applicationId "me.benh.overwatchplayerlog"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 17
+        versionCode 18
         versionName "5.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
