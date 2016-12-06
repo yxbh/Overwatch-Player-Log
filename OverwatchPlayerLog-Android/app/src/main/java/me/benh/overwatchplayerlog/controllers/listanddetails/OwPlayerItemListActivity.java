@@ -89,7 +89,19 @@ public class OwPlayerItemListActivity extends BaseActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v(TAG, "selected [" + toolBarTitleFilterSpinner.getSelectedItem().toString() + "]");
+                String selectedItem = toolBarTitleFilterSpinner.getSelectedItem().toString();
+                Log.v(TAG, "selected [" + selectedItem + "]");
+                ArrayList<String> items = new ArrayList<>();
+                items.add(selectedItem);
+                String item;
+                for (int i = 0; i < toolBarTitleFilterSpinnerAdapter.getCount(); ++i) {
+                    item = toolBarTitleFilterSpinnerAdapter.getItem(i).toString();
+                    if (item.equals(selectedItem)) continue;
+                    items.add(item);
+                }
+                toolBarTitleFilterSpinnerAdapter.clear();
+                toolBarTitleFilterSpinnerAdapter.addAll(items);
+                toolBarTitleFilterSpinnerAdapter.notifyDataSetInvalidated();
                 boolean showFavoriteOnly = toolBarTitleFilterSpinner.getSelectedItem().toString().toLowerCase().contains("favorite");
                 recordsViewAdapter.setFavoriteOnly(showFavoriteOnly);
                 recordsViewAdapter.notifyDataSetChanged();
